@@ -1,0 +1,31 @@
+---
+- name: Refresh pacman cache
+  pacman:
+    update_cache: yes
+
+- name: Install mysql
+  aur:
+    name: mysql
+  become: yes
+  become_user: '{{ host.user.wheel.name }}'
+
+- name: Disable Copy-on-Write
+  file:
+    path: /var/lib/mysql
+    attributes: C
+    recurse: yes
+
+- name: Setup mysql
+  command: mysqld --initialize-insecure --user=mysql
+
+- name: Start mysql service
+  systemd:
+    state: started
+    name: mysqld
+    enabled: yes
+
+- name: Wait for mysqld service
+  pause:
+
+- name: Add user
+  command: mysql -u root -e "CREATE USER '{{ host.user.wheel.name }}'@'localhost'; GRANT ALL PRIVILEGES ON *.* TO '{{ host.user.wheel.name }}'@'localhost';"

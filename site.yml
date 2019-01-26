@@ -1,0 +1,24 @@
+---
+- name: Install all roles
+  hosts: all
+  remote_user: root
+  roles:
+    - { role: disk, tags: disk }
+    - { role: setup, tags: setup }
+    - { role: system, tags: system }
+    - { role: mysql, tags: mysql }
+    - { role: postgresql, tags: postgresql }
+    - { role: memcached, tags: memcached }
+    - { role: ag, tags: ag }
+    - { role: git, tags: git }
+    - { role: vim, tags: vim }
+    - { role: ruby, tags: ruby }
+    - { role: node, tags: node }
+    - { role: tmux, tags: tmux }
+    - { role: desktop, tags: desktop }
+    - { role: upwork, tags: upwork }
+    - { role: skype, tags: skype }
+    - { role: spotify, tags: spotify }
+    - { role: virtualbox, tags: virtualbox }
+    - { role: tools, tags: tools }
+    - { role: print, tags: print }

@@ -1,0 +1,36 @@
+---
+- name: Run pacstrap
+  shell: pacstrap {{ host.dir }} base btrfs-progs grub efibootmgr openssh python wpa_supplicant
+
+- name: Generate fstab
+  shell: genfstab -U {{ host.dir }} >> {{ host.dir }}/etc/fstab
+
+- name: Install grub
+  command: arch-chroot {{ host.dir }} grub-install --target=x86_64-efi
+
+- name: Configure grub
+  command: arch-chroot {{ host.dir }} grub-mkconfig -o /boot/grub/grub.cfg
+
+- name: Enable sshd
+  command: arch-chroot {{ host.dir }} systemctl enable sshd
+
+- name: Set password to root
+  shell: echo root:'{{ host.user.root.password }}' | chpasswd -e -R {{ host.dir }}
+
+- name: Enable ssh root login with password
+  lineinfile:
+    path: '{{ host.dir }}/etc/ssh/sshd_config'
+    regexp: ^#PermitRootLogin
+    line: PermitRootLogin yes
+
+- name: Copy wifi profile
+  template:
+    src: default.j2
+    dest: '{{ host.dir }}/etc/netctl/default'
+
+- name: Enable ntcttl profile
+  command: arch-chroot {{ host.dir }} netctl enable default
+
+  notify:
+   - reboot
+   - wait_for_restart

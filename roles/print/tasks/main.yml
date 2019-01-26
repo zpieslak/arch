@@ -1,0 +1,19 @@
+---
+- name: Refresh pacman cache
+  pacman:
+    name:
+      - cups
+      - cups-pdf
+    update_cache: yes
+
+- name: Start cups service
+  systemd:
+    state: started
+    name: org.cups.cupsd.service
+    enabled: yes
+
+- name: Install package
+  aur:
+    name: samsung-unified-driver
+  become: yes
+  become_user: '{{ host.user.wheel.name }}'

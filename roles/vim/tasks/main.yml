@@ -1,0 +1,33 @@
+---
+- name: Install package
+  pacman:
+    name: gvim
+    update_cache: yes
+
+- name: Copy dotfile
+  copy:
+    src: .vimrc
+    dest: /home/{{ host.user.wheel.name }}/
+    mode: 0644
+    group: '{{ host.user.wheel.name }}'
+    owner: '{{ host.user.wheel.name }}'
+
+- name: Install submodules
+  git:
+    repo: '{{ item }}'
+    dest: /home/{{ host.user.wheel.name }}/.vim/bundle/{{ item | regex_search('[^/]+(?=.git)') }}
+    depth: 1
+  with_items: '{{ host.vim.plugins }}'
+
+- name: Fix permissions
+  file:
+    path: /home/{{ host.user.wheel.name }}/.vim
+    owner: '{{ host.user.wheel.name }}'
+    group: '{{ host.user.wheel.name }}'
+    recurse: yes
+    mode: 0644
+
+- name: Set EDITOR
+  lineinfile:
+    path: /etc/environment
+    line: EDITOR=vim

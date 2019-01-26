@@ -1,0 +1,32 @@
+---
+- name: Install postgresql
+  pacman:
+    name: postgresql
+    update_cache: yes
+
+- name: Disable Copy-on-Write
+  file:
+    path: /var/lib/postgres
+    attributes: C
+    recurse: yes
+
+- name: Setup postgresql
+  command: initdb --locale {{ host.system.locale }} -E {{ host.system.charset }} -D /var/lib/postgres/data
+  become: true
+  become_user: postgres
+
+- name: Start postgresql service
+  systemd:
+    state: started
+    name: postgresql
+    enabled: yes
+
+- name: Set superuser
+  command: createuser --superuser {{ host.user.wheel.name }}
+  become: true
+  become_user: postgres
+
+- name: Create superuser database
+  command: createdb {{ host.user.wheel.name }}
+  become: true
+  become_user: postgres

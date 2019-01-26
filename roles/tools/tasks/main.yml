@@ -1,0 +1,13 @@
+---
+- name: Install packages
+  pacman:
+    name:
+      - chromium
+      - firefox
+      - gimp
+      - gnome-keyring
+      - imagemagick
+      - perl-image-exiftool
+      - ansible
+      - sshpass
+    update_cache: yes

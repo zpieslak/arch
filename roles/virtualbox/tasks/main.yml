@@ -1,0 +1,22 @@
+---
+- name: Install package
+  pacman:
+    name:
+      - virtualbox
+      - virtualbox-host-modules-arch
+    update_cache: yes
+
+- name: Install extension pack
+  aur:
+    name: virtualbox-ext-oracle
+  become: yes
+  become_user: '{{ host.user.wheel.name }}'
+
+  notify:
+   - reboot
+
+- meta: flush_handlers
+- pause:
+
+- name: Add host network adapter
+  command: vboxmanage hostonlyif create

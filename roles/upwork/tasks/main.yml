@@ -1,0 +1,15 @@
+---
+- name: Refresh pacman cache
+  pacman:
+    update_cache: yes
+
+- name: Install package
+  aur:
+    name: upwork
+  become: yes
+  become_user: '{{ host.user.wheel.name }}'
+
+- name: Remove autostart
+  file:
+    state: absent
+    path: /home/{{ host.user.wheel.name }}/.config/autostart/upwork.desktop

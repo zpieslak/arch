@@ -1,0 +1,11 @@
+---
+- name: Install package
+  pacman:
+    name: memcached
+    update_cache: yes
+
+- name: Start memcached service
+  systemd:
+    state: started
+    name: memcached
+    enabled: yes

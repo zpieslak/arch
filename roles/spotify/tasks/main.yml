@@ -1,0 +1,10 @@
+---
+- name: Refresh pacman cache
+  pacman:
+    update_cache: yes
+
+- name: Install package
+  aur:
+    name: spotify
+  become: yes
+  become_user: '{{ host.user.wheel.name }}'

@@ -1,0 +1,39 @@
+---
+- name: Install packages
+  pacman:
+    name:
+      - xorg-server
+      - xorg-apps
+      - xorg-xinit
+      - xfce4
+      - xfce4-goodies
+      - ttf-dejavu
+      - pulseaudio
+      - pavucontrol
+    update_cache: yes
+
+- name: Copy configuration files
+  copy:
+    src: '{{ item }}'
+    dest: /home/{{ host.user.wheel.name }}/
+    mode: 0644
+    group: '{{ host.user.wheel.name }}'
+    owner: '{{ host.user.wheel.name }}'
+  with_items:
+    - .bashrc.d
+    - .config
+    - .dircolors
+    - .xinitrc
+    - .Xresources
+
+- name: Set fontconfig
+  file:
+    src: /etc/fonts/conf.avail/{{ item }}
+    dest: /etc/fonts/conf.d/{{ item }}
+    state: link
+    force: yes
+  with_items:
+    - 11-lcdfilter-default.conf
+
+- name: Set keyboard
+  command: localectl set-x11-keymap '{{ host.system.keymap }}'

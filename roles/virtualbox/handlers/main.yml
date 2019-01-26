@@ -1,0 +1,6 @@
+---
+- name: reboot
+  command: reboot
+
+- name: wait for restart
+  local_action: wait_for host={{ inventory_hostname }} port=22 delay=10

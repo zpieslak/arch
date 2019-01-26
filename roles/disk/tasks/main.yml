@@ -1,0 +1,69 @@
+---
+- name: Create host.disk.label
+  shell: echo -e "g\nw" | fdisk '{{ host.disk.dev }}'
+
+- name: Create partitions
+  shell: echo -e "n\n\n\n{{ item.size }}\nt\n\n{{ item.signature }}\nw" | fdisk {{ host.disk.dev }}
+  with_items: '{{ host.disk.partitions }}'
+
+- name: Format partitions
+  command: mkfs.{{ item.fstype }} {{ item.opts }} {{ item.dev }}
+  with_items: '{{ host.disk.partitions }}'
+
+- name: Mount main partition
+  mount:
+    path: '{{host.dir }}{{ item.1.path }}'
+    src: '{{ item.0.dev }}'
+    fstype: '{{ item.0.fstype }}'
+    state: mounted
+  with_subelements:
+    - '{{ host.disk.partitions }}'
+    - mounts
+  when: item.1.path == '/'
+
+- name: Create btrfs subvolumes
+  command: btrfs subvolume create {{ host.dir }}{{ item.1.subvolume }}
+  with_subelements:
+    - '{{ host.disk.partitions }}'
+    - mounts
+  when: item.0.fstype == 'btrfs'
+
+- name: Unmount main partition
+  mount:
+    path: '{{host.dir }}{{ item.1.path }}'
+    state: unmounted
+  with_subelements:
+    - '{{ host.disk.partitions }}'
+    - mounts
+  when: item.1.path == '/'
+
+- name: Mount main partition
+  mount:
+    path: '{{host.dir }}{{ item.1.path }}'
+    src: '{{ item.0.dev }}'
+    fstype: '{{ item.0.fstype }}'
+    opts: '{{ item.1.opts }}'
+    state: mounted
+  with_subelements:
+    - '{{ host.disk.partitions }}'
+    - mounts
+  when: item.1.path == '/'
+
+- name: Create directories
+  file:
+    path: '{{ host.dir }}{{ item.1.path }}'
+    state: directory
+  with_subelements:
+    - '{{ host.disk.partitions }}'
+    - mounts
+
+- name: Mount partitions
+  mount:
+    path: '{{ host.dir }}{{ item.1.path }}'
+    src: '{{ item.0.dev }}'
+    fstype: '{{ item.0.fstype }}'
+    opts: '{{ item.1.opts }}'
+    state: mounted
+  with_subelements:
+    - '{{ host.disk.partitions }}'
+    - mounts

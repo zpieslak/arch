@@ -25,7 +25,7 @@
     owner: '{{ host.user.wheel.name }}'
     group: '{{ host.user.wheel.name }}'
     recurse: yes
-    mode: 0644
+    mode: 0755
 
 - name: Set EDITOR
   lineinfile:

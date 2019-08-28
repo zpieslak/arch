@@ -4,6 +4,7 @@
   <property name="SynPS2_Synaptics_TouchPad" type="empty">
     <property name="Properties" type="empty">
       <property name="libinput_Tapping_Enabled" type="int" value="1"/>
+      <property name="Device_Enabled" type="int" value="1"/>
     </property>
   </property>
 </channel>

@@ -17,7 +17,6 @@
     - { role: tmux, tags: tmux }
     - { role: desktop, tags: desktop }
     - { role: upwork, tags: upwork }
-    - { role: skype, tags: skype }
     - { role: spotify, tags: spotify }
     - { role: virtualbox, tags: virtualbox }
     - { role: tools, tags: tools }

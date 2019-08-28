@@ -77,7 +77,7 @@ Remove offending key from ssh
 
 Run other tags site.yml
 
-    ansible-playbook -k site.yml -t system -l local
+    ansible-playbook -k site.yml -t system -l test
 
 ## Local run
 

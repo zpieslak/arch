@@ -2,18 +2,10 @@
 - name: Install packages
   pacman:
     name:
-      - chromium
-      - firefox
-      - gimp
-      - imagemagick
-      - perl-image-exiftool
-      - ansible
-      - sshpass
-      - calibre
-      - rsync
+      - keepassxc
     update_cache: yes
 
-- name: Copy bash dotfiles
+- name: Copy configuration files
   copy:
     src: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/
@@ -21,4 +13,4 @@
     group: '{{ host.user.wheel.name }}'
     owner: '{{ host.user.wheel.name }}'
   with_items:
-    - .bashrc.d
+    - .config

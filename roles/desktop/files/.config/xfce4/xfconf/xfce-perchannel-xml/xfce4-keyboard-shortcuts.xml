@@ -31,11 +31,12 @@
       <property name="XF86Mail" type="string" value="exo-open --launch MailReader"/>
       <property name="XF86Display" type="string" value="xfce4-display-settings --minimal"/>
       <property name="XF86WWW" type="string" value="exo-open --launch WebBrowser"/>
-      <property name="&lt;Super&gt;p" type="string" value="xfce4-display-settings --minimal"/>
       <property name="&lt;Primary&gt;Escape" type="string" value="xfdesktop --menu"/>
       <property name="override" type="bool" value="true"/>
       <property name="&lt;Super&gt;t" type="string" value="xfce4-terminal --maximize"/>
-      <property name="&lt;Super&gt;c" type="string" value="/usr/bin/chromium --start-maximized"/>
+      <property name="&lt;Super&gt;c" type="string" value="chromium --start-maximized"/>
+      <property name="&lt;Super&gt;p" type="string" value="xfce4-screenshooter -r"/>
+      <property name="&lt;Super&gt;s" type="string" value="spotify"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

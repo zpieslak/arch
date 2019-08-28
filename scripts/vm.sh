@@ -2,7 +2,7 @@
 
 # Settings
 VM_NAME='Arch_Linux_64'
-VM_DVD='archlinux-2018.12.01-x86_64.iso'
+VM_DVD='archlinux-2019.04.01-x86_64.iso'
 VM_TYPE='ArchLinux_64'
 VM_DIR=~/VirtualBox\ VMs/$VM_NAME
 

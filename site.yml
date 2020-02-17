@@ -20,4 +20,6 @@
     - { role: spotify, tags: spotify }
     - { role: virtualbox, tags: virtualbox }
     - { role: tools, tags: tools }
+    - { role: imagemagick, tags: imagemagick }
+    - { role: keepassxc, tags: keepassxc }
     - { role: print, tags: print }

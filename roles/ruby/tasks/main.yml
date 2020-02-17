@@ -1,19 +1,17 @@
 ---
-- name: Refresh pacman cache
-  pacman:
-    update_cache: yes
-
-- name: Install package
-  aur:
-    name: rbenv
-  become: yes
-  become_user: '{{ host.user.wheel.name }}'
+- name: Install rbenv
+  git:
+    repo: '{{ item }}'
+    dest: /home/{{ host.user.wheel.name }}/.rbenv
+    depth: 1
+  with_items: '{{ host.rbenv.git }}'
 
 - name: Install plugins
-  aur:
-    name: ruby-build
-  become: yes
-  become_user: '{{ host.user.wheel.name }}'
+  git:
+    repo: '{{ item }}'
+    dest: /home/{{ host.user.wheel.name }}/.rbenv/plugins/{{ item | regex_search('[^/]+(?=.git)') }}
+    depth: 1
+  with_items: '{{ host.rbenv.plugins }}'
 
 - name: Copy configuration files
   copy:

@@ -5,20 +5,20 @@
       - chromium
       - firefox
       - gimp
-      - imagemagick
       - perl-image-exiftool
       - ansible
       - sshpass
       - calibre
       - rsync
+      - gnome-calculator
     update_cache: yes
 
-- name: Copy bash dotfiles
+- name: Copy custom bin files
   copy:
     src: '{{ item }}'
-    dest: /home/{{ host.user.wheel.name }}/
-    mode: 0644
+    dest: /home/{{ host.user.wheel.name }}/bin/
+    mode: 0755
     group: '{{ host.user.wheel.name }}'
     owner: '{{ host.user.wheel.name }}'
   with_items:
-    - .bashrc.d
+    - aur.sh

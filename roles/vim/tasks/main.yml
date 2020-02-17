@@ -1,8 +1,16 @@
 ---
+- name: Remove packages
+  pacman:
+    name:
+      - vim
+    state: absent
+    extra_args: --recursive
+
 - name: Install package
   pacman:
     name: gvim
     update_cache: yes
+    extra_args: --noconfirm
 
 - name: Copy dotfile
   copy:

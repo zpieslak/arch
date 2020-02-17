@@ -6,11 +6,16 @@
       - xorg-apps
       - xorg-xinit
       - xfce4
-      - xfce4-goodies
       - ttf-dejavu
       - pulseaudio
-      - pavucontrol
     update_cache: yes
+
+- name: Remove packages
+  pacman:
+    name:
+      - xfce4-panel
+    state: absent
+    extra_args: --recursive
 
 - name: Copy configuration files
   copy:

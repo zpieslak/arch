@@ -21,6 +21,21 @@ Generate user password and update group_vars/local
 
 Prepare and run arch linux live CD on local
 
+### Enable ssh
+
+Find ip on target machine and update hosts
+
+    ip address
+
+Set root password
+
+    passwd
+
+Start ssh
+
+    systemctl start sshd
+
+
 ### Enable wifi
 
 Check if wifi card is not soft-blocked
@@ -51,21 +66,7 @@ Test internet connection
 
     ping google.com
 
-### Enable ssh
-
-Set root password
-
-    passwd
-
-Start ssh
-
-    systemctl start sshd
-
 ## Boot
-
-Install requirements
-
-    ansible-galaxy install -r requirements.yml
 
 Run initial run
 
@@ -101,3 +102,9 @@ Run connection locally
     git clone aur_git_repo
     cd aur_git_repo
     makepkg -isc --needed --noconfirm
+
+### Fix internet connection on Arch Virtualbox client
+
+    sudo mkdir -p /etc/systemd/resolved.conf.d
+    printf "[Resolve]\nDNSSEC=no\n" | sudo tee /etc/systemd/resolved.conf.d/no-dnssec.conf
+    sudo systemctl restart systemd-resolved

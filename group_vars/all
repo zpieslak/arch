@@ -33,6 +33,19 @@
               path: '/.snapshots'
               subvolume: '/@snapshots'
               opts: defaults,discard,compress=lzo,subvol=@snapshots
+    print:
+      -
+        name: Virtual_PDF_Printer
+        uri: cups-pdf:/
+        ppd: /usr/share/cups/model/CUPS-PDF_opt.ppd
+      -
+        name: SCX-3400
+        uri: socket://192.168.1.1:9100
+        ppd: /tmp/SCX-3400.ppd
+    rbenv:
+      git: https://github.com/rbenv/rbenv.git
+      plugins:
+        - https://github.com/rbenv/ruby-build.git
     system:
       charset: UTF-8
       font: lat2-16

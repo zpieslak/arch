@@ -1,0 +1,4 @@
+{{ ansible_managed | comment }}
+[Service]
+Environment=PGROOT={{ host.postgresql.dir }}
+PIDFile={{ host.postgresql.dir }}/data/postmaster.pid

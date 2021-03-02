@@ -1,17 +1,20 @@
 ---
-- name: Install all roles
+- name: All
   hosts: all
-  remote_user: root
   roles:
-    - { role: disk, tags: disk }
-    - { role: setup, tags: setup }
     - { role: system, tags: system }
-    - { role: mysql, tags: mysql }
-    - { role: postgresql, tags: postgresql }
-    - { role: memcached, tags: memcached }
+    - { role: user, tags: user }
     - { role: ag, tags: ag }
     - { role: git, tags: git }
     - { role: vim, tags: vim }
+
+- name: Laptop
+  hosts: local
+  remote_user: root
+  roles:
+    - { role: mysql, tags: mysql }
+    - { role: postgresql, tags: postgresql }
+    - { role: memcached, tags: memcached }
     - { role: ruby, tags: ruby }
     - { role: node, tags: node }
     - { role: tmux, tags: tmux }
@@ -23,3 +26,25 @@
     - { role: imagemagick, tags: imagemagick }
     - { role: keepassxc, tags: keepassxc }
     - { role: print, tags: print }
+
+- name: Pi
+  hosts: pi
+  remote_user: root
+  roles:
+    - { role: postgresql, tags: postgresql }
+    - { role: minidlna, tags: minidlna }
+    - { role: aria2, tags: aria2 }
+    - { role: nginx, tags: nginx }
+    - { role: nfs, tags: nfs }
+    - { role: mosquitto, tags: mosquitto }
+    - { role: home_assistant, tags: home_assistant }
+    - { role: samba, tags: samba }
+    - { role: zigbee2mqtt, tags: zigbee2mqtt }
+
+- name: Zero
+  hosts: zero
+  remote_user: root
+  roles:
+    # - { role: mosquitto, tags: mosquitto }
+    - { role: rtl_sdr, tags: rtl_sdr }
+    - { role: zigbee2mqtt, tags: zigbee2mqtt }

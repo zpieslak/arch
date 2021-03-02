@@ -1,0 +1,41 @@
+---
+- name: Install package
+  pacman:
+    name: aria2
+    update_cache: yes
+
+- name: Copy configuration files
+  copy:
+    src: aria2.conf
+    dest: /etc/
+    mode: 0644
+
+- name: Copy systemd unit file
+  copy:
+    src: aria2cd.service
+    dest: /usr/lib/systemd/system/
+    mode: 0644
+
+- name: Start aria2cd service
+  systemd:
+    state: started
+    name: aria2cd
+    enabled: yes
+    daemon_reload: yes
+
+- name: Install frontend
+  git:
+    repo: https://github.com/ziahamza/webui-aria2.git
+    dest: /usr/share/nginx/aria2
+    depth: 1
+
+- name: Copy nginx configuration
+  copy:
+    src: conf.d
+    dest: /etc/nginx/
+    mode: 0644
+
+- name: Restart nginx service
+  systemd:
+    state: restarted
+    name: nginx

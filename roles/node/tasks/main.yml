@@ -1,19 +1,10 @@
 ---
 - name: Refresh pacman cache
   pacman:
+    name:
+      - nodejs
+      - npm
     update_cache: yes
-
-- name: Install package
-  aur:
-    name: nodenv
-  become: yes
-  become_user: '{{ host.user.wheel.name }}'
-
-- name: Install plugins
-  aur:
-    name: nodenv-node-build
-  become: yes
-  become_user: '{{ host.user.wheel.name }}'
 
 - name: Copy configuration files
   copy:
@@ -24,4 +15,3 @@
     owner: '{{ host.user.wheel.name }}'
   with_items:
     - .eslintrc.yml
-    - .bashrc.d

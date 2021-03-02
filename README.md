@@ -70,7 +70,7 @@ Test internet connection
 
 Run initial run
 
-    ansible-playbook -k site.yml -t disk,setup -l local
+    ansible-playbook -k site.yml -t disk,setup -l test
 
 Remove offending key from ssh
 
@@ -108,3 +108,29 @@ Run connection locally
     sudo mkdir -p /etc/systemd/resolved.conf.d
     printf "[Resolve]\nDNSSEC=no\n" | sudo tee /etc/systemd/resolved.conf.d/no-dnssec.conf
     sudo systemctl restart systemd-resolved
+
+## Raspbery PI
+
+Insert SD card.
+
+Run installation
+
+    ansible-playbook site.yml -t arm -l local --become
+
+Measure temperature
+
+    cat /sys/devices/virtual/thermal/thermal_zone0/temp
+
+## Influxdb
+
+Find fields
+
+    SHOW FIELD KEYS FROM "measurement"
+
+Find tags
+
+    SHOW TAG KEYS FROM "measurement"
+
+Insert / update measurement
+
+    INSERT measurement,tag_1=value,tag_2=value field_1=integer,field_2="String" 1614605768061348864

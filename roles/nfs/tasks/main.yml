@@ -1,0 +1,18 @@
+---
+- name: Install packages
+  pacman:
+    name:
+      - nfs-utils
+    update_cache: yes
+
+- name: Copy configuration
+  copy:
+    src: exports.d
+    dest: /etc/
+    mode: 0644
+
+- name: Start nfs service
+  systemd:
+    state: started
+    name: nfs-server
+    enabled: yes

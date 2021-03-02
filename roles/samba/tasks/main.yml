@@ -1,0 +1,18 @@
+---
+- name: Install packages
+  pacman:
+    name:
+      - samba
+    update_cache: yes
+
+- name: Copy configuration
+  template:
+    src: smb.conf.j2
+    dest: /etc/samba/smb.conf
+    mode: 0644
+
+- name: Start smb service
+  systemd:
+    state: started
+    name: smb
+    enabled: yes

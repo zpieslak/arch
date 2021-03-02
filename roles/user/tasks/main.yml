@@ -1,0 +1,54 @@
+---
+- name: Install packages
+  pacman:
+    name:
+      - sudo
+    update_cache: yes
+
+- name: Create user and add to wheel group
+  user:
+    name: '{{ host.user.wheel.name }}'
+    shell: /bin/bash
+    groups: wheel
+    append: yes
+    password: '{{ host.user.wheel.password }}'
+
+- name: Allow wheel group to execute any command
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: '^# %wheel ALL=(ALL) NOPASSWD: ALL'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: visudo -cf %s
+
+- name: Copy bash dotfiles
+  copy:
+    src: '{{ item }}'
+    dest: /home/{{ host.user.wheel.name }}/
+    mode: 0644
+    group: '{{ host.user.wheel.name }}'
+    owner: '{{ host.user.wheel.name }}'
+  with_items:
+    - .bashrc
+    - .bashrc.d
+    - .bash_profile
+    - .editrc
+    - .inputrc
+    - .ssh
+
+- name: Copy ssh key
+  authorized_key:
+    user: '{{ host.user.wheel.name }}'
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+- name: Setup autologin
+  file:
+    path: /etc/systemd/system/getty@tty1.service.d/
+    state: directory
+  when: host.user.autologin == 'true'
+
+- name: Set autologin on tty1
+  template:
+    src: override.conf.j2
+    dest: /etc/systemd/system/getty@tty1.service.d/override.conf
+    mode: 0644
+  when: host.user.autologin == 'true'

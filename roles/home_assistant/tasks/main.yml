@@ -1,0 +1,51 @@
+---
+- name: Install packages
+  pacman:
+    name:
+      - home-assistant
+      - python-httpx
+      - python-defusedxml
+      - python-mutagen
+      - python-zeroconf
+      - python-psycopg2
+      - influxdb
+    update_cache: yes
+
+- name: Change influxdb config
+  lineinfile:
+    dest: /etc/influxdb/influxdb.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: 'dir = "/var/lib/influxdb/meta"', line: 'dir = "/wd/database/influxdb/meta"' }
+    - { regexp: 'dir = "/var/lib/influxdb/data"', line: 'dir = "/wd/database/influxdb/data"' }
+    - { regexp: 'wal-dir = "/var/lib/influxdb/wal"', line: 'wal-dir = "/wd/database/influxdb/wal"' }
+
+- name: Copy nginx configuration
+  copy:
+    src: conf.d
+    dest: /etc/nginx/
+    mode: 0644
+
+- name: Change systemd file
+  lineinfile:
+    path: /usr/lib/systemd/system/home-assistant.service
+    regexp: ^After=
+    line: After=network.target postgresql.service
+
+- name: Restart nginx service
+  systemd:
+    state: restarted
+    name: nginx
+
+- name: Start influxdb systemd service
+  systemd:
+    state: started
+    name: influxdb
+    enabled: yes
+
+- name: Start systemd service
+  systemd:
+    state: started
+    name: home-assistant
+    enabled: yes

@@ -1,0 +1,18 @@
+---
+- name: Install packages
+  pacman:
+    name:
+      - mosquito
+    update_cache: yes
+
+- name: Copy configuration file
+  copy:
+    src: mosquitto.conf
+    dest: /etc/mosquitto/
+    mode: 0644
+
+- name: Start mosquito systemd service
+  systemd:
+    state: started
+    name: mosquitto
+    enabled: yes

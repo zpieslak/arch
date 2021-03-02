@@ -1,0 +1,6 @@
+# Monitor settings
+gpu_mem=64
+initramfs initramfs-linux.img followkernel
+hdmi_group=2
+hdmi_mode=87
+hdmi_cvt=1024 600 60 6 0 0 0

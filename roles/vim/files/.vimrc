@@ -1,7 +1,3 @@
-" Run pathogen plugins
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-
 " Syntax highlighting
 syntax on
 
@@ -88,6 +84,7 @@ filetype plugin indent on
 " Enable checkers
 let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_typescriptreact_checkers = ['eslint']
 let g:syntastic_less_checkers = ['lessc']
 let g:syntastic_sass_checkers = ['sass']
 let g:syntastic_scss_checkers = ['sass', 'scss_lint']
@@ -95,6 +92,7 @@ let g:syntastic_coffee_checkers = ['coffee', 'coffeelint']
 let g:syntastic_markdown_checkers = ['mdl']
 let g:syntastic_sh_checkers = ['checkbashisms', 'shellcheck']
 let g:syntastic_haml_checkers = ['haml', 'haml_lint']
+let g:syntastic_python_checkers = ['flake8']
 
 " If enabled, syntastic will do syntax checks when buffers are first loaded as well as on saving
 let g:syntastic_check_on_open = 1
@@ -110,6 +108,10 @@ let g:syntastic_auto_loc_list = 1
 
 " Run eslint through npx
 let g:syntastic_javascript_eslint_exe = 'npx eslint'
+let g:syntastic_javascript_eslint_exec = '/bin/ls'
+
+" Map non-standard filetypes to standard ones
+let g:syntastic_filetype_map = {"typescriptreact": "javascript"}
 
 " Vim-markdown settings
 " Set folding level

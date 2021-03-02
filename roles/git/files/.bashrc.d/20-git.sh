@@ -5,4 +5,4 @@ source /usr/share/git/completion/git-completion.bash
 source /usr/share/git/completion/git-prompt.sh
 
 # Git branch status
-export PS1='\w$(__git_ps1 "[%s]")\$ '
+export PS1='\h:\w$(__git_ps1 "[%s]")\$ '

@@ -3,7 +3,6 @@
   pacman:
     name:
       - chromium
-      - firefox
       - gimp
       - perl-image-exiftool
       - ansible

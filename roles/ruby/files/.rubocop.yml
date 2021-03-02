@@ -1,3 +1,23 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+  - rubocop-thread_safety
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.7
+  DisplayStyleGuide: true
+  Exclude:
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'spec/cache/**/*'
+    - 'tmp/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
 Metrics/LineLength:
   Enabled: false
 
@@ -7,42 +27,20 @@ Naming/VariableNumber:
 Rails:
   Enabled: true
 
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
 Style/ClassAndModuleChildren:
-  Enabled: false
-
-Rails/SkipsModelValidations:
-  Enabled: false
-
-Rails/HasAndBelongsToMany:
-  Enabled: false
+  EnforcedStyle: compact
 
 Style/Documentation:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-Style/Lambda:
-  EnforcedStyle: literal
-
-Style/MethodDefParentheses:
-  EnforcedStyle: require_no_parentheses
-
-Style/Send:
-  Enabled: true
-
-Style/SymbolArray:
-  MinSize: 0
-
-AllCops:
-  DisplayCopNames: true
-  Include:
-    - '**/Rakefile'
-    - '**/config.ru'
-  Exclude:
-    - 'bin/**/*'
-    - 'doc/**/*'
-    - 'db/**/*'
-    - 'public/**/*'
-    - 'tmp/**/*'
-    - 'vendor/**/*'

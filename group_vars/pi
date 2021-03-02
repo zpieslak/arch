@@ -1,0 +1,12 @@
+---
+  host:
+    arm:
+      image: /tmp/ArchLinuxARM-rpi-4-latest.tar.gz
+    postgresql:
+      dir: /wd/database/postgres
+      cow: false
+    system:
+      mirrors:
+        - http://mirror.archlinuxarm.org/$arch/$repo
+    user:
+      autologin: false

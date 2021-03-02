@@ -1,16 +1,19 @@
 ---
-- name: Update system clock
-  command: timedatectl set-ntp true
-
-- name: Update hardware clock
-  command: hwclock --systohc
-
 - name: Change timezone
   file:
     src: /usr/share/zoneinfo/{{ host.system.timezone }}
     dest: /etc/localtime
     state: link
     force: yes
+
+- name: Update timesyncd configuration
+  copy:
+    src: timesyncd.conf.d
+    dest: /etc/systemd/
+    mode: 0644
+
+- name: Enable timedatectl ntp client
+  command: timedatectl set-ntp true
 
 - name: Set locale
   locale_gen:
@@ -31,7 +34,6 @@
 - name: Install packages
   pacman:
     name:
-      - sudo
       - base-devel
     update_cache: yes
 
@@ -39,52 +41,11 @@
   pacman:
     upgrade: yes
 
-- name: Add user to wheel group
-  user:
-    name: '{{ host.user.wheel.name }}'
-    shell: /bin/bash
-    groups: wheel
-    append: yes
-    password: '{{ host.user.wheel.password }}'
-
-- name: Allow wheel group to execute any command
-  lineinfile:
-    dest: /etc/sudoers
-    regexp: '^# %wheel ALL=(ALL) NOPASSWD: ALL'
-    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
-    validate: visudo -cf %s
-
-- name: Settu autologin
-  file:
-    path: /etc/systemd/system/getty@tty1.service.d/
-    state: directory
-
-- name: Set autologin on tty1
-  template:
-    src: override.conf.j2
-    dest: /etc/systemd/system/getty@tty1.service.d/override.conf
-    mode: 0644
-
 - name: Disable pc speaker
   copy:
     src: nobeep.conf
     dest: /etc/modprobe.d/
     mode: 0644
-
-- name: Copy bash dotfiles
-  copy:
-    src: '{{ item }}'
-    dest: /home/{{ host.user.wheel.name }}/
-    mode: 0644
-    group: '{{ host.user.wheel.name }}'
-    owner: '{{ host.user.wheel.name }}'
-  with_items:
-    - .bashrc
-    - .bashrc.d
-    - .bash_profile
-    - .editrc
-    - .inputrc
-    - .ssh
 
 - name: Copy hosts
   copy:

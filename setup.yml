@@ -1,0 +1,13 @@
+---
+- name: Laptop
+  hosts: local
+  remote_user: root
+  roles:
+    - { role: disk, tags: disk }
+    - { role: setup, tags: setup }
+
+- name: Raspberry
+  hosts: pi:zero
+  remote_user: root
+  roles:
+    - { role: arm, tags: arm }

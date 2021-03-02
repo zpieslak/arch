@@ -1,0 +1,17 @@
+---
+- name: Install package
+  pacman:
+    name: minidlna
+    update_cache: yes
+
+- name: Copy configuration files
+  copy:
+    src: minidlna.conf
+    dest: /etc/
+    mode: 0644
+
+- name: Start minidlna service
+  systemd:
+    state: started
+    name: minidlna
+    enabled: yes

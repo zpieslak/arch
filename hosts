@@ -4,3 +4,7 @@ localhost ansible_connection=local
 192.168.1.100
 [test]
 192.168.56.2
+[pi]
+pi.lan
+[zero]
+zero.lan

@@ -1,0 +1,58 @@
+---
+- name: Install rtl_sdr
+  pacman:
+    name:
+      - rtl-sdr
+    update_cache: yes
+
+- name: Enable non root access
+  lineinfile:
+    path: /usr/lib/udev/rules.d/10-rtl-sdr.rules
+    regexp: 2838
+    line: SUBSYSTEMS=="usb", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="2838", MODE:="0777"
+
+- name: Install rtl-wmbus
+  git:
+    repo: https://github.com/xaelsouth/rtl-wmbus.git
+    dest: /tmp/rtl-wmbus
+    depth: 1
+
+- community.general.make:
+    chdir: /tmp/rtl-wmbus
+
+- command: mv /tmp/rtl-wmbus/build/rtl_wmbus /usr/bin/
+
+- name: Install wmbusmeters
+  git:
+    repo: https://github.com/weetmuts/wmbusmeters.git
+    dest: /tmp/wmbusmeters
+    depth: 1
+
+- name: Patch wmbusmeters
+  lineinfile:
+    path: /tmp/wmbusmeters/src/meter_apator08.cc
+    regexp: total_water_consumption_m3_ /=
+    state: absent
+
+- command: ./configure
+  args:
+    chdir: /tmp/wmbusmeters
+
+- community.general.make:
+    chdir: /tmp/wmbusmeters
+    target: install
+
+- template:
+    src: wmbusmeters.conf.j2
+    dest: /etc/wmbusmeters.conf
+    mode: 0644
+
+- copy:
+    src: wmbusmeters.d
+    dest: /etc/
+    mode: 0644
+
+- systemd:
+    state: started
+    name: wmbusmeters
+    enabled: yes

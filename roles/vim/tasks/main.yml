@@ -23,8 +23,9 @@
 - name: Install submodules
   git:
     repo: '{{ item }}'
-    dest: /home/{{ host.user.wheel.name }}/.vim/bundle/{{ item | regex_search('[^/]+(?=.git)') }}
+    dest: /home/{{ host.user.wheel.name }}/.vim/pack/plugins/start/{{ item | regex_search('[^/]+(?=.git)') }}
     depth: 1
+    force: yes
   with_items: '{{ host.vim.plugins }}'
 
 - name: Fix permissions

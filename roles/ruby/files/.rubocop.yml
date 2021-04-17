@@ -14,33 +14,67 @@ AllCops:
     - 'spec/cache/**/*'
     - 'tmp/**/*'
 
+Layout/LineLength:
+  Enabled: false
+
+Lint/EmptyBlock:
+  Exclude:
+    - 'spec/**/*'
+
+Lint/UnreachableCode:
+  Exclude:
+    - 'app/concepts/**/operation/**'
+
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 
-Metrics/LineLength:
-  Enabled: false
+Naming/MethodName:
+  Exclude:
+    - 'app/concepts/**/macro/**'
 
 Naming/VariableNumber:
   EnforcedStyle: snake_case
+  Exclude:
+    - 'config/routes.rb'
 
 Rails:
   Enabled: true
 
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - production
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/requests/**/*'
+
 RSpec/ExampleLength:
   Enabled: false
 
+RSpec/NestedGroups:
+  Max: 5
+
 RSpec/MultipleExpectations:
   Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
 
 RSpec/NamedSubject:
   Enabled: false
 
 Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
+  Enabled: false
 
 Style/Documentation:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/SignalException:
+  Exclude:
+    - 'app/concepts/**/operation/**'

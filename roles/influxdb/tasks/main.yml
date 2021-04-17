@@ -1,13 +1,21 @@
 ---
-- name: Install package
+- name: Install packages
   pacman:
-    name: minidlna
+    name:
+      - influxdb
     update_cache: yes
+
+- name: Add influxdb user
+  ansible.builtin.user:
+    name: influxdb
+    group: influxdb
+    create_home: no
+    system: yes
 
 - name: Copy configuration files
   copy:
-    src: minidlna.conf
-    dest: /etc/
+    src: influxdb.service
+    dest: /usr/lib/systemd/system/
     mode: 0644
 
 - name: Copy nginx configuration
@@ -21,8 +29,8 @@
     state: restarted
     name: nginx
 
-- name: Start minidlna service
+- name: Start influxdb systemd service
   systemd:
     state: started
-    name: minidlna
+    name: influxdb
     enabled: yes

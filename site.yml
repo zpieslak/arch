@@ -9,9 +9,10 @@
     - { role: vim, tags: vim }
 
 - name: Laptop
-  hosts: local
-  remote_user: root
+  hosts: laptop
   roles:
+    - { role: disk, tags: disk }
+    - { role: boot, tags: boot }
     - { role: mysql, tags: mysql }
     - { role: postgresql, tags: postgresql }
     - { role: memcached, tags: memcached }
@@ -25,26 +26,33 @@
     - { role: tools, tags: tools }
     - { role: imagemagick, tags: imagemagick }
     - { role: keepassxc, tags: keepassxc }
-    - { role: print, tags: print }
+    - { role: print_client, tags: print_client }
+
+- name: Pi
+  hosts: pi:zero
+  become: yes
+  roles:
+    - { role: arm, tags: arm, delegate_to: localhost }
 
 - name: Pi
   hosts: pi
-  remote_user: root
   roles:
+    - { role: python, tags: python }
     - { role: postgresql, tags: postgresql }
     - { role: minidlna, tags: minidlna }
-    - { role: aria2, tags: aria2 }
     - { role: nginx, tags: nginx }
+    - { role: aria2, tags: aria2 }
     - { role: nfs, tags: nfs }
-    - { role: mosquitto, tags: mosquitto }
-    - { role: home_assistant, tags: home_assistant }
+    - { role: mosquitto_server, tags: mosquitto_server }
     - { role: samba, tags: samba }
+    - { role: influxdb, tags: influxdb }
+    - { role: home_assistant, tags: home_assistant }
     - { role: zigbee2mqtt, tags: zigbee2mqtt }
+    - { role: print_server, tags: print_server }
 
 - name: Zero
   hosts: zero
-  remote_user: root
   roles:
-    # - { role: mosquitto, tags: mosquitto }
+    - { role: python, tags: python }
+    - { role: mosquitto_client, tags: mosquitto_client }
     - { role: rtl_sdr, tags: rtl_sdr }
-    - { role: zigbee2mqtt, tags: zigbee2mqtt }

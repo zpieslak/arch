@@ -1,0 +1,15 @@
+---
+  host:
+    ethernet:
+      interface: enp1s0
+    wifi:
+      interface: wlp2s0
+      ssid: test
+      key: test
+    user:
+      root:
+        name: root
+        password: $6$rzZJmHfE36hfGAUX$8F4cY59UH6vcpjziGLKCiHzqv0WAs85eNhPAx2N/lghy3dh.kKd1w2IaBoIgaX5Yz78.MmoSZzC6wZ8cV1yIE/
+      wheel:
+        name: zbigniew
+        password: $6$6VavzSgeMJHVBOTq$cX5cWrc0ngdcO1Mh.l616M76b3crXJE92s0CGLu0ErM2RssHRQNAk3fYjCe2G3hAvCsbVvAET2DHiu92HkHiJ0

@@ -31,7 +31,7 @@
 
 - name: Copy nginx configuration
   copy:
-    src: conf.d
+    src: nginx/conf.d
     dest: /etc/nginx/
     mode: 0644
 

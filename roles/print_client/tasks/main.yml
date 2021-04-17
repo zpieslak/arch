@@ -1,0 +1,19 @@
+---
+- name: Refresh pacman cache
+  pacman:
+    name:
+      - cups
+      - cups-pdf
+    update_cache: yes
+
+- name: Copy cups files
+  copy:
+    src: cups/
+    dest: /etc/cups/
+    mode: 0640
+
+- name: Start cups service
+  systemd:
+    state: started
+    name: cups
+    enabled: yes

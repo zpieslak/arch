@@ -1,7 +1,10 @@
 ---
   host:
     arm:
-      image: /tmp/ArchLinuxARM-rpi-4-latest.tar.gz
+      image: /tmp/ArchLinuxARM-rpi-aarch64-latest.tar.gz
+      mounts:
+        - wd
+        - wd2
     postgresql:
       dir: /wd/database/postgres
       cow: false

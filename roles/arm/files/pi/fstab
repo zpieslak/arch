@@ -1,0 +1,8 @@
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system> <dir> <type> <options> <dump> <pass>
+/dev/mmcblk0p1  /boot   vfat    defaults        0       0
+
+UUID=ab71ae0d-ad76-4a9e-a902-52f2149d8f06  /wd  ext4  rw,relatime  0 0
+UUID=8b3f6486-2f90-4add-8edc-ef50912a7f73  /wd2  ext4  rw,relatime  0 0

@@ -1,0 +1,59 @@
+---
+- name: Refresh pacman cache
+  pacman:
+    name:
+      - cups
+      - splix
+    update_cache: yes
+
+- name: Disable mDNS in systemd-resolved
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: ^MulticastDNS
+    line: MulticastDNS=no
+
+- name: Restart systemd-resolved service
+  systemd:
+    state: restarted
+    name: systemd-resolved
+
+- name: Copy avahi files
+  copy:
+    src: avahi/services/
+    dest: /etc/avahi/services/
+    mode: 0640
+
+- name: Copy cups files
+  copy:
+    src: cups/
+    dest: /etc/cups/
+    mode: 0640
+
+- name: Copy udev rules
+  copy:
+    src: udev/rules.d/
+    dest: /etc/udev/rules.d/
+    mode: 0640
+
+- name: Copy nginx configuration
+  copy:
+    src: conf.d
+    dest: /etc/nginx/
+    mode: 0644
+
+- name: Restart nginx service
+  systemd:
+    state: restarted
+    name: nginx
+
+- name: Start avahi service
+  systemd:
+    state: started
+    name: avahi-daemon
+    enabled: yes
+
+- name: Start cups service
+  systemd:
+    state: started
+    name: cups
+    enabled: yes

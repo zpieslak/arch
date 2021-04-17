@@ -1,7 +1,7 @@
 ---
   host:
     arm:
-      image: /tmp/ArchLinuxARM-rpi-latest.tar.gz
+      image: /tmp/ArchLinuxARM-rpi-aarch64-latest.tar.gz
       dev: /dev/mmcblk0
       partitions:
         -
@@ -60,15 +60,6 @@
     postgresql:
       dir: /var/lib/postgres
       cow: true
-    print:
-      -
-        name: Virtual_PDF_Printer
-        uri: cups-pdf:/
-        ppd: /usr/share/cups/model/CUPS-PDF_opt.ppd
-      -
-        name: SCX-3400
-        uri: socket://192.168.1.1:9100
-        ppd: /tmp/SCX-3400.ppd
     rbenv:
       git: https://github.com/rbenv/rbenv.git
       plugins:

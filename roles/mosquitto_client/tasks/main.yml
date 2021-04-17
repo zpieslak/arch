@@ -1,0 +1,6 @@
+---
+- name: Install packages
+  pacman:
+    name:
+      - mosquitto
+    update_cache: yes

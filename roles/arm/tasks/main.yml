@@ -48,28 +48,53 @@
     regexp: ^#PermitRootLogin
     line: PermitRootLogin yes
 
+- name: Fix fstab
+  lineinfile:
+    path: '{{ host.dir }}/root/etc/fstab'
+    regexp: ^#PermitRootLogin
+    line: PermitRootLogin yes
+
+- name: Enable ssh root login with password
+  lineinfile:
+    path: '{{ host.dir }}/root/etc/ssh/sshd_config'
+    regexp: ^#PermitRootLogin
+    line: PermitRootLogin yes
+
+- name: Copy fstab
+  copy:
+    src: '{{ arm }}/fstab'
+    dest: '{{ host.dir }}/root/etc/fstab'
+    mode: 0644
+
 - name: Copy boot config
   copy:
-    src: '{{ inventory_hostname_short }}/boot/'
+    src: '{{ arm }}/boot/'
     dest: '{{ host.dir }}/boot/'
     mode: 0644
 
 - name: Copy systemd network profile
   copy:
-    src: '{{ inventory_hostname_short }}/network/'
+    src: '{{ arm }}/network/'
     dest: '{{ host.dir }}/root/etc/systemd/network/'
     mode: 0644
 
-- name: Copy wpa_supplicant configuration
-  template:
-    src: wpa_supplicant.conf.j2
-    dest: '{{ host.dir }}/etc/root/wpa_supplicant/wpa_supplicant-{{ host.wifi.interface }}.conf'
-  when: host.wifi.interface is defined
+ - name: Copy wpa_supplicant configuration
+   template:
+     src: wpa_supplicant.conf.j2
+     dest: '{{ host.dir }}/etc/root/wpa_supplicant/wpa_supplicant-{{ host.wifi.interface }}.conf'
+   when: host.wifi.interface is defined
 
-- name: Enable wpa_supplicant
-  file:
-    src: '{{ host.dir }}/root/etc/systemd/system/multi-user.target.wants/wpa_supplicant@{{ host.wifi.interface }}.service
-    dest:  '{{ host.dir }}/root/usr/lib/systemd/system/wpa_supplicant@.service
-    state: link
-    force: yes
-  when: host.wifi.interface is defined
+ - name: Enable wpa_supplicant
+   file:
+     src: '{{ host.dir }}/root/etc/systemd/system/multi-user.target.wants/wpa_supplicant@{{ host.wifi.interface }}.service'
+     dest:  '{{ host.dir }}/root/usr/lib/systemd/system/wpa_supplicant@.service'
+     state: link
+     force: yes
+   when: host.wifi.interface is defined
+
+- name: Create direcotry mounts
+  ansible.builtin.file:
+    path: {{ item }}
+    state: directory
+    mode: 0755
+  with_items: '{{ host.arm.mounts }}'

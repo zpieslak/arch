@@ -1,0 +1,5 @@
+---
+- name: Install package
+  pacman:
+    name: python
+    update_cache: yes

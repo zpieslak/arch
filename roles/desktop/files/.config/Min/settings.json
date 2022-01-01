@@ -1,0 +1,30 @@
+{
+  "restartNow": false,
+  "installTime": 1634288400000,
+  "usageData": null,
+  "filtering": {
+    "blockingLevel": 2,
+    "contentTypes": [],
+    "exceptionDomains": []
+  },
+  "searchEngine": {
+    "name": "Google"
+  },
+  "filteringBlockedCount": 4308,
+  "updateNotificationsEnabled": false,
+  "collectUsageStats": false,
+  "passwordManager": {
+    "name": "none"
+  },
+  "readerData": "",
+  "showDividerBetweenTabs": false,
+  "useSeparateTitlebar": false,
+  "customUserAgent": null,
+  "userscriptsEnabled": true,
+  "siteTheme": false,
+  "darkMode": -1,
+  "keyMap": {
+    "goBack": "option+left",
+    "goForward": "option+right"
+  }
+}

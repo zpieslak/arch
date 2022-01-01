@@ -4,16 +4,17 @@
     src: /usr/share/zoneinfo/{{ host.system.timezone }}
     dest: /etc/localtime
     state: link
-    force: yes
+    force: true
 
 - name: Update timesyncd configuration
   copy:
     src: timesyncd.conf.d
     dest: /etc/systemd/
-    mode: 0644
+    mode: '0644'
 
 - name: Enable timedatectl ntp client
   command: timedatectl set-ntp true
+  changed_when: false
 
 - name: Set locale
   locale_gen:
@@ -21,39 +22,47 @@
 
 - name: Set LANG variable
   lineinfile:
-    create: yes
+    create: true
     path: /etc/locale.conf
     line: LANG={{ host.system.locale }}
+    mode: '0644'
 
 - name: Set pacman mirrors
   template:
     src: mirrorlist.j2
     dest: /etc/pacman.d/mirrorlist
-    mode: 0644
+    mode: '0644'
+
+- name: Update pacman configuration
+  lineinfile:
+    path: /etc/pacman.conf
+    regexp: ^#Color
+    line: Color
+
+- name: Upgrade packages
+  pacman:
+    update_cache: true
+    upgrade: true
 
 - name: Install packages
   pacman:
     name:
-      - base-devel
-    update_cache: yes
+      - terminus-font
 
-- name: Upgrade packages
-  pacman:
-    upgrade: yes
-
-- name: Disable pc speaker
+- name: Copy modprobe changes
   copy:
-    src: nobeep.conf
-    dest: /etc/modprobe.d/
-    mode: 0644
+    src: modprobe.d
+    dest: /etc/
+    mode: '0644'
 
 - name: Copy hosts
   copy:
     src: hosts
     dest: /etc/
-    mode: 0644
+    mode: '0644'
 
 - name: Add vconsole
   template:
     src: vconsole.conf.j2
     dest: /etc/vconsole.conf
+    mode: '0644'

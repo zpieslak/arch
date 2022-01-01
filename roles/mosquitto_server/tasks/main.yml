@@ -3,16 +3,16 @@
   pacman:
     name:
       - mosquitto
-    update_cache: yes
+    update_cache: true
 
 - name: Copy configuration file
   copy:
     src: mosquitto.conf
     dest: /etc/mosquitto/
-    mode: 0644
+    mode: '0644'
 
 - name: Start mosquito systemd service
   systemd:
     state: started
     name: mosquitto
-    enabled: yes
+    enabled: true

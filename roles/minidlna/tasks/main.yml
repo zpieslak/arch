@@ -2,19 +2,19 @@
 - name: Install package
   pacman:
     name: minidlna
-    update_cache: yes
+    update_cache: true
 
 - name: Copy configuration files
   copy:
     src: minidlna.conf
     dest: /etc/
-    mode: 0644
+    mode: '0644'
 
 - name: Copy nginx configuration
   copy:
     src: nginx/conf.d
     dest: /etc/nginx/
-    mode: 0644
+    mode: '0644'
 
 - name: Restart nginx service
   systemd:
@@ -25,4 +25,4 @@
   systemd:
     state: started
     name: minidlna
-    enabled: yes
+    enabled: true

@@ -2,9 +2,10 @@
 
 # Settings
 VM_NAME='Arch_Linux_64'
-VM_DVD='archlinux-2019.12.01-x86_64.iso'
+VM_DVD='archlinux-2021.11.01-x86_64.iso'
 VM_TYPE='ArchLinux_64'
-VM_DIR=~/VirtualBox\ VMs/$VM_NAME
+# VM_DIR=~/VirtualBox\ VMs/$VM_NAME
+VM_DIR=/mnt/disk/home/zbigniew/VirtualBox\ VMs/$VM_NAME
 
 # Create hard disk
 VBoxManage createmedium disk --filename "$VM_DIR/$VM_NAME.vdi" --size 10240
@@ -22,7 +23,12 @@ VBoxManage storageattach "$VM_NAME" --storagectl "IDE" --port 0 --device 0 --typ
 
 # Add settings
 VBoxManage modifyvm "$VM_NAME" --firmware efi
-VBoxManage modifyvm "$VM_NAME" --memory 2048 --vram 16
+VBoxManage modifyvm "$VM_NAME" --memory 4096 --vram 128
 VBoxManage modifyvm "$VM_NAME" --nic1 nat
 vboxmanage modifyvm "$VM_NAME" --hostonlyadapter2 vboxnet0
 VBoxManage modifyvm "$VM_NAME" --nic2 hostonly
+VBoxManage modifyvm "$VM_NAME" --clipboard-mode bidirectional
+VBoxManage modifyvm "$VM_NAME" --graphicscontroller vmsvga
+VBoxManage modifyvm "$VM_NAME" --audioin on
+VBoxManage modifyvm "$VM_NAME" --audioout on
+VBoxManage modifyvm "$VM_NAME" --boot1 dvd --boot2 disk --boot3 none --boot4 none

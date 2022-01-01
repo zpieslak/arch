@@ -1,0 +1,8 @@
+[Unit]
+Description=Xmonad window manager
+
+[Service]
+ExecStart=/usr/bin/xmonad
+
+[Install]
+WantedBy=xorg.target

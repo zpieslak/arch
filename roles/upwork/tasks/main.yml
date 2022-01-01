@@ -1,12 +1,12 @@
 ---
 - name: Refresh pacman cache
   pacman:
-    update_cache: yes
+    update_cache: true
 
 - name: Install package
   aur:
     name: upwork
-  become: yes
+  become: true
   become_user: '{{ host.user.wheel.name }}'
 
 - name: Remove autostart

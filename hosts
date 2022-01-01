@@ -1,9 +1,11 @@
 [local]
 localhost ansible_connection=local
-[laptop]
+[dell]
 192.168.1.100
+[lenovo]
+192.168.1.115
 [test]
-192.168.56.2
+test.lan
 [pi]
 pi.lan
 [zero]

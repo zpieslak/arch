@@ -1,0 +1,6 @@
+---
+host:
+  postgresql:
+    cow: true
+  user:
+    autologin: true

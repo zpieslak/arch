@@ -8,13 +8,13 @@
       - python-mutagen
       - python-zeroconf
       - python-psycopg2
-    update_cache: yes
+    update_cache: true
 
 - name: Copy nginx configuration
   copy:
     src: nginx/conf.d
     dest: /etc/nginx/
-    mode: 0644
+    mode: '0644'
 
 - name: Change systemd file
   lineinfile:
@@ -23,16 +23,16 @@
     line: After=network.target postgresql.service
 
 - name: Restore copy
-  ansible.builtin.unarchive:
+  unarchive:
     src: /wd2/backup/hass/2021-03-13-20.17.11.tar.gz
     dest: /var/lib/
-    remote_src: yes
+    remote_src: true
 
 - name: Copy bin
   copy:
     src: bin/
     dest: /usr/bin/
-    mode: 0755
+    mode: '0755'
 
 - name: Restart nginx service
   systemd:
@@ -43,4 +43,4 @@
   systemd:
     state: started
     name: home-assistant
-    enabled: yes
+    enabled: true

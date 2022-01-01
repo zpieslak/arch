@@ -2,10 +2,11 @@
 - name: Install
   aur:
     name: zigbee2mqtt
-  become: yes
+  become: true
   become_user: '{{ host.user.wheel.name }}'
 
-- systemd:
+- name: Install systemd
+  systemd:
     state: started
     name: zigbee2mqtt
-    enabled: yes
+    enabled: true

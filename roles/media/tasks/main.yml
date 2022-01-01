@@ -1,0 +1,30 @@
+---
+- name: Install package
+  pacman:
+    name:
+      - ffmpeg
+      - imagemagick
+      - perl-image-exiftool
+    update_cache: true
+
+- name: Install package
+  aur:
+    name: libmagick6
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+
+- name: Update imagemagick configuration
+  lineinfile:
+    path: /etc/ImageMagick-7/policy.xml
+    line: '  <policy domain="coder" rights="read | write" pattern="{PS,PS2,PS3,EPS,PDF,XPS}" />'
+    insertbefore: </policymap>
+
+- name: Copy custom bin files
+  copy:
+    src: '{{ item }}'
+    dest: /home/{{ host.user.wheel.name }}/
+    mode: '0755'
+    group: '{{ host.user.wheel.name }}'
+    owner: '{{ host.user.wheel.name }}'
+  with_items:
+    - bin

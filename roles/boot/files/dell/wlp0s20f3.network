@@ -1,0 +1,6 @@
+[Match]
+Name=wlp0s20f3
+
+[Network]
+DHCP=yes
+DNSSEC=no

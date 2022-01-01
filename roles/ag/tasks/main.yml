@@ -2,12 +2,12 @@
 - name: Install package
   pacman:
     name: the_silver_searcher
-    update_cache: yes
+    update_cache: true
 
 - name: Copy dotfile
   copy:
     src: .agignore
     dest: /home/{{ host.user.wheel.name }}/
-    mode: 0644
+    mode: '0644'
     group: '{{ host.user.wheel.name }}'
     owner: '{{ host.user.wheel.name }}'

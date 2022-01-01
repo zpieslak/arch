@@ -4,19 +4,17 @@
     name:
       - virtualbox
       - virtualbox-host-modules-arch
-    update_cache: yes
-
-- name: Install extension pack
-  aur:
-    name: virtualbox-ext-oracle
-  become: yes
-  become_user: '{{ host.user.wheel.name }}'
+    update_cache: true
 
   notify:
-   - reboot
+    - reboot
 
-- meta: flush_handlers
-- pause:
+- name: Force to run hooks
+  meta: flush_handlers
+
+- name: Wait for restart
+  pause:
 
 - name: Add host network adapter
   command: vboxmanage hostonlyif create
+  changed_when: false

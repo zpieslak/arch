@@ -3,8 +3,9 @@
   pacman:
     name:
       - cups
+      - p910nd
       - splix
-    update_cache: yes
+    update_cache: true
 
 - name: Disable mDNS in systemd-resolved
   lineinfile:
@@ -21,39 +22,39 @@
   copy:
     src: avahi/services/
     dest: /etc/avahi/services/
-    mode: 0640
+    mode: '0640'
 
 - name: Copy cups files
   copy:
     src: cups/
     dest: /etc/cups/
-    mode: 0640
-
-- name: Copy udev rules
-  copy:
-    src: udev/rules.d/
-    dest: /etc/udev/rules.d/
-    mode: 0640
+    mode: '0640'
 
 - name: Copy nginx configuration
   copy:
     src: conf.d
     dest: /etc/nginx/
-    mode: 0644
+    mode: '0644'
 
 - name: Restart nginx service
   systemd:
     state: restarted
     name: nginx
 
+- name: Start p910nd service
+  systemd:
+    state: started
+    name: p910nd
+    enabled: true
+
 - name: Start avahi service
   systemd:
     state: started
     name: avahi-daemon
-    enabled: yes
+    enabled: true
 
 - name: Start cups service
   systemd:
     state: started
     name: cups
-    enabled: yes
+    enabled: true

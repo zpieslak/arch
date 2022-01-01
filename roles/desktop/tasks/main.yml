@@ -1,44 +1,143 @@
 ---
-- name: Install packages
-  pacman:
-    name:
-      - xorg-server
-      - xorg-apps
-      - xorg-xinit
-      - xfce4
-      - ttf-dejavu
-      - pulseaudio
-    update_cache: yes
+- name: Create hooks directory
+  file:
+    path: /etc/pacman.d/hooks
+    state: directory
+    mode: '0755'
 
-- name: Remove packages
-  pacman:
-    name:
-      - xfce4-panel
-    state: absent
-    extra_args: --recursive
+- name: Copy xmonad hook
+  template:
+    src: xmonad.hook.j2
+    dest: /etc/pacman.d/hooks/xmonad.hooks
+    mode: '0644'
 
 - name: Copy configuration files
   copy:
     src: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/
-    mode: 0644
+    mode: '0644'
     group: '{{ host.user.wheel.name }}'
     owner: '{{ host.user.wheel.name }}'
   with_items:
-    - .bashrc.d
+    - .alacritty.yml
+    - .bash_login.d
     - .config
-    - .dircolors
     - .xinitrc
+    - .xmonad
     - .Xresources
+    - .Xresources.d
 
-- name: Set fontconfig
-  file:
-    src: /etc/fonts/conf.avail/{{ item }}
-    dest: /etc/fonts/conf.d/{{ item }}
-    state: link
-    force: yes
-  with_items:
-    - 11-lcdfilter-default.conf
+- name: Copy bin files
+  copy:
+    src: bin
+    dest: /home/{{ host.user.wheel.name }}/
+    mode: '0755'
+    group: '{{ host.user.wheel.name }}'
+    owner: '{{ host.user.wheel.name }}'
+
+- name: Install packages
+  pacman:
+    name:
+      - alacritty
+      - calibre
+      - chromium
+      - dmenu
+      - dunst
+      - fontconfig
+      - gimp
+      - keepassxc
+      - libxkbcommon
+      - libnotify
+      - maim
+      - mate-calc
+      - min
+      - numlockx
+      - ttf-dejavu
+      - xcompmgr
+      - xmonad
+      - xmonad-contrib
+      - xorg-server
+      - xorg-xinit
+    update_cache: true
 
 - name: Set keyboard
   command: localectl set-x11-keymap '{{ host.system.keymap }}'
+  changed_when: false
+
+- name: Copy touchpad file
+  copy:
+    src: xorg.conf.d
+    dest: /usr/share/X11/
+    mode: '0644'
+
+- name: Add backlight udev rules
+  copy:
+    src: udev
+    dest: /etc/udev/
+    mode: '0755'
+
+- name: Add user to video group
+  user:
+    name: '{{ host.user.wheel.name }}'
+    groups: video
+    append: true
+
+- name: Enable xmonad service
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+  become_method: machinectl
+  systemd:
+    daemon_reload: true
+    scope: user
+    name: xmonad
+    enabled: true
+
+- name: Enable xrdb service
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+  become_method: machinectl
+  systemd:
+    daemon_reload: true
+    scope: user
+    name: xrdb
+    enabled: true
+
+- name: Enable numlock service
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+  become_method: machinectl
+  systemd:
+    daemon_reload: true
+    scope: user
+    name: numlock
+    enabled: true
+
+- name: Enable xcompmgr service
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+  become_method: machinectl
+  systemd:
+    daemon_reload: true
+    scope: user
+    name: xcompmgr
+    enabled: true
+
+- name: Enable battery service
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+  become_method: machinectl
+  systemd:
+    daemon_reload: true
+    scope: user
+    name: battery
+    enabled: true
+
+- name: Enable battery timer
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+  become_method: machinectl
+  systemd:
+    daemon_reload: true
+    scope: user
+    name: battery.timer
+    enabled: true

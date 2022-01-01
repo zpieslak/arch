@@ -1,6 +1,0 @@
-[Desktop Entry]
-Name=KeepassXC
-Exec=xfce4-terminal --maximize
-Terminal=false
-Type=Application
-StartupNotify=false

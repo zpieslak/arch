@@ -3,7 +3,7 @@
   pacman:
     name:
       - rtl-sdr
-    update_cache: yes
+    update_cache: true
 
 - name: Enable non root access
   lineinfile:
@@ -11,22 +11,27 @@
     regexp: 2838
     line: SUBSYSTEMS=="usb", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="2838", MODE:="0777"
 
-- name: Install rtl-wmbus
+- name: Copy rtl-wmbus source
   git:
     repo: https://github.com/xaelsouth/rtl-wmbus.git
     dest: /tmp/rtl-wmbus
     depth: 1
+    version: master
 
-- community.general.make:
+- name: Make rtl-wmbus
+  community.general.make:
     chdir: /tmp/rtl-wmbus
 
-- command: mv /tmp/rtl-wmbus/build/rtl_wmbus /usr/bin/
+- name: Move bin file
+  command: mv /tmp/rtl-wmbus/build/rtl_wmbus /usr/bin/
+  changed_when: false
 
 - name: Install wmbusmeters
   git:
     repo: https://github.com/weetmuts/wmbusmeters.git
     dest: /tmp/wmbusmeters
     depth: 1
+    version: master
 
 - name: Patch wmbusmeters
   lineinfile:
@@ -34,25 +39,31 @@
     regexp: total_water_consumption_m3_ /=
     state: absent
 
-- command: ./configure
+- name: Configure wmbusmeters
+  command: ./configure
+  changed_when: false
   args:
     chdir: /tmp/wmbusmeters
 
-- community.general.make:
+- name: Install wmbusmeters
+  community.general.make:
     chdir: /tmp/wmbusmeters
     target: install
 
-- template:
+- name: Copy wmbusmeters configuration file
+  template:
     src: wmbusmeters.conf.j2
     dest: /etc/wmbusmeters.conf
-    mode: 0644
+    mode: '0644'
 
-- copy:
+- name: Copy wmbusmeters systemd file
+  copy:
     src: wmbusmeters.d
     dest: /etc/
-    mode: 0644
+    mode: '0644'
 
-- systemd:
+- name: Start wmbusmeters systemd file
+  systemd:
     state: started
     name: wmbusmeters
-    enabled: yes
+    enabled: true

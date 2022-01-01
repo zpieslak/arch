@@ -1,15 +1,12 @@
 ---
-  host:
-    arm:
-      image: /tmp/ArchLinuxARM-rpi-aarch64-latest.tar.gz
-      mounts:
-        - wd
-        - wd2
-    postgresql:
-      dir: /wd/database/postgres
-      cow: false
-    system:
-      mirrors:
-        - http://mirror.archlinuxarm.org/$arch/$repo
-    user:
-      autologin: false
+host:
+  arm:
+    image: /tmp/ArchLinuxARM-rpi-aarch64-latest.tar.gz
+    mounts:
+      - wd
+      - wd2
+  postgresql:
+    dir: /wd/database/postgres
+  system:
+    mirrors:
+      - http://mirror.archlinuxarm.org/$arch/$repo

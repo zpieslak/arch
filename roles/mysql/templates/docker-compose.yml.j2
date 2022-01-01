@@ -1,0 +1,16 @@
+---
+version: '3.8'
+
+services:
+  db:
+    image: mysql/mysql-server:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: {{ mysql_prompt.user_input }}
+    ports:
+      - 3306:3306
+    logging:
+      driver: journald
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql

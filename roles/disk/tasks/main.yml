@@ -1,18 +1,25 @@
 ---
 - name: Create host.disk.label
-  shell: echo -e "g\nw" | fdisk '{{ host.disk.dev }}'
+  shell: |
+    set -o pipefail
+    echo -e "g\nw" | fdisk '{{ host.disk.dev }}'
+  changed_when: false
 
 - name: Create partitions
-  shell: echo -e "n\n\n\n{{ item.size }}\nt\n\n{{ item.signature }}\nw" | fdisk {{ host.disk.dev }}
+  shell: |
+    set -o pipefail
+    echo -e "n\n\n\n{{ item.size }}\nt\n\n{{ item.signature }}\nw" | fdisk {{ host.disk.dev }}
+  changed_when: false
   with_items: '{{ host.disk.partitions }}'
 
 - name: Format partitions
   command: mkfs.{{ item.fstype }} {{ item.opts }} {{ item.dev }}
+  changed_when: false
   with_items: '{{ host.disk.partitions }}'
 
 - name: Mount main partition
   mount:
-    path: '{{host.dir }}{{ item.1.path }}'
+    path: '{{ host.dir }}{{ item.1.path }}'
     src: '{{ item.0.dev }}'
     fstype: '{{ item.0.fstype }}'
     state: mounted
@@ -30,7 +37,7 @@
 
 - name: Unmount main partition
   mount:
-    path: '{{host.dir }}{{ item.1.path }}'
+    path: '{{ host.dir }}{{ item.1.path }}'
     state: unmounted
   with_subelements:
     - '{{ host.disk.partitions }}'
@@ -39,7 +46,7 @@
 
 - name: Mount main partition
   mount:
-    path: '{{host.dir }}{{ item.1.path }}'
+    path: '{{ host.dir }}{{ item.1.path }}'
     src: '{{ item.0.dev }}'
     fstype: '{{ item.0.fstype }}'
     opts: '{{ item.1.opts }}'
@@ -53,6 +60,7 @@
   file:
     path: '{{ host.dir }}{{ item.1.path }}'
     state: directory
+    mode: '0755'
   with_subelements:
     - '{{ host.disk.partitions }}'
     - mounts

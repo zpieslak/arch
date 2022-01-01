@@ -70,7 +70,7 @@ Test internet connection
 
 Run initial run
 
-    ansible-playbook -k site.yml -t disk,setup -l test
+    ansible-playbook -k site.yml -t disk,boot -l test
 
 Remove offending key from ssh
 
@@ -127,3 +127,17 @@ Change mainline kernel to raspberry pi
 
     pacman -R --noconfirm linux-aarch64 uboot-raspberrypi
     pacman -S --noconfirm linux-raspberrypi4
+
+## Influx
+
+Delete measurement
+
+    influx delete --bucket "home_assistant" --predicate '_measurement="yourmeasurement"' -o yourorg --start '1970-01-01T00:00:00Z' --stop '2025-12-31T23:59:00Z'
+
+## Chrome
+
+Enable native notifications
+
+    chrome://flags/
+
+    Enable system notifications

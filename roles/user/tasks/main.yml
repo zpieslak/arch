@@ -2,15 +2,19 @@
 - name: Install packages
   pacman:
     name:
+      - binutils
+      - fakeroot
+      - gcc
+      - make
       - sudo
-    update_cache: yes
+    update_cache: true
 
 - name: Create user and add to wheel group
   user:
     name: '{{ host.user.wheel.name }}'
     shell: /bin/bash
     groups: wheel
-    append: yes
+    append: true
     password: '{{ host.user.wheel.password }}'
 
 - name: Allow wheel group to execute any command
@@ -24,31 +28,50 @@
   copy:
     src: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/
-    mode: 0644
+    mode: '0644'
     group: '{{ host.user.wheel.name }}'
     owner: '{{ host.user.wheel.name }}'
   with_items:
     - .bashrc
-    - .bashrc.d
-    - .bash_profile
+    - .bash_login
+    - .bash_login.d
+    - .config
     - .editrc
     - .inputrc
     - .ssh
+    - bin
+
+- name: Remove bash_profile file
+  file:
+    path: /home/{{ host.user.wheel.name }}/.bash_profile
+    state: absent
 
 - name: Copy ssh key
   authorized_key:
     user: '{{ host.user.wheel.name }}'
-    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    key: '{{ lookup("file", "~/.ssh/id_rsa.pub") }}'
+
+- name: Enable ssh-agent service
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+  become_method: machinectl
+  systemd:
+    state: started
+    daemon_reload: true
+    scope: user
+    name: ssh-agent
+    enabled: true
 
 - name: Setup autologin
   file:
     path: /etc/systemd/system/getty@tty1.service.d/
     state: directory
-  when: host.user.autologin == 'true'
+    mode: '0755'
+  when: host.user.autologin is defined
 
 - name: Set autologin on tty1
   template:
     src: override.conf.j2
     dest: /etc/systemd/system/getty@tty1.service.d/override.conf
-    mode: 0644
-  when: host.user.autologin == 'true'
+    mode: '0644'
+  when: host.user.autologin is defined

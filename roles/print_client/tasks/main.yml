@@ -4,16 +4,16 @@
     name:
       - cups
       - cups-pdf
-    update_cache: yes
+    update_cache: true
 
 - name: Copy cups files
   copy:
     src: cups/
     dest: /etc/cups/
-    mode: 0640
+    mode: '0640'
 
 - name: Start cups service
   systemd:
     state: started
     name: cups
-    enabled: yes
+    enabled: true

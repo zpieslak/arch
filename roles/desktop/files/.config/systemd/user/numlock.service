@@ -1,0 +1,11 @@
+[Unit]
+Description=Control the state of NumLock
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/numlockx on
+ExecStop=/usr/bin/numlockx off
+
+[Install]
+WantedBy=xorg.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=X resource database manager
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/xrdb -merge /home/%u/.Xresources
+
+[Install]
+WantedBy=xorg.target

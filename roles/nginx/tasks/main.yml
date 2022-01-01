@@ -2,13 +2,13 @@
 - name: Install package
   pacman:
     name: nginx
-    update_cache: yes
+    update_cache: true
 
 - name: Copy configuration file
   copy:
     src: '{{ item }}'
     dest: /etc/nginx/
-    mode: 0644
+    mode: '0644'
   with_items:
     - nginx.conf
     - conf.d
@@ -17,4 +17,4 @@
   systemd:
     state: started
     name: nginx
-    enabled: yes
+    enabled: true

@@ -1,31 +1,52 @@
 ---
+- name: Provide root password
+  pause:
+    prompt: Provide root password
+    echo: false
+  register: mysql_prompt
+
 - name: Refresh pacman cache
   pacman:
-    update_cache: yes
-
-- name: Install mysql
-  aur:
-    name: mysql
-  become: yes
-  become_user: '{{ host.user.wheel.name }}'
+    name:
+      - docker
+      - docker-compose
+      - mariadb-clients
+    update_cache: true
 
 - name: Disable Copy-on-Write
   file:
     path: /var/lib/mysql
     attributes: C
-    recurse: yes
+    recurse: true
 
-- name: Setup mysql
-  command: mysqld --initialize-insecure --user=mysql
+- name: Create directory
+  file:
+    path: /etc/docker/compose/mysql/
+    state: directory
+    mode: '0755'
+
+- name: Copy docker configuration
+  template:
+    src: docker-compose.yml.j2
+    dest: /etc/docker/compose/mysql/docker-compose.yml
+    mode: '0644'
+
+- name: Copy mysql configuration
+  template:
+    src: my.cnf.j2
+    dest: /home/{{ host.user.wheel.name }}/.my.cnf
+    mode: '0644'
+    group: '{{ host.user.wheel.name }}'
+    owner: '{{ host.user.wheel.name }}'
+
+- name: Copy docker systemd file
+  copy:
+    src: docker-compose@.service
+    dest: /usr/lib/systemd/system/
+    mode: '0644'
 
 - name: Start mysql service
   systemd:
     state: started
-    name: mysqld
-    enabled: yes
-
-- name: Wait for mysqld service
-  pause:
-
-- name: Add user
-  command: mysql -u root -e "CREATE USER '{{ host.user.wheel.name }}'@'localhost'; GRANT ALL PRIVILEGES ON *.* TO '{{ host.user.wheel.name }}'@'localhost';"
+    name: docker-compose@mysql
+    enabled: true

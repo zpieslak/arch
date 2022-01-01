@@ -9,14 +9,14 @@
 - name: Install package
   pacman:
     name: gvim
-    update_cache: yes
+    update_cache: true
     extra_args: --noconfirm
 
 - name: Copy dotfile
   copy:
     src: .vimrc
     dest: /home/{{ host.user.wheel.name }}/
-    mode: 0644
+    mode: '0644'
     group: '{{ host.user.wheel.name }}'
     owner: '{{ host.user.wheel.name }}'
 
@@ -25,7 +25,8 @@
     repo: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/.vim/pack/plugins/start/{{ item | regex_search('[^/]+(?=.git)') }}
     depth: 1
-    force: yes
+    force: true
+    version: master
   with_items: '{{ host.vim.plugins }}'
 
 - name: Fix permissions
@@ -33,8 +34,8 @@
     path: /home/{{ host.user.wheel.name }}/.vim
     owner: '{{ host.user.wheel.name }}'
     group: '{{ host.user.wheel.name }}'
-    recurse: yes
-    mode: 0755
+    recurse: true
+    mode: '0755'
 
 - name: Set EDITOR
   lineinfile:

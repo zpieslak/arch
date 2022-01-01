@@ -1,0 +1,23 @@
+---
+- name: Install packages
+  pacman:
+    name:
+      - alsa-utils
+      - sof-firmware
+    update_cache: true
+
+- name: Turn on microphone
+  command: amixer set Mic toggle
+  changed_when: false
+
+- name: Copy alsa settings
+  copy:
+    src: '{{ ansible_limit }}/'
+    dest: /var/lib/alsa/
+    mode: '0644'
+
+- name: Copy modprobe changes
+  copy:
+    src: modprobe.d/
+    dest: /etc/modprobe.d/
+    mode: '0644'

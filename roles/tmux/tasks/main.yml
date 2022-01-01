@@ -4,37 +4,37 @@
     name:
       - tmux
       - xclip
-    update_cache: yes
+    update_cache: true
 
-- name: Install additional aur plugins
-  aur:
-    name: '{{ item }}'
-  become: yes
+- name: Copy configuration files
+  copy:
+    src: '{{ item }}'
+    dest: /home/{{ host.user.wheel.name }}/
+    mode: '0644'
+    group: '{{ host.user.wheel.name }}'
+    owner: '{{ host.user.wheel.name }}'
+  with_items:
+    - bin
+    - .config
+    - .bashrc.d
+    - .tmux.conf
+    - .tmux
+
+- name: Enable tmux service
+  become: true
   become_user: '{{ host.user.wheel.name }}'
-  with_items: '{{ host.tmux.plugins.aur }}'
-
-- name: Install additional git plugins
-  git:
-    repo: '{{ item }}'
-    dest: /home/{{ host.user.wheel.name }}/.tmux/{{ item | regex_search('[^/]+(?=.git)') }}
-    depth: 1
-  with_items: '{{ host.tmux.plugins.git }}'
+  become_method: machinectl
+  systemd:
+    state: started
+    daemon_reload: true
+    scope: user
+    name: tmux
+    enabled: true
 
 - name: Fix permissions
   file:
     path: /home/{{ host.user.wheel.name }}/.tmux
     owner: '{{ host.user.wheel.name }}'
     group: '{{ host.user.wheel.name }}'
-    recurse: yes
-    mode: 0644
-
-- name: Copy configuration files
-  copy:
-    src: '{{ item }}'
-    dest: /home/{{ host.user.wheel.name }}/
-    mode: 0644
-    group: '{{ host.user.wheel.name }}'
-    owner: '{{ host.user.wheel.name }}'
-  with_items:
-    - .tmux.conf
-    - .bashrc.d
+    recurse: true
+    mode: '0755'

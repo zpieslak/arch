@@ -2,19 +2,19 @@
 - name: Install postgresql
   pacman:
     name: postgresql
-    update_cache: yes
+    update_cache: true
 
 - name: Create postgresql root directory
   file:
     path: '{{ host.postgresql.dir }}'
     state: directory
-    mode: 0755
+    mode: '0755'
 
 - name: Create postgresql data directory
   file:
     path: '{{ host.postgresql.dir }}/data'
     state: directory
-    mode: 0700
+    mode: '0700'
     group: postgres
     owner: postgres
 
@@ -22,16 +22,18 @@
   file:
     path: /etc/systemd/system/postgresql.service.d/
     state: directory
+    mode: '0755'
 
 - name: Disable Copy-on-Write
   file:
     path: '{{ host.postgresql.dir }}'
     attributes: C
-    recurse: yes
-  when: host.postgresql.cow == 'true'
+    recurse: true
+  when: host.postgresql.cow is defined
 
 - name: Setup postgresql
   command: initdb --locale {{ host.system.locale }} -E {{ host.system.charset }} -D {{ host.postgresql.dir }}/data
+  changed_when: false
   become: true
   become_user: postgres
 
@@ -39,20 +41,22 @@
   template:
     src: override.conf.j2
     dest: /etc/systemd/system/postgresql.service.d/override.conf
-    mode: 0644
+    mode: '0644'
 
 - name: Start postgresql service
   systemd:
     state: started
     name: postgresql
-    enabled: yes
+    enabled: true
 
 - name: Set superuser
   command: createuser --superuser {{ host.user.wheel.name }}
+  changed_when: false
   become: true
   become_user: postgres
 
 - name: Create superuser database
   command: createdb {{ host.user.wheel.name }}
+  changed_when: false
   become: true
   become_user: postgres

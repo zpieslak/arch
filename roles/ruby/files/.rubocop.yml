@@ -1,3 +1,4 @@
+---
 require:
   - rubocop-rails
   - rubocop-rspec
@@ -9,34 +10,34 @@ AllCops:
   TargetRubyVersion: 2.7
   DisplayStyleGuide: true
   Exclude:
-    - 'bin/**/*'
-    - 'db/**/*'
-    - 'spec/cache/**/*'
-    - 'tmp/**/*'
+    - bin/**/*
+    - db/**/*
+    - spec/cache/**/*
+    - tmp/**/*
 
 Layout/LineLength:
   Enabled: false
 
 Lint/EmptyBlock:
   Exclude:
-    - 'spec/**/*'
+    - spec/**/*
 
 Lint/UnreachableCode:
   Exclude:
-    - 'app/concepts/**/operation/**'
+    - app/concepts/**/operation/**
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*'
+    - spec/**/*
 
 Naming/MethodName:
   Exclude:
-    - 'app/concepts/**/macro/**'
+    - app/concepts/**/macro/**
 
 Naming/VariableNumber:
   EnforcedStyle: snake_case
   Exclude:
-    - 'config/routes.rb'
+    - config/routes.rb
 
 Rails:
   Enabled: true
@@ -49,7 +50,7 @@ Rails/UnknownEnv:
 
 RSpec/DescribeClass:
   Exclude:
-    - 'spec/requests/**/*'
+    - spec/requests/**/*
 
 RSpec/ExampleLength:
   Enabled: false
@@ -77,4 +78,4 @@ Style/FrozenStringLiteralComment:
 
 Style/SignalException:
   Exclude:
-    - 'app/concepts/**/operation/**'
+    - app/concepts/**/operation/**

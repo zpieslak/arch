@@ -1,11 +1,9 @@
 ---
-  host:
-    system:
-      mirrors:
-        - http://mirror.archlinuxarm.org/$arch/$repo
-    wifi:
-      interface: wlan0
-      ssid: test
-      key: test
-    user:
-      autologin: false
+host:
+  system:
+    mirrors:
+      - http://mirror.archlinuxarm.org/$arch/$repo
+  wifi:
+    interface: wlan0
+    ssid: test
+    key: test

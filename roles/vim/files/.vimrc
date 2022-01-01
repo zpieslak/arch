@@ -80,39 +80,6 @@ autocmd BufRead,BufNewFile *.es6 set filetype=javascript
 " Detect filetypes and indentation based on plugin
 filetype plugin indent on
 
-" Syntastic settings
-" Enable checkers
-let g:syntastic_ruby_checkers = ['rubocop']
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_typescriptreact_checkers = ['eslint']
-let g:syntastic_less_checkers = ['lessc']
-let g:syntastic_sass_checkers = ['sass']
-let g:syntastic_scss_checkers = ['sass', 'scss_lint']
-let g:syntastic_coffee_checkers = ['coffee', 'coffeelint']
-let g:syntastic_markdown_checkers = ['mdl']
-let g:syntastic_sh_checkers = ['checkbashisms', 'shellcheck']
-let g:syntastic_haml_checkers = ['haml', 'haml_lint']
-let g:syntastic_python_checkers = ['flake8']
-
-" If enabled, syntastic will do syntax checks when buffers are first loaded as well as on saving
-let g:syntastic_check_on_open = 1
-
-" Use this option to tell syntastic whether to use the |:sign| interface to mark syntax errors
-let g:syntastic_enable_signs = 0
-
-" Enable this option to tell syntastic to always stick any detected errors into the |location-list|
-let g:syntastic_always_populate_loc_list = 1
-
-" When set to 1 the error window will be automatically opened when errors are detected, and closed when none are detected.
-let g:syntastic_auto_loc_list = 1
-
-" Run eslint through npx
-let g:syntastic_javascript_eslint_exe = 'npx eslint'
-let g:syntastic_javascript_eslint_exec = '/bin/ls'
-
-" Map non-standard filetypes to standard ones
-let g:syntastic_filetype_map = {"typescriptreact": "javascript"}
-
 " Vim-markdown settings
 " Set folding level
 let g:vim_markdown_folding_level = 3
@@ -134,3 +101,49 @@ cabbr <expr> %% expand('%:p:h')
 
 " Silence search highlights
 :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+" Ale settings
+" Chek files
+let g:ale_linters = {
+\ 'ansible': ['ansible_lint'],
+\ 'cs': ['OmniSharp'],
+\ 'haskell': ['ghc'],
+\ 'javascript': ['eslint'],
+\ 'json' : ['jq'],
+\ 'python' : ['flake8'],
+\ 'ruby' : ['rubocop'],
+\ 'terraform' : ['terraform'],
+\ 'typescript' : ['tslint'],
+\ 'typescriptreact' : ['tslint'],
+\ 'yaml' : ['yamllint'],
+\}
+
+" Fix files
+let g:ale_fixers = {
+\ 'cs': ['dotnet-format'],
+\ 'javascript': ['eslint'],
+\ 'python' : ['autopep8'],
+\ 'ruby' : ['rubocop'],
+\ 'json' : ['jq'],
+\ 'terraform' : ['terraform'],
+\ 'typescript' : ['tslint'],
+\ 'typescriptreact' : ['tslint'],
+\}
+
+" Only run linters named in ale_linters settings.
+let g:ale_linters_explicit = 1
+
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
+
+" Map Ale wrap
+" nmap <silent> <A-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <A-j> <Plug>(ale_next_wrap)
+
+" Set synthax for ssh config
+au BufNewFile,BufRead */.ssh/conf.d/* setf sshconfig
+
+augroup omnisharp_commands
+  autocmd!
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osre <Plug>(omnisharp_restart_server)
+augroup END

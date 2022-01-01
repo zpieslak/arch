@@ -1,3 +1,4 @@
+---
 parserOptions:
   sourceType: module
   ecmaVersion: 6
@@ -18,10 +19,10 @@ rules:
     - 2
   no-unused-vars:
     - 2
-    - { 'argsIgnorePattern': '^_' }
+    - {argsIgnorePattern: ^_}
   no-extra-parens:
     - 2
 env:
   browser: true
   jquery: true
-extends: 'eslint:recommended'
+extends: eslint:recommended

@@ -1,0 +1,9 @@
+[Unit]
+Description=Battery alert
+
+[Service]
+Type=oneshot
+ExecStart=%h/bin/dunst/battery.sh
+
+[Install]
+WantedBy=xorg.target

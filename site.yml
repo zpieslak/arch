@@ -2,57 +2,71 @@
 - name: All
   hosts: all
   roles:
-    - { role: system, tags: system }
-    - { role: user, tags: user }
-    - { role: ag, tags: ag }
-    - { role: git, tags: git }
-    - { role: vim, tags: vim }
+    - {role: system, tags: system}
+    - {role: user, tags: user}
+    - {role: ag, tags: ag}
+    - {role: git, tags: git}
+    - {role: vim, tags: vim}
+
+- name: Test
+  hosts: test
+  roles:
+    - {role: disk, tags: disk}
+    - {role: boot, tags: boot}
+    - {role: alsa, tags: alsa}
+    - {role: tmux, tags: tmux}
+    - {role: mysql, tags: mysql}
+    - {role: postgresql, tags: postgresql}
+    - {role: ruby, tags: ruby}
+    - {role: node, tags: node}
+    - {role: media, tags: media}
+    - {role: virtualbox, tags: virtualbox}
+    - {role: desktop, tags: desktop}
 
 - name: Laptop
-  hosts: laptop
+  hosts: lenovo:dell:local
   roles:
-    - { role: disk, tags: disk }
-    - { role: boot, tags: boot }
-    - { role: mysql, tags: mysql }
-    - { role: postgresql, tags: postgresql }
-    - { role: memcached, tags: memcached }
-    - { role: ruby, tags: ruby }
-    - { role: node, tags: node }
-    - { role: tmux, tags: tmux }
-    - { role: desktop, tags: desktop }
-    - { role: upwork, tags: upwork }
-    - { role: spotify, tags: spotify }
-    - { role: virtualbox, tags: virtualbox }
-    - { role: tools, tags: tools }
-    - { role: imagemagick, tags: imagemagick }
-    - { role: keepassxc, tags: keepassxc }
-    - { role: print_client, tags: print_client }
+    - {role: disk, tags: disk}
+    - {role: boot, tags: boot}
+    - {role: alsa, tags: alsa}
+    - {role: mysql, tags: mysql}
+    - {role: postgresql, tags: postgresql}
+    - {role: memcached, tags: memcached}
+    - {role: ruby, tags: ruby}
+    - {role: node, tags: node}
+    - {role: tmux, tags: tmux}
+    - {role: desktop, tags: desktop}
+    - {role: upwork, tags: upwork}
+    - {role: virtualbox, tags: virtualbox}
+    - {role: tools, tags: tools}
+    - {role: media, tags: media}
+    - {role: print_client, tags: print_client}
 
 - name: Pi
   hosts: pi:zero
-  become: yes
+  become: true
   roles:
-    - { role: arm, tags: arm, delegate_to: localhost }
+    - {role: arm, tags: arm, delegate_to: localhost}
 
 - name: Pi
   hosts: pi
   roles:
-    - { role: python, tags: python }
-    - { role: postgresql, tags: postgresql }
-    - { role: minidlna, tags: minidlna }
-    - { role: nginx, tags: nginx }
-    - { role: aria2, tags: aria2 }
-    - { role: nfs, tags: nfs }
-    - { role: mosquitto_server, tags: mosquitto_server }
-    - { role: samba, tags: samba }
-    - { role: influxdb, tags: influxdb }
-    - { role: home_assistant, tags: home_assistant }
-    - { role: zigbee2mqtt, tags: zigbee2mqtt }
-    - { role: print_server, tags: print_server }
+    - {role: python, tags: python}
+    - {role: postgresql, tags: postgresql}
+    - {role: minidlna, tags: minidlna}
+    - {role: nginx, tags: nginx}
+    - {role: aria2, tags: aria2}
+    - {role: nfs, tags: nfs}
+    - {role: mosquitto_server, tags: mosquitto_server}
+    - {role: samba, tags: samba}
+    - {role: influxdb, tags: influxdb}
+    - {role: home_assistant, tags: home_assistant}
+    - {role: zigbee2mqtt, tags: zigbee2mqtt}
+    - {role: print_server, tags: print_server}
 
 - name: Zero
   hosts: zero
   roles:
-    - { role: python, tags: python }
-    - { role: mosquitto_client, tags: mosquitto_client }
-    - { role: rtl_sdr, tags: rtl_sdr }
+    - {role: python, tags: python}
+    - {role: mosquitto_client, tags: mosquitto_client}
+    - {role: rtl_sdr, tags: rtl_sdr}

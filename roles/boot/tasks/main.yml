@@ -1,21 +1,29 @@
 ---
 - name: Run pacstrap
-  shell: pacstrap {{ host.dir }} base linux linux-firmware btrfs-progs grub efibootmgr openssh python wpa_supplicant
+  command: pacstrap {{ host.dir }} base linux linux-firmware btrfs-progs grub efibootmgr openssh python wpa_supplicant
+  changed_when: false
 
 - name: Generate fstab
   shell: genfstab -U {{ host.dir }} >> {{ host.dir }}/etc/fstab
+  changed_when: false
 
 - name: Install grub
   command: arch-chroot {{ host.dir }} grub-install --target=x86_64-efi
+  changed_when: false
 
 - name: Configure grub
   command: arch-chroot {{ host.dir }} grub-mkconfig -o /boot/grub/grub.cfg
+  changed_when: false
 
 - name: Enable sshd
   command: arch-chroot {{ host.dir }} systemctl enable sshd
+  changed_when: false
 
 - name: Set password to root
-  shell: echo root:'{{ host.user.root.password }}' | chpasswd -e -R {{ host.dir }}
+  shell: |
+    set -o pipefail
+    echo root:'{{ host.user.root.password }}' | chpasswd -e -R {{ host.dir }}
+  changed_when: false
 
 - name: Enable ssh root login with password
   lineinfile:
@@ -27,22 +35,28 @@
   copy:
     src: '{{ ansible_limit }}/'
     dest: '{{ host.dir }}/etc/systemd/network/'
-    mode: 0644
+    mode: '0644'
 
 - name: Copy wpa_supplicant configuration
   template:
     src: wpa_supplicant.conf.j2
     dest: '{{ host.dir }}/etc/wpa_supplicant/wpa_supplicant-{{ host.wifi.interface }}.conf'
-
-- name: Enable systemd network
-  command: arch-chroot {{ host.dir }} systemctl enable systemd-networkd
+    mode: '0644'
+  when: host.wifi is defined
 
 - name: Enable systemd wpa_supplicant
   command: arch-chroot {{ host.dir }} systemctl enable wpa_supplicant@{{ host.wifi.interface }}
+  changed_when: false
+  when: host.wifi is defined
+
+- name: Enable systemd network
+  command: arch-chroot {{ host.dir }} systemctl enable systemd-networkd
+  changed_when: false
 
 - name: Enable systemd resolved
   command: arch-chroot {{ host.dir }} systemctl enable systemd-resolved
+  changed_when: false
 
   notify:
-   - reboot
-   - wait for restart
+    - reboot
+    - wait for restart

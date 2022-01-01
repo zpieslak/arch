@@ -3,4 +3,4 @@
   pacman:
     name:
       - mosquitto
-    update_cache: yes
+    update_cache: true

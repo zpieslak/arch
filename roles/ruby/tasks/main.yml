@@ -4,6 +4,7 @@
     repo: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/.rbenv
     depth: 1
+    version: master
   with_items: '{{ host.rbenv.git }}'
 
 - name: Install plugins
@@ -11,17 +12,18 @@
     repo: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/.rbenv/plugins/{{ item | regex_search('[^/]+(?=.git)') }}
     depth: 1
+    version: master
   with_items: '{{ host.rbenv.plugins }}'
 
 - name: Copy configuration files
   copy:
     src: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/
-    mode: 0644
+    mode: '0644'
     group: '{{ host.user.wheel.name }}'
     owner: '{{ host.user.wheel.name }}'
   with_items:
-    - .bashrc.d
+    - .bash_login.d
     - .gemrc
     - .rspec
     - .rubocop.yml

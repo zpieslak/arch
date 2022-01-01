@@ -2,4 +2,14 @@
 - name: Install package
   pacman:
     name: python
-    update_cache: yes
+    update_cache: true
+
+- name: Copy configuration files
+  copy:
+    src: '{{ item }}'
+    dest: /home/{{ host.user.wheel.name }}/
+    mode: '0644'
+    group: '{{ host.user.wheel.name }}'
+    owner: '{{ host.user.wheel.name }}'
+  with_items:
+    - .flake8

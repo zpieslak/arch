@@ -27,3 +27,10 @@
     - .gemrc
     - .rspec
     - .rubocop.yml
+
+- name: Fix permissions
+  file:
+    path: /home/{{ host.user.wheel.name }}/.rbenv
+    owner: '{{ host.user.wheel.name }}'
+    group: '{{ host.user.wheel.name }}'
+    recurse: true

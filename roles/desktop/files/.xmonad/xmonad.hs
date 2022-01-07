@@ -28,9 +28,9 @@ main = xmonad $ def
       spawnOnce "min"
       spawnOnce "keepassxc"
   } `additionalKeysP` [
-    -- ("<XF86MonBrightnessUp>", spawn "xbacklight +20"),
-    -- ("<XF86MonBrightnessDown>", spawn "xbacklight -20"),
     ("<Print>", spawn "~/bin/screenshot.sh"),
+    ("<XF86MonBrightnessUp>", spawn "~/bin/dunst/backlight.sh 1"),
+    ("<XF86MonBrightnessDown>", spawn "~/bin/dunst/backlight.sh -1"),
     ("<XF86AudioLowerVolume>", spawn "~/bin/dunst/volume.sh 2dB- unmute"),
     ("<XF86AudioRaiseVolume>", spawn "~/bin/dunst/volume.sh 2dB+ unmute"),
     ("<XF86AudioMute>", spawn "~/bin/dunst/volume.sh mute"),

@@ -6,11 +6,13 @@
       - ansible
       - ansible-lint
       - aws-cli
+      - inetutils
       - jq
       - p7zip
       - rsync
       - sshpass
       - terraform
+      - unrar
       - unzip
       - which
       - yamllint

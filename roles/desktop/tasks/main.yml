@@ -60,11 +60,7 @@
       - xorg-xinit
     update_cache: true
 
-- name: Set keyboard
-  command: localectl set-x11-keymap '{{ host.system.keymap }}'
-  changed_when: false
-
-- name: Copy touchpad file
+- name: Copy xorg files
   copy:
     src: xorg.conf.d
     dest: /usr/share/X11/

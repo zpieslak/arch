@@ -3,3 +3,5 @@
   name = Zbigniew Pieślak
 [color]
   ui = auto
+[diff]
+  noprefix = true

@@ -1,9 +1,0 @@
-[Match]
-Name=wlp2s0
-
-[Network]
-DHCP=yes
-DNSSEC=no
-
-[DHCP]
-RouteMetric=20

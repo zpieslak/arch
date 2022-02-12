@@ -14,9 +14,11 @@
       - terraform
       - unrar
       - unzip
+      - usbutils
       - which
       - yamllint
       - yarn
+      - zip
     update_cache: true
 
 - name: Copy custom files

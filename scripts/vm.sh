@@ -2,10 +2,9 @@
 
 # Settings
 VM_NAME='Arch_Linux_64'
-VM_DVD='archlinux-2021.11.01-x86_64.iso'
+VM_DVD='archlinux-2022.02.01-x86_64.iso'
 VM_TYPE='ArchLinux_64'
-# VM_DIR=~/VirtualBox\ VMs/$VM_NAME
-VM_DIR=/mnt/disk/home/zbigniew/VirtualBox\ VMs/$VM_NAME
+VM_DIR=~/VirtualBox\ VMs/$VM_NAME
 
 # Create hard disk
 VBoxManage createmedium disk --filename "$VM_DIR/$VM_NAME.vdi" --size 10240

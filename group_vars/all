@@ -22,25 +22,29 @@ host:
         mounts:
           -
             path: /root
+  desktop:
+    acpi: intel_backlight
+    dpi: 96
   dir: /mnt
   disk:
-    dev: /dev/nvme0n1
+    dev: /dev/sda
+    prefix:
     partitions:
       -
-        dev: /dev/nvme0n1p1
+        index: 1
         fstype: vfat
         signature: 1
         opts: -F32
-        size: +250M
+        size: +512M
         mounts:
           -
-            path: /boot/efi
+            path: /boot
             opts: umask=0077
       -
-        dev: /dev/nvme0n1p2
+        index: 2
         fstype: btrfs
         signature: 20
-        opts: -f
+        opts: -f -L root
         size:
         mounts:
           -
@@ -69,11 +73,13 @@ host:
     keymap: pl
     lc_time: en_GB.UTF-8
     locale: en_US.UTF-8
+    modprobe:
+      - blacklist pcspkr
     mirrors:
-      - http://mirror.onet.pl/pub/mirrors/archlinux/$repo/os/$arch
-      - http://piotrkosoft.net/pub/mirrors/ftp.archlinux.org/$repo/os/$arch
-      - http://ftp.vectranet.pl/archlinux/$repo/os/$arch
+      - http://mirror.juniorjpdj.pl/archlinux/$repo/os/$arch
+      - http://ftp.icm.edu.pl/pub/Linux/dist/archlinux/$repo/os/$arch
       - http://arch.midov.pl/arch/$repo/os/$arch
+      - http://mirror.onet.pl/pub/mirrors/archlinux/$repo/os/$arch
     timezone: Poland
   user:
     root:

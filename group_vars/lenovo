@@ -1,5 +1,25 @@
 ---
 host:
+  boot:
+    network:
+      -
+        name: ethernet
+        contents:
+          Match:
+            Name: enp1s0
+          Network:
+            DHCP: true
+          DHCP:
+            RouteMetric: 10
+      -
+        name: wifi
+        contents:
+          Match:
+            Name: wlp2s0
+          Network:
+            DHCP: true
+          DHCP:
+            RouteMetric: 20
   postgresql:
     cow: true
   wifi:

@@ -49,10 +49,10 @@
     name:
       - terminus-font
 
-- name: Copy modprobe changes
-  copy:
-    src: modprobe.d
-    dest: /etc/
+- name: Add modprobe changes
+  template:
+    src: modprobe.conf.j2
+    dest: /etc/modprobe.d/system.conf
     mode: '0644'
 
 - name: Copy hosts

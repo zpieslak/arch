@@ -5,6 +5,15 @@ host:
     mounts:
       - wd
       - wd2
+  boot:
+    network:
+      -
+        name: ethernet
+        contents:
+          Match:
+            Name: eth0
+          Network:
+            DHCP: true
   postgresql:
     dir: /wd/database/postgres
   system:

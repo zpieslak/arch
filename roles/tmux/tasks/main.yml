@@ -14,11 +14,18 @@
     group: '{{ host.user.wheel.name }}'
     owner: '{{ host.user.wheel.name }}'
   with_items:
-    - bin
     - .config
     - .bashrc.d
     - .tmux.conf
     - .tmux
+
+- name: Copy bin files
+  copy:
+    src: bin
+    dest: /home/{{ host.user.wheel.name }}/
+    mode: '0755'
+    group: '{{ host.user.wheel.name }}'
+    owner: '{{ host.user.wheel.name }}'
 
 - name: Enable tmux service
   become: true

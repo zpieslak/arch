@@ -8,7 +8,7 @@
 - name: Copy xmonad hook
   template:
     src: xmonad.hook.j2
-    dest: /etc/pacman.d/hooks/xmonad.hooks
+    dest: /etc/pacman.d/hooks/xmonad.hook
     mode: '0644'
 
 - name: Copy configuration files
@@ -25,7 +25,6 @@
     - .xinitrc
     - .xmonad
     - .Xresources
-    - .Xresources.d
 
 - name: Copy bin files
   copy:
@@ -66,11 +65,27 @@
     dest: /usr/share/X11/
     mode: '0644'
 
-- name: Add backlight udev rules
-  copy:
-    src: udev
-    dest: /etc/udev/
+- name: Create Xresources directory
+  file:
+    path: /home/{{ host.user.wheel.name }}/.Xresources.d
+    state: directory
     mode: '0755'
+    group: '{{ host.user.wheel.name }}'
+    owner: '{{ host.user.wheel.name }}'
+
+- name: Add xft settings
+  template:
+    src: xft.j2
+    dest: /home/{{ host.user.wheel.name }}/.Xresources.d/xft
+    mode: '0644'
+    group: '{{ host.user.wheel.name }}'
+    owner: '{{ host.user.wheel.name }}'
+
+- name: Add backlight udev rules
+  template:
+    src: 80-backlight.rules.j2
+    dest: /etc/udev/rules.d/80-backlight.rules
+    mode: '0644'
 
 - name: Add user to video group
   user:

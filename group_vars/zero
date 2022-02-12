@@ -1,5 +1,14 @@
 ---
 host:
+  boot:
+    network:
+      -
+        name: wifi
+        contents:
+          Match:
+            Name: wlan0
+          Network:
+            DHCP: true
   system:
     mirrors:
       - http://mirror.archlinuxarm.org/$arch/$repo

@@ -1,5 +1,0 @@
-[Match]
-Name=enp0s8
-
-[Network]
-Address=192.168.56.2/24

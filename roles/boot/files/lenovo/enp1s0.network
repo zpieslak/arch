@@ -1,9 +1,0 @@
-[Match]
-Name=enp1s0
-
-[Network]
-DHCP=yes
-DNSSEC=no
-
-[DHCP]
-RouteMetric=10

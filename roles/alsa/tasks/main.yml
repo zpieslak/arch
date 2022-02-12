@@ -3,7 +3,6 @@
   pacman:
     name:
       - alsa-utils
-      - sof-firmware
     update_cache: true
 
 - name: Turn on microphone
@@ -16,8 +15,8 @@
     dest: /var/lib/alsa/
     mode: '0644'
 
-- name: Copy modprobe changes
-  copy:
-    src: modprobe.d/
-    dest: /etc/modprobe.d/
+- name: Add modprobe changes
+  template:
+    src: modprobe.conf.j2
+    dest: /etc/modprobe.d/alsa.conf
     mode: '0644'

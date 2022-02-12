@@ -23,22 +23,22 @@ colors:
     white: '0xfdf6e3'
 font:
   normal:
-    family: 'DejaVu Sans Mono'
-    style: 'Regular'
+    family: DejaVu Sans Mono
+    style: Regular
   bold:
-    family: 'DejaVu Sans Mono'
-    style: 'Bold'
+    family: DejaVu Sans Mono
+    style: Bold
   italic:
-    family: 'DejaVu Sans Mono'
-    style: 'Italic'
+    family: DejaVu Sans Mono
+    style: Italic
   bold_italic:
-    family: 'DejaVu Sans Mono'
-    style: 'Bold Italic'
-  size: 11.0
+    family: DejaVu Sans Mono
+    style: Bold Italic
+  size: 9.0
 mouse:
   hide_when_typing: true
 scrolling:
   history: 0
 window:
-  decorations: 'none'
-  startup_mode: 'Fullscreen'
+  decorations: none
+  startup_mode: Fullscreen

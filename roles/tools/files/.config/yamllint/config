@@ -9,13 +9,10 @@ rules:
   brackets: enable
   colons: enable
   commas: enable
-  comments:
-    level: warning
-  comments-indentation:
-    level: warning
+  comments: enable
+  comments-indentation: enable
   document-end: disable
-  document-start:
-    level: warning
+  document-start: enable
   empty-lines: enable
   empty-values: disable
   hyphens: enable
@@ -31,5 +28,4 @@ rules:
     quote-type: single
     required: only-when-needed
   trailing-spaces: enable
-  truthy:
-    level: warning
+  truthy: enable

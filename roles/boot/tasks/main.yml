@@ -1,18 +1,26 @@
 ---
 - name: Run pacstrap
-  command: pacstrap {{ host.dir }} base linux linux-firmware btrfs-progs grub efibootmgr openssh python wpa_supplicant
+  command: pacstrap {{ host.dir }} base linux linux-firmware btrfs-progs openssh python wpa_supplicant
   changed_when: false
 
 - name: Generate fstab
   shell: genfstab -U {{ host.dir }} >> {{ host.dir }}/etc/fstab
   changed_when: false
 
-- name: Install grub
-  command: arch-chroot {{ host.dir }} grub-install --target=x86_64-efi
+- name: Install efi loader
+  command: arch-chroot {{ host.dir }} bootctl install
   changed_when: false
 
-- name: Configure grub
-  command: arch-chroot {{ host.dir }} grub-mkconfig -o /boot/grub/grub.cfg
+- name: Copy loader files
+  copy:
+    src: loader
+    dest: '{{ host.dir }}{{ item.1.path }}/'
+    mode: '0700'
+  loop: '{{ host.disk.partitions|subelements("mounts") }}'
+  when: item.0.index == 1
+
+- name: Enable systemd boot update
+  command: arch-chroot {{ host.dir }} systemctl enable systemd-boot-update
   changed_when: false
 
 - name: Enable sshd
@@ -32,10 +40,11 @@
     line: PermitRootLogin yes
 
 - name: Copy systemd network profile
-  copy:
-    src: '{{ ansible_limit }}/'
-    dest: '{{ host.dir }}/etc/systemd/network/'
+  template:
+    src: systemd-networkd.network.j2
+    dest: '{{ host.dir }}/etc/systemd/network/{{ item.name }}.network'
     mode: '0644'
+  loop: '{{ host.boot.network|flatten(levels=1) }}'
 
 - name: Copy wpa_supplicant configuration
   template:

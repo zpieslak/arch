@@ -117,8 +117,8 @@ let g:ale_linters = {
 \ 'ansible': ['ansible_lint'],
 \ 'cs': ['OmniSharp'],
 \ 'haskell': ['ghc'],
-\ 'javascript': ['eslint'],
-\ 'json' : ['jq'],
+\ 'javascript': ['eslint', 'prettier'],
+\ 'json' : ['jq', 'prettier'],
 \ 'python' : ['flake8'],
 \ 'ruby' : ['rubocop'],
 \ 'terraform' : ['terraform'],
@@ -131,17 +131,17 @@ let g:ale_linters = {
 " Fix files
 let g:ale_fixers = {
 \ 'cs': ['dotnet-format'],
-\ 'javascript': ['eslint'],
+\ 'javascript': ['eslint', 'prettier'],
 \ 'python' : ['autopep8'],
 \ 'ruby' : ['rubocop'],
 \ 'json' : ['jq'],
 \ 'terraform' : ['terraform'],
-\ 'typescript' : ['tslint'],
+\ 'typescript' : ['prettier', 'tslint'],
 \ 'typescriptreact' : ['tslint'],
 \}
 
 " Only run linters named in ale_linters settings.
-" let g:ale_linters_explicit = 1
+let g:ale_linters_explicit = 1
 
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1

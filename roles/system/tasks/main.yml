@@ -47,7 +47,14 @@
 - name: Install packages
   pacman:
     name:
+      - pacman-contrib
       - terminus-font
+
+- name: Copy paccache hook
+  copy:
+    src: pacman.d
+    dest: /etc/
+    mode: '0644'
 
 - name: Add modprobe changes
   template:

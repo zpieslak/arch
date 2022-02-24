@@ -108,3 +108,4 @@ host:
       - https://github.com/vim-ruby/vim-ruby.git
       - https://github.com/hashivim/vim-terraform.git
       - https://github.com/christoomey/vim-tmux-navigator.git
+      - https://github.com/martinda/Jenkinsfile-vim-syntax.git

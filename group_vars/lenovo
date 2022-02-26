@@ -20,8 +20,13 @@ host:
             DHCP: true
           DHCP:
             RouteMetric: 20
+  desktop:
+    acpi: intel_backlight
+    dpi: 96
   postgresql:
     cow: true
+  system:
+    font: ter-u20n
   wifi:
     interface: wlp2s0
     ssid: test

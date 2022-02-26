@@ -24,7 +24,7 @@
     fstype: '{{ item.0.fstype }}'
     state: mounted
   loop: '{{ host.disk.partitions|subelements("mounts") }}'
-  when: item.0.index == 2
+  when: item.1.path == '/'
 
 - name: Create btrfs subvolumes
   command: btrfs subvolume create {{ host.dir }}{{ item.1.subvolume }}
@@ -33,10 +33,10 @@
 
 - name: Unmount main partition
   mount:
-    path: '{{ host.disk.dev }}{{ host.disk.prefix }}{{ item.0.index }}'
+    path: '{{ host.dir }}{{ item.1.path }}'
     state: unmounted
   loop: '{{ host.disk.partitions|subelements("mounts") }}'
-  when: item.0.index == 2
+  when: item.1.path == '/'
 
 - name: Mount main partition
   mount:
@@ -46,7 +46,7 @@
     opts: '{{ item.1.opts }}'
     state: mounted
   loop: '{{ host.disk.partitions|subelements("mounts") }}'
-  when: item.0.index == 2
+  when: item.1.path == '/'
 
 - name: Create directories
   file:

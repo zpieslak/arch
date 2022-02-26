@@ -9,7 +9,7 @@
 
 - name: Install package
   aur:
-    name: libmagick6
+    name: imagemagick6
   become: true
   become_user: '{{ host.user.wheel.name }}'
 

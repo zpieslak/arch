@@ -1,5 +1,7 @@
 ---
 host:
+  alsa:
+    modprobe:
   arm:
     image: /tmp/ArchLinuxARM-rpi-aarch64-latest.tar.gz
     dev: /dev/mmcblk0
@@ -61,9 +63,13 @@ host:
             opts: defaults,discard,compress=lzo,subvol=@snapshots
   mosquitto:
     server: pi.lan
+  node:
+    git: https://github.com/nodenv/nodenv.git
+    plugins:
+      - https://github.com/nodenv/node-build.git
   postgresql:
     dir: /var/lib/postgres
-  rbenv:
+  ruby:
     git: https://github.com/rbenv/rbenv.git
     plugins:
       - https://github.com/rbenv/ruby-build.git

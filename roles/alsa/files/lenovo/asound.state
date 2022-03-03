@@ -534,8 +534,8 @@ state.PCH {
 	control.10 {
 		iface MIXER
 		name 'Mic Capture Volume'
-		value.0 66
-		value.1 66
+		value.0 73
+		value.1 73
 		comment {
 			access 'read write'
 			type INTEGER
@@ -543,8 +543,8 @@ state.PCH {
 			range '0 - 80'
 			dbmin -7400
 			dbmax 600
-			dbvalue.0 -800
-			dbvalue.1 -800
+			dbvalue.0 -100
+			dbvalue.1 -100
 		}
 	}
 	control.11 {
@@ -617,7 +617,7 @@ state.PCH {
 	control.16 {
 		iface MIXER
 		name 'Master Playback Volume'
-		value 56
+		value 48
 		comment {
 			access 'read write'
 			type INTEGER
@@ -625,7 +625,7 @@ state.PCH {
 			range '0 - 74'
 			dbmin -7400
 			dbmax 0
-			dbvalue.0 -1800
+			dbvalue.0 -2600
 		}
 	}
 	control.17 {
@@ -651,7 +651,7 @@ state.PCH {
 	control.19 {
 		iface CARD
 		name 'Mic Jack'
-		value false
+		value true
 		comment {
 			access read
 			type BOOLEAN
@@ -661,7 +661,7 @@ state.PCH {
 	control.20 {
 		iface CARD
 		name 'Headphone Jack'
-		value false
+		value true
 		comment {
 			access read
 			type BOOLEAN
@@ -681,8 +681,8 @@ state.PCH {
 	control.22 {
 		iface PCM
 		name 'Playback Channel Map'
-		value.0 0
-		value.1 0
+		value.0 3
+		value.1 4
 		comment {
 			access read
 			type INTEGER
@@ -722,8 +722,8 @@ state.PCH {
 	control.25 {
 		iface MIXER
 		name 'Digital Capture Volume'
-		value.0 82
-		value.1 82
+		value.0 68
+		value.1 68
 		comment {
 			access 'read write user'
 			type INTEGER
@@ -732,8 +732,8 @@ state.PCH {
 			tlv '0000000100000008fffff44800000032'
 			dbmin -3000
 			dbmax 3000
-			dbvalue.0 1100
-			dbvalue.1 1100
+			dbvalue.0 400
+			dbvalue.1 400
 		}
 	}
 }

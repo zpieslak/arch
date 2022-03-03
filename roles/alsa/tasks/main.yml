@@ -5,10 +5,6 @@
       - alsa-utils
     update_cache: true
 
-- name: Turn on microphone
-  command: amixer set Mic toggle
-  changed_when: false
-
 - name: Copy alsa settings
   copy:
     src: '{{ ansible_limit }}/'
@@ -20,3 +16,4 @@
     src: modprobe.conf.j2
     dest: /etc/modprobe.d/alsa.conf
     mode: '0644'
+  when: host.alsa.modprobe is defined

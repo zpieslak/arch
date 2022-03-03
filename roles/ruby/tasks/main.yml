@@ -5,7 +5,7 @@
     dest: /home/{{ host.user.wheel.name }}/.rbenv
     depth: 1
     version: master
-  with_items: '{{ host.rbenv.git }}'
+  with_items: '{{ host.ruby.git }}'
 
 - name: Install plugins
   git:
@@ -13,7 +13,7 @@
     dest: /home/{{ host.user.wheel.name }}/.rbenv/plugins/{{ item | regex_search('[^/]+(?=.git)') }}
     depth: 1
     version: master
-  with_items: '{{ host.rbenv.plugins }}'
+  with_items: '{{ host.ruby.plugins }}'
 
 - name: Copy configuration files
   copy:

@@ -1,11 +1,19 @@
 ---
-- name: Refresh pacman cache
-  pacman:
-    name:
-      - eslint
-      - nodejs
-      - npm
-    update_cache: true
+- name: Install nodenv
+  git:
+    repo: '{{ item }}'
+    dest: /home/{{ host.user.wheel.name }}/.nodenv
+    depth: 1
+    version: master
+  with_items: '{{ host.node.git }}'
+
+- name: Install plugins
+  git:
+    repo: '{{ item }}'
+    dest: /home/{{ host.user.wheel.name }}/.nodenv/plugins/{{ item | regex_search('[^/]+(?=.git)') }}
+    depth: 1
+    version: master
+  with_items: '{{ host.node.plugins }}'
 
 - name: Copy configuration files
   copy:
@@ -15,4 +23,12 @@
     group: '{{ host.user.wheel.name }}'
     owner: '{{ host.user.wheel.name }}'
   with_items:
+    - .bash_login.d
     - .eslintrc.yml
+
+- name: Fix permissions
+  file:
+    path: /home/{{ host.user.wheel.name }}/.nodenv
+    owner: '{{ host.user.wheel.name }}'
+    group: '{{ host.user.wheel.name }}'
+    recurse: true

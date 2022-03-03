@@ -1,5 +1,10 @@
 ---
 host:
+  alsa:
+    modprobe:
+      - options snd-hda-intel model=ideapad
+      - options snd_hda_intel id=PCH index=0
+      - options snd-hda-intel id=HDMI index=1
   boot:
     network:
       -
@@ -26,6 +31,9 @@ host:
   postgresql:
     cow: true
   system:
+    modprobe:
+      - options i915 modeset=1
+      - options psmouse proto=bare
     font: ter-u20n
   wifi:
     interface: wlp2s0

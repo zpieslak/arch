@@ -9,9 +9,6 @@
   notify:
     - reboot
 
-- name: Force to run hooks
-  meta: flush_handlers
-
 - name: Wait for restart
   pause:
 

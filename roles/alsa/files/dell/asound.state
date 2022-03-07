@@ -853,7 +853,7 @@ state.PCH {
 	control.17 {
 		iface CARD
 		name 'Headphone Mic Jack'
-		value false
+		value true
 		comment {
 			access read
 			type BOOLEAN

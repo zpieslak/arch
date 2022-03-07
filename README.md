@@ -141,3 +141,9 @@ Enable native notifications
     chrome://flags/
 
     Enable system notifications
+
+## Alsa
+
+Test microphone
+
+    arecord -f S16_LE -d 5 -r 16000 /tmp/test-mic.wav

@@ -28,6 +28,7 @@ main = xmonad $ def
       spawnOnce "min"
       spawnOnce "keepassxc"
   } `additionalKeysP` [
+    ("M-c", spawn "dunstctl close-all"),
     ("<Print>", spawn "~/bin/screenshot.sh"),
     ("<XF86MonBrightnessUp>", spawn "~/bin/dunst/backlight.sh 1"),
     ("<XF86MonBrightnessDown>", spawn "~/bin/dunst/backlight.sh -1"),

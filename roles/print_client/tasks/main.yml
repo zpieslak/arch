@@ -10,7 +10,7 @@
   copy:
     src: cups/
     dest: /etc/cups/
-    mode: '0640'
+    mode: '0644'
 
 - name: Start cups service
   systemd:

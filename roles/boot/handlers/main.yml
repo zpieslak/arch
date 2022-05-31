@@ -1,9 +1,9 @@
 ---
 - name: reboot
-  command: reboot
+  ansible.builtin.command: reboot
 
 - name: wait for restart
-  wait_for:
+  ansible.builtin.wait_for:
     host: '{{ inventory_hostname }}'
     port: 22
     delay: 10

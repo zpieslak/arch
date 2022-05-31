@@ -1,20 +1,20 @@
 ---
 - name: Create host.disk.label
-  raw: echo -e "o\nw" | fdisk '{{ host.arm.dev }}'
+  ansible.builtin.raw: echo -e "o\nw" | fdisk '{{ host.arm.dev }}'
   changed_when: false
 
 - name: Create partitions
-  raw: echo -e "n\n\n\n\n{{ item.size }}\nt\n\n{{ item.signature }}\nw" | fdisk {{ host.arm.dev }}
+  ansible.builtin.raw: echo -e "n\n\n\n\n{{ item.size }}\nt\n\n{{ item.signature }}\nw" | fdisk {{ host.arm.dev }}
   changed_when: false
   with_items: '{{ host.arm.partitions }}'
 
 - name: Format partitions
-  command: mkfs.{{ item.fstype }} {{ item.opts }} {{ item.dev }}
+  ansible.builtin.command: mkfs.{{ item.fstype }} {{ item.opts }} {{ item.dev }}
   changed_when: false
   with_items: '{{ host.arm.partitions }}'
 
 - name: Create directories
-  file:
+  ansible.builtin.file:
     path: '{{ host.dir }}{{ item.1.path }}'
     state: directory
     mode: '0755'
@@ -34,7 +34,7 @@
     - mounts
 
 - name: Extract root
-  command: bsdtar -xpf {{ host.arm.image }} -C '{{ host.dir }}{{ item.1.path }}'
+  ansible.builtin.command: bsdtar -xpf {{ host.arm.image }} -C '{{ host.dir }}{{ item.1.path }}'
   changed_when: false
   with_subelements:
     - '{{ host.arm.partitions }}'
@@ -42,58 +42,58 @@
   when: item.1.path == '/root'
 
 - name: Sync image
-  command: sync
+  ansible.builtin.command: sync
   changed_when: false
 
 - name: Copy boot
-  command: mv '{{ host.dir }}'/root/boot/* '{{ host.dir }}'/boot
+  ansible.builtin.command: mv '{{ host.dir }}'/root/boot/* '{{ host.dir }}'/boot
   changed_when: false
 
 - name: Enable ssh root login with password
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: '{{ host.dir }}/root/etc/ssh/sshd_config'
     regexp: ^#PermitRootLogin
     line: PermitRootLogin yes
 
 - name: Fix fstab
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: '{{ host.dir }}/root/etc/fstab'
     regexp: ^#PermitRootLogin
     line: PermitRootLogin yes
 
 - name: Enable ssh root login with password
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: '{{ host.dir }}/root/etc/ssh/sshd_config'
     regexp: ^#PermitRootLogin
     line: PermitRootLogin yes
 
 - name: Copy fstab
-  copy:
+  ansible.builtin.copy:
     src: '{{ inventory_hostname_short }}/fstab'
     dest: '{{ host.dir }}/root/etc/fstab'
     mode: '0644'
 
 - name: Copy boot config
-  copy:
+  ansible.builtin.copy:
     src: '{{ inventory_hostname_short }}/boot/'
     dest: '{{ host.dir }}/boot/'
     mode: '0644'
 
 - name: Copy systemd network profile
-  copy:
+  ansible.builtin.copy:
     src: '{{ inventory_hostname_short }}/network/'
     dest: '{{ host.dir }}/root/etc/systemd/network/'
     mode: '0644'
 
 - name: Copy wpa_supplicant configuration
-  template:
+  ansible.builtin.template:
     src: wpa_supplicant.conf.j2
     dest: '{{ host.dir }}/etc/root/wpa_supplicant/wpa_supplicant-{{ host.wifi.interface }}.conf'
     mode: '0644'
   when: host.wifi.interface is defined
 
 - name: Enable wpa_supplicant
-  file:
+  ansible.builtin.file:
     src: '{{ host.dir }}/root/etc/systemd/system/multi-user.target.wants/wpa_supplicant@{{ host.wifi.interface }}.service'
     dest: '{{ host.dir }}/root/usr/lib/systemd/system/wpa_supplicant@.service'
     state: link
@@ -101,7 +101,7 @@
   when: host.wifi.interface is defined
 
 - name: Create direcotry mounts
-  file:
+  ansible.builtin.file:
     path: '{{ item }}'
     state: directory
     mode: '0755'

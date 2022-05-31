@@ -5,7 +5,7 @@
     update_cache: true
 
 - name: Copy dotfile
-  copy:
+  ansible.builtin.copy:
     src: .agignore
     dest: /home/{{ host.user.wheel.name }}/
     mode: '0644'

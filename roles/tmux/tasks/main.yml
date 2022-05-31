@@ -7,7 +7,7 @@
     update_cache: true
 
 - name: Copy configuration files
-  copy:
+  ansible.builtin.copy:
     src: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/
     mode: '0644'
@@ -20,7 +20,7 @@
     - .tmux
 
 - name: Copy bin files
-  copy:
+  ansible.builtin.copy:
     src: bin
     dest: /home/{{ host.user.wheel.name }}/
     mode: '0755'
@@ -31,7 +31,7 @@
   become: true
   become_user: '{{ host.user.wheel.name }}'
   become_method: machinectl
-  systemd:
+  ansible.builtin.systemd:
     state: started
     daemon_reload: true
     scope: user
@@ -39,7 +39,7 @@
     enabled: true
 
 - name: Fix permissions
-  file:
+  ansible.builtin.file:
     path: /home/{{ host.user.wheel.name }}/.tmux
     owner: '{{ host.user.wheel.name }}'
     group: '{{ host.user.wheel.name }}'

@@ -7,13 +7,13 @@
     update_cache: true
 
 - name: Copy cups files
-  copy:
+  ansible.builtin.copy:
     src: cups/
     dest: /etc/cups/
     mode: '0644'
 
 - name: Start cups service
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: cups
     enabled: true

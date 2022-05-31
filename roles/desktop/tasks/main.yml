@@ -1,18 +1,18 @@
 ---
 - name: Create hooks directory
-  file:
+  ansible.builtin.file:
     path: /etc/pacman.d/hooks
     state: directory
     mode: '0755'
 
 - name: Copy xmonad hook
-  template:
+  ansible.builtin.template:
     src: xmonad.hook.j2
     dest: /etc/pacman.d/hooks/xmonad.hook
     mode: '0644'
 
 - name: Copy configuration files
-  copy:
+  ansible.builtin.copy:
     src: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/
     mode: '0644'
@@ -27,7 +27,7 @@
     - .Xresources
 
 - name: Copy bin files
-  copy:
+  ansible.builtin.copy:
     src: bin
     dest: /home/{{ host.user.wheel.name }}/
     mode: '0755'
@@ -60,13 +60,13 @@
     update_cache: true
 
 - name: Copy xorg files
-  copy:
+  ansible.builtin.copy:
     src: xorg.conf.d
     dest: /usr/share/X11/
     mode: '0644'
 
 - name: Create Xresources directory
-  file:
+  ansible.builtin.file:
     path: /home/{{ host.user.wheel.name }}/.Xresources.d
     state: directory
     mode: '0755'
@@ -74,7 +74,7 @@
     owner: '{{ host.user.wheel.name }}'
 
 - name: Add xft settings
-  template:
+  ansible.builtin.template:
     src: xft.j2
     dest: /home/{{ host.user.wheel.name }}/.Xresources.d/xft
     mode: '0644'
@@ -82,13 +82,13 @@
     owner: '{{ host.user.wheel.name }}'
 
 - name: Add backlight udev rules
-  template:
+  ansible.builtin.template:
     src: 80-backlight.rules.j2
     dest: /etc/udev/rules.d/80-backlight.rules
     mode: '0644'
 
 - name: Add user to video group
-  user:
+  ansible.builtin.user:
     name: '{{ host.user.wheel.name }}'
     groups: video
     append: true
@@ -97,7 +97,7 @@
   become: true
   become_user: '{{ host.user.wheel.name }}'
   become_method: machinectl
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
     scope: user
     name: xmonad
@@ -107,7 +107,7 @@
   become: true
   become_user: '{{ host.user.wheel.name }}'
   become_method: machinectl
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
     scope: user
     name: xrdb
@@ -117,7 +117,7 @@
   become: true
   become_user: '{{ host.user.wheel.name }}'
   become_method: machinectl
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
     scope: user
     name: numlock
@@ -127,7 +127,7 @@
   become: true
   become_user: '{{ host.user.wheel.name }}'
   become_method: machinectl
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
     scope: user
     name: xcompmgr
@@ -137,7 +137,7 @@
   become: true
   become_user: '{{ host.user.wheel.name }}'
   become_method: machinectl
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
     scope: user
     name: battery
@@ -147,8 +147,19 @@
   become: true
   become_user: '{{ host.user.wheel.name }}'
   become_method: machinectl
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
     scope: user
     name: battery.timer
+    enabled: true
+
+- name: Start systemd-tmpfiles
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+  become_method: machinectl
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+    name: systemd-tmpfiles-clean.timer
+    state: started
     enabled: true

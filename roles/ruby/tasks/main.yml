@@ -1,6 +1,6 @@
 ---
 - name: Install rbenv
-  git:
+  ansible.builtin.git:
     repo: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/.rbenv
     depth: 1
@@ -8,7 +8,7 @@
   with_items: '{{ host.ruby.git }}'
 
 - name: Install plugins
-  git:
+  ansible.builtin.git:
     repo: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/.rbenv/plugins/{{ item | regex_search('[^/]+(?=.git)') }}
     depth: 1
@@ -16,7 +16,7 @@
   with_items: '{{ host.ruby.plugins }}'
 
 - name: Copy configuration files
-  copy:
+  ansible.builtin.copy:
     src: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/
     mode: '0644'
@@ -29,7 +29,7 @@
     - .rubocop.yml
 
 - name: Fix permissions
-  file:
+  ansible.builtin.file:
     path: /home/{{ host.user.wheel.name }}/.rbenv
     owner: '{{ host.user.wheel.name }}'
     group: '{{ host.user.wheel.name }}'

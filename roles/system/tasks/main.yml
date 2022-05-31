@@ -1,19 +1,19 @@
 ---
 - name: Change timezone
-  file:
+  ansible.builtin.file:
     src: /usr/share/zoneinfo/{{ host.system.timezone }}
     dest: /etc/localtime
     state: link
     force: true
 
 - name: Update timesyncd configuration
-  copy:
+  ansible.builtin.copy:
     src: timesyncd.conf.d
     dest: /etc/systemd/
     mode: '0644'
 
 - name: Enable timedatectl ntp client
-  command: timedatectl set-ntp true
+  ansible.builtin.command: timedatectl set-ntp true
   changed_when: false
 
 - name: Set locale
@@ -21,20 +21,20 @@
     name: '{{ host.system.locale }}'
 
 - name: Set LANG variable
-  lineinfile:
+  ansible.builtin.lineinfile:
     create: true
     path: /etc/locale.conf
     line: LANG={{ host.system.locale }}
     mode: '0644'
 
 - name: Set pacman mirrors
-  template:
+  ansible.builtin.template:
     src: mirrorlist.j2
     dest: /etc/pacman.d/mirrorlist
     mode: '0644'
 
 - name: Update pacman configuration
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/pacman.conf
     regexp: ^#Color
     line: Color
@@ -51,25 +51,25 @@
       - terminus-font
 
 - name: Copy paccache hook
-  copy:
+  ansible.builtin.copy:
     src: pacman.d
     dest: /etc/
     mode: '0644'
 
 - name: Add modprobe changes
-  template:
+  ansible.builtin.template:
     src: modprobe.conf.j2
     dest: /etc/modprobe.d/system.conf
     mode: '0644'
 
 - name: Copy hosts
-  copy:
+  ansible.builtin.copy:
     src: hosts
     dest: /etc/
     mode: '0644'
 
 - name: Add vconsole
-  template:
+  ansible.builtin.template:
     src: vconsole.conf.j2
     dest: /etc/vconsole.conf
     mode: '0644'

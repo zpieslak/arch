@@ -6,31 +6,31 @@
     update_cache: true
 
 - name: Add influxdb user
-  user:
+  ansible.builtin.user:
     name: influxdb
     group: influxdb
     create_home: false
     system: true
 
 - name: Copy configuration files
-  copy:
+  ansible.builtin.copy:
     src: influxdb.service
     dest: /usr/lib/systemd/system/
     mode: '0644'
 
 - name: Copy nginx configuration
-  copy:
+  ansible.builtin.copy:
     src: nginx/conf.d
     dest: /etc/nginx/
     mode: '0644'
 
 - name: Restart nginx service
-  systemd:
+  ansible.builtin.systemd:
     state: restarted
     name: nginx
 
 - name: Start influxdb systemd service
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: influxdb
     enabled: true

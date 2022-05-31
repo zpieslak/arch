@@ -5,7 +5,7 @@
     update_cache: true
 
 - name: Copy configuration files
-  copy:
+  ansible.builtin.copy:
     src: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/
     mode: '0644'

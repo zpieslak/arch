@@ -11,36 +11,36 @@
     update_cache: true
 
 - name: Copy nginx configuration
-  copy:
+  ansible.builtin.copy:
     src: nginx/conf.d
     dest: /etc/nginx/
     mode: '0644'
 
 - name: Change systemd file
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /usr/lib/systemd/system/home-assistant.service
     regexp: ^After=
     line: After=network.target postgresql.service
 
 - name: Restore copy
-  unarchive:
+  ansible.builtin.unarchive:
     src: /wd2/backup/hass/2021-03-13-20.17.11.tar.gz
     dest: /var/lib/
     remote_src: true
 
 - name: Copy bin
-  copy:
+  ansible.builtin.copy:
     src: bin/
     dest: /usr/bin/
     mode: '0755'
 
 - name: Restart nginx service
-  systemd:
+  ansible.builtin.systemd:
     state: restarted
     name: nginx
 
 - name: Start systemd service
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: home-assistant
     enabled: true

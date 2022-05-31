@@ -5,7 +5,7 @@
     update_cache: true
 
 - name: Copy configuration file
-  copy:
+  ansible.builtin.copy:
     src: '{{ item }}'
     dest: /etc/nginx/
     mode: '0644'
@@ -14,7 +14,7 @@
     - conf.d
 
 - name: Start nginx service
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: nginx
     enabled: true

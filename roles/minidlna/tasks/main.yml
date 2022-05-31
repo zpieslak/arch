@@ -5,24 +5,24 @@
     update_cache: true
 
 - name: Copy configuration files
-  copy:
+  ansible.builtin.copy:
     src: minidlna.conf
     dest: /etc/
     mode: '0644'
 
 - name: Copy nginx configuration
-  copy:
+  ansible.builtin.copy:
     src: nginx/conf.d
     dest: /etc/nginx/
     mode: '0644'
 
 - name: Restart nginx service
-  systemd:
+  ansible.builtin.systemd:
     state: restarted
     name: nginx
 
 - name: Start minidlna service
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: minidlna
     enabled: true

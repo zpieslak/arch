@@ -13,7 +13,7 @@
     extra_args: --noconfirm
 
 - name: Copy dotfile
-  copy:
+  ansible.builtin.copy:
     src: .vimrc
     dest: /home/{{ host.user.wheel.name }}/
     mode: '0644'
@@ -21,7 +21,7 @@
     owner: '{{ host.user.wheel.name }}'
 
 - name: Install submodules
-  git:
+  ansible.builtin.git:
     repo: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/.vim/pack/plugins/start/{{ item | regex_search('[^/]+(?=.git)') }}
     depth: 1
@@ -30,7 +30,7 @@
   with_items: '{{ host.vim.plugins }}'
 
 - name: Fix permissions
-  file:
+  ansible.builtin.file:
     path: /home/{{ host.user.wheel.name }}/.vim
     owner: '{{ host.user.wheel.name }}'
     group: '{{ host.user.wheel.name }}'
@@ -38,6 +38,6 @@
     mode: '0755'
 
 - name: Set EDITOR
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/environment
     line: EDITOR=vim

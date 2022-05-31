@@ -5,7 +5,7 @@
     update_cache: true
 
 - name: Start memcached service
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: memcached
     enabled: true

@@ -10,8 +10,7 @@
     - reboot
 
 - name: Wait for restart
-  pause:
-
+  ansible.builtin.pause:
 - name: Add host network adapter
-  command: vboxmanage hostonlyif create
+  ansible.builtin.command: vboxmanage hostonlyif create
   changed_when: false

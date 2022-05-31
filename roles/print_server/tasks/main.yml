@@ -8,53 +8,53 @@
     update_cache: true
 
 - name: Disable mDNS in systemd-resolved
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/systemd/resolved.conf
     regexp: ^MulticastDNS
     line: MulticastDNS=no
 
 - name: Restart systemd-resolved service
-  systemd:
+  ansible.builtin.systemd:
     state: restarted
     name: systemd-resolved
 
 - name: Copy avahi files
-  copy:
+  ansible.builtin.copy:
     src: avahi/services/
     dest: /etc/avahi/services/
     mode: '0640'
 
 - name: Copy cups files
-  copy:
+  ansible.builtin.copy:
     src: cups/
     dest: /etc/cups/
     mode: '0640'
 
 - name: Copy nginx configuration
-  copy:
+  ansible.builtin.copy:
     src: conf.d
     dest: /etc/nginx/
     mode: '0644'
 
 - name: Restart nginx service
-  systemd:
+  ansible.builtin.systemd:
     state: restarted
     name: nginx
 
 - name: Start p910nd service
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: p910nd
     enabled: true
 
 - name: Start avahi service
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: avahi-daemon
     enabled: true
 
 - name: Start cups service
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: cups
     enabled: true

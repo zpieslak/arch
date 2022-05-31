@@ -6,13 +6,13 @@
     update_cache: true
 
 - name: Enable non root access
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /usr/lib/udev/rules.d/10-rtl-sdr.rules
     regexp: 2838
     line: SUBSYSTEMS=="usb", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="2838", MODE:="0777"
 
 - name: Copy rtl-wmbus source
-  git:
+  ansible.builtin.git:
     repo: https://github.com/xaelsouth/rtl-wmbus.git
     dest: /tmp/rtl-wmbus
     depth: 1
@@ -23,24 +23,24 @@
     chdir: /tmp/rtl-wmbus
 
 - name: Move bin file
-  command: mv /tmp/rtl-wmbus/build/rtl_wmbus /usr/bin/
+  ansible.builtin.command: mv /tmp/rtl-wmbus/build/rtl_wmbus /usr/bin/
   changed_when: false
 
 - name: Install wmbusmeters
-  git:
+  ansible.builtin.git:
     repo: https://github.com/weetmuts/wmbusmeters.git
     dest: /tmp/wmbusmeters
     depth: 1
     version: master
 
 - name: Patch wmbusmeters
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /tmp/wmbusmeters/src/meter_apator08.cc
     regexp: total_water_consumption_m3_ /=
     state: absent
 
 - name: Configure wmbusmeters
-  command: ./configure
+  ansible.builtin.command: ./configure
   changed_when: false
   args:
     chdir: /tmp/wmbusmeters
@@ -51,19 +51,19 @@
     target: install
 
 - name: Copy wmbusmeters configuration file
-  template:
+  ansible.builtin.template:
     src: wmbusmeters.conf.j2
     dest: /etc/wmbusmeters.conf
     mode: '0644'
 
 - name: Copy wmbusmeters systemd file
-  copy:
+  ansible.builtin.copy:
     src: wmbusmeters.d
     dest: /etc/
     mode: '0644'
 
 - name: Start wmbusmeters systemd file
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: wmbusmeters
     enabled: true

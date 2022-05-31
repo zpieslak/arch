@@ -1,19 +1,19 @@
 ---
 - name: Create host.disk.label
-  shell: |
+  ansible.builtin.shell: |
     set -o pipefail
     echo -e "g\nw" | fdisk '{{ host.disk.dev }}'
   changed_when: false
 
 - name: Create partitions
-  shell: |
+  ansible.builtin.shell: |
     set -o pipefail
     echo -e "n\n\n\n{{ item.size }}\nt\n\n{{ item.signature }}\nw" | fdisk {{ host.disk.dev }}
   changed_when: false
   loop: '{{ host.disk.partitions|flatten(levels=1) }}'
 
 - name: Format partitions
-  command: mkfs.{{ item.fstype }} {{ item.opts }} {{ host.disk.dev }}{{ host.disk.prefix }}{{ item.index }}
+  ansible.builtin.command: mkfs.{{ item.fstype }} {{ item.opts }} {{ host.disk.dev }}{{ host.disk.prefix }}{{ item.index }}
   changed_when: false
   loop: '{{ host.disk.partitions|flatten(levels=1) }}'
 
@@ -27,7 +27,7 @@
   when: item.1.path == '/'
 
 - name: Create btrfs subvolumes
-  command: btrfs subvolume create {{ host.dir }}{{ item.1.subvolume }}
+  ansible.builtin.command: btrfs subvolume create {{ host.dir }}{{ item.1.subvolume }}
   loop: '{{ host.disk.partitions|subelements("mounts") }}'
   when: item.0.fstype == 'btrfs'
 
@@ -49,7 +49,7 @@
   when: item.1.path == '/'
 
 - name: Create directories
-  file:
+  ansible.builtin.file:
     path: '{{ host.dir }}{{ item.1.path }}'
     state: directory
     mode: '0755'

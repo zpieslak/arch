@@ -6,13 +6,13 @@
     update_cache: true
 
 - name: Copy configuration
-  template:
+  ansible.builtin.template:
     src: smb.conf.j2
     dest: /etc/samba/smb.conf
     mode: '0644'
 
 - name: Start smb service
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: smb
     enabled: true

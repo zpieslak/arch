@@ -8,8 +8,3 @@
     name: upwork
   become: true
   become_user: '{{ host.user.wheel.name }}'
-
-- name: Remove autostart
-  file:
-    state: absent
-    path: /home/{{ host.user.wheel.name }}/.config/autostart/upwork.desktop

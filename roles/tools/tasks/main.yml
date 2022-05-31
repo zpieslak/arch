@@ -6,9 +6,13 @@
       - ansible
       - ansible-lint
       - aws-cli
+      - flake8
       - inetutils
       - jq
+      - jre-openjdk
+      - languagetool
       - p7zip
+      - pv
       - rsync
       - sshpass
       - terraform
@@ -22,7 +26,7 @@
     update_cache: true
 
 - name: Copy custom files
-  copy:
+  ansible.builtin.copy:
     src: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/
     mode: '0755'

@@ -1,4 +1,10 @@
 ---
+- name: Install packages
+  pacman:
+    name:
+      - nodejs-lts-gallium
+    update_cache: true
+
 - name: Install
   aur:
     name: zigbee2mqtt
@@ -6,7 +12,7 @@
   become_user: '{{ host.user.wheel.name }}'
 
 - name: Install systemd
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: zigbee2mqtt
     enabled: true

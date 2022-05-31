@@ -119,6 +119,7 @@ let g:ale_linters = {
 \ 'haskell': ['ghc'],
 \ 'javascript': ['eslint', 'prettier'],
 \ 'json' : ['jq', 'prettier'],
+\ 'markdown' : ['languagetool'],
 \ 'python' : ['flake8'],
 \ 'ruby' : ['rubocop'],
 \ 'terraform' : ['terraform'],

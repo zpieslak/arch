@@ -6,13 +6,13 @@
     update_cache: true
 
 - name: Copy configuration
-  copy:
+  ansible.builtin.copy:
     src: exports.d
     dest: /etc/
     mode: '0644'
 
 - name: Start nfs service
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: nfs-server
     enabled: true

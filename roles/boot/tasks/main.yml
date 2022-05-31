@@ -1,18 +1,18 @@
 ---
 - name: Run pacstrap
-  command: pacstrap {{ host.dir }} base linux linux-firmware btrfs-progs openssh python wpa_supplicant
+  ansible.builtin.command: pacstrap {{ host.dir }} base linux linux-firmware btrfs-progs openssh python wpa_supplicant
   changed_when: false
 
 - name: Generate fstab
-  shell: genfstab -U {{ host.dir }} >> {{ host.dir }}/etc/fstab
+  ansible.builtin.shell: genfstab -U {{ host.dir }} >> {{ host.dir }}/etc/fstab
   changed_when: false
 
 - name: Install efi loader
-  command: arch-chroot {{ host.dir }} bootctl install
+  ansible.builtin.command: arch-chroot {{ host.dir }} bootctl install
   changed_when: false
 
 - name: Copy loader files
-  copy:
+  ansible.builtin.copy:
     src: loader
     dest: '{{ host.dir }}{{ item.1.path }}/'
     mode: '0700'
@@ -20,50 +20,50 @@
   when: item.0.index == 1
 
 - name: Enable systemd boot update
-  command: arch-chroot {{ host.dir }} systemctl enable systemd-boot-update
+  ansible.builtin.command: arch-chroot {{ host.dir }} systemctl enable systemd-boot-update
   changed_when: false
 
 - name: Enable sshd
-  command: arch-chroot {{ host.dir }} systemctl enable sshd
+  ansible.builtin.command: arch-chroot {{ host.dir }} systemctl enable sshd
   changed_when: false
 
 - name: Set password to root
-  shell: |
+  ansible.builtin.shell: |
     set -o pipefail
     echo root:'{{ host.user.root.password }}' | chpasswd -e -R {{ host.dir }}
   changed_when: false
 
 - name: Enable ssh root login with password
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: '{{ host.dir }}/etc/ssh/sshd_config'
     regexp: ^#PermitRootLogin
     line: PermitRootLogin yes
 
 - name: Copy systemd network profile
-  template:
+  ansible.builtin.template:
     src: systemd-networkd.network.j2
     dest: '{{ host.dir }}/etc/systemd/network/{{ item.name }}.network'
     mode: '0644'
   loop: '{{ host.boot.network|flatten(levels=1) }}'
 
 - name: Copy wpa_supplicant configuration
-  template:
+  ansible.builtin.template:
     src: wpa_supplicant.conf.j2
     dest: '{{ host.dir }}/etc/wpa_supplicant/wpa_supplicant-{{ host.wifi.interface }}.conf'
     mode: '0644'
   when: host.wifi is defined
 
 - name: Enable systemd wpa_supplicant
-  command: arch-chroot {{ host.dir }} systemctl enable wpa_supplicant@{{ host.wifi.interface }}
+  ansible.builtin.command: arch-chroot {{ host.dir }} systemctl enable wpa_supplicant@{{ host.wifi.interface }}
   changed_when: false
   when: host.wifi is defined
 
 - name: Enable systemd network
-  command: arch-chroot {{ host.dir }} systemctl enable systemd-networkd
+  ansible.builtin.command: arch-chroot {{ host.dir }} systemctl enable systemd-networkd
   changed_when: false
 
 - name: Enable systemd resolved
-  command: arch-chroot {{ host.dir }} systemctl enable systemd-resolved
+  ansible.builtin.command: arch-chroot {{ host.dir }} systemctl enable systemd-resolved
   changed_when: false
 
   notify:

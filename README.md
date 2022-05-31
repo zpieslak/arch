@@ -147,3 +147,21 @@ Enable native notifications
 Test microphone
 
     arecord -f S16_LE -d 5 -r 16000 /tmp/test-mic.wav
+
+## Docker
+
+Run bash ob docker mysql
+
+Find image id
+
+    sudo docker ps
+
+Run bash
+
+    sudo docker exec -it ID bash
+
+## Mysql
+
+Extract database
+
+    pv database.sql.gz | gunzip | mysql database

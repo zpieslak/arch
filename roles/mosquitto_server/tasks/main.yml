@@ -6,13 +6,13 @@
     update_cache: true
 
 - name: Copy configuration file
-  copy:
+  ansible.builtin.copy:
     src: mosquitto.conf
     dest: /etc/mosquitto/
     mode: '0644'
 
 - name: Start mosquito systemd service
-  systemd:
+  ansible.builtin.systemd:
     state: started
     name: mosquitto
     enabled: true

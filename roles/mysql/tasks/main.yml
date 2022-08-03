@@ -8,8 +8,6 @@
 - name: Refresh pacman cache
   pacman:
     name:
-      - docker
-      - docker-compose
       - mariadb-clients
     update_cache: true
 

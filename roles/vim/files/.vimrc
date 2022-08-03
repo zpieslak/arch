@@ -120,13 +120,13 @@ let g:ale_linters = {
 \ 'javascript': ['eslint', 'prettier'],
 \ 'json' : ['jq', 'prettier'],
 \ 'markdown' : ['languagetool'],
-\ 'python' : ['flake8'],
+\ 'python' : ['flake8', 'mypy'],
 \ 'ruby' : ['rubocop'],
 \ 'terraform' : ['terraform'],
-\ 'typescript' : ['tslint'],
-\ 'typescriptreact' : ['tslint'],
+\ 'typescript' : ['eslint', 'tslint'],
+\ 'typescriptreact' : ['eslint'],
 \ 'yaml' : ['yamllint'],
-\ 'yaml.cloudformation' : ['cloudformation'],
+\ 'cloudformation' : ['cfn-lint'],
 \}
 
 " Fix files
@@ -137,7 +137,7 @@ let g:ale_fixers = {
 \ 'ruby' : ['rubocop'],
 \ 'json' : ['jq'],
 \ 'terraform' : ['terraform'],
-\ 'typescript' : ['prettier', 'tslint'],
+\ 'typescript' : ['eslint', 'prettier', 'tslint'],
 \ 'typescriptreact' : ['tslint'],
 \}
 

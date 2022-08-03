@@ -1,0 +1,13 @@
+---
+- name: Refresh pacman cache
+  pacman:
+    name:
+      - docker
+      - docker-compose
+    update_cache: true
+
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: '{{ host.user.wheel.name }}'
+    groups: docker
+    append: true

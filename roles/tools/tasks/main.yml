@@ -5,6 +5,7 @@
       - android-file-transfer
       - ansible
       - ansible-lint
+      - autopep8
       - aws-cli
       - flake8
       - inetutils
@@ -13,9 +14,9 @@
       - languagetool
       - p7zip
       - pv
+      - python-cfn-lint
       - rsync
       - sshpass
-      - terraform
       - unrar
       - unzip
       - usbutils

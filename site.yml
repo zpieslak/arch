@@ -15,6 +15,7 @@
     - {role: boot, tags: boot}
     - {role: alsa, tags: alsa}
     - {role: tmux, tags: tmux}
+    - {role: docker, tags: docker}
     - {role: mysql, tags: mysql}
     - {role: postgresql, tags: postgresql}
     - {role: ruby, tags: ruby}
@@ -29,6 +30,7 @@
     - {role: disk, tags: disk}
     - {role: boot, tags: boot}
     - {role: alsa, tags: alsa}
+    - {role: docker, tags: docker}
     - {role: mysql, tags: mysql}
     - {role: postgresql, tags: postgresql}
     - {role: memcached, tags: memcached}

@@ -165,3 +165,13 @@ Run bash
 Extract database
 
     pv database.sql.gz | gunzip | mysql database
+
+## Zigbee2mqtt
+
+Check connected device with cc-tool
+
+    sudo cc-tool -t
+
+Flash firmware with cc-tool
+
+    sudo cc-tool -e -w FILE.hex

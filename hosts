@@ -2,7 +2,7 @@
 localhost ansible_connection=local
 [dell]
 192.168.1.100
-[lenovo]
+[lenovo_z50_70]
 192.168.1.115
 [test]
 test.lan

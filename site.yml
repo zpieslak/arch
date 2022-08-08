@@ -25,7 +25,7 @@
     - {role: desktop, tags: desktop}
 
 - name: Laptop
-  hosts: lenovo_z50_70:dell:local
+  hosts: lenovo_ideapad_5:lenovo_z50_70:dell:local
   roles:
     - {role: disk, tags: disk}
     - {role: boot, tags: boot}

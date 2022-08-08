@@ -1,0 +1,40 @@
+---
+host:
+  alsa:
+    modprobe:
+      - options snd-hda-intel model=ideapad
+      - options snd_hda_intel id=PCH index=0
+      - options snd-hda-intel id=HDMI index=1
+  boot:
+    network:
+      -
+        name: wifi
+        contents:
+          Match:
+            Name: wl01
+          Network:
+            DHCP: true
+  desktop:
+    acpi: intel_backlight
+    dpi: 188
+  disk:
+    dev: /dev/nvme0n1
+    prefix: p
+  postgresql:
+    cow: true
+  system:
+    modprobe:
+      - blacklist pcspkr
+    font: ter-u28n
+  wifi:
+    interface: wlo1
+    ssid: test
+    key: test
+  user:
+    autologin: true
+    root:
+      name: root
+      password: $6$rzZJmHfE36hfGAUX$8F4cY59UH6vcpjziGLKCiHzqv0WAs85eNhPAx2N/lghy3dh.kKd1w2IaBoIgaX5Yz78.MmoSZzC6wZ8cV1yIE/
+    wheel:
+      name: zbigniew
+      password: $6$6VavzSgeMJHVBOTq$cX5cWrc0ngdcO1Mh.l616M76b3crXJE92s0CGLu0ErM2RssHRQNAk3fYjCe2G3hAvCsbVvAET2DHiu92HkHiJ0

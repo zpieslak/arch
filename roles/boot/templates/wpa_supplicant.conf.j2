@@ -2,6 +2,6 @@ ctrl_interface=/var/run/wpa_supplicant
 ctrl_interface_group=wheel
 update_config=1
 network={
- ssid={{ host.wifi.ssid }}
- psk={{ host.wifi.key }}
+ ssid="{{ host.wifi.ssid }}"
+ psk="{{ host.wifi.key }}"
 }

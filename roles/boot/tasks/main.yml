@@ -16,7 +16,7 @@
     src: loader
     dest: '{{ host.dir }}{{ item.1.path }}/'
     mode: '0700'
-  loop: '{{ host.disk.partitions|subelements("mounts") }}'
+  loop: '{{ host.disk.partitions | subelements("mounts") }}'
   when: item.0.index == 1
 
 - name: Enable systemd boot update
@@ -44,7 +44,7 @@
     src: systemd-networkd.network.j2
     dest: '{{ host.dir }}/etc/systemd/network/{{ item.name }}.network'
     mode: '0644'
-  loop: '{{ host.boot.network|flatten(levels=1) }}'
+  loop: '{{ host.boot.network | flatten(levels=1) }}'
 
 - name: Copy wpa_supplicant configuration
   ansible.builtin.template:

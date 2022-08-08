@@ -25,7 +25,6 @@ host:
           -
             path: /root
   desktop:
-    acpi: intel_backlight
     dpi: 96
   dir: /mnt
   disk:

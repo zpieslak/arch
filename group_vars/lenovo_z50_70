@@ -26,7 +26,6 @@ host:
           DHCP:
             RouteMetric: 20
   desktop:
-    acpi: intel_backlight
     dpi: 96
   postgresql:
     cow: true

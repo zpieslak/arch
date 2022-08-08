@@ -13,7 +13,6 @@ host:
           Network:
             DHCP: true
   desktop:
-    acpi: intel_backlight
     dpi: 226
   disk:
     dev: /dev/nvme0n1

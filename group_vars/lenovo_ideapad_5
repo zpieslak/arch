@@ -1,10 +1,5 @@
 ---
 host:
-  alsa:
-    modprobe:
-      - options snd-hda-intel model=ideapad
-      - options snd_hda_intel id=PCH index=0
-      - options snd-hda-intel id=HDMI index=1
   boot:
     network:
       -
@@ -15,7 +10,6 @@ host:
           Network:
             DHCP: true
   desktop:
-    acpi: intel_backlight
     dpi: 188
   disk:
     dev: /dev/nvme0n1

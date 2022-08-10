@@ -1,8 +1,16 @@
 ---
-- name: Install package
+- name: Install main package
   pacman:
     name: python
     update_cache: true
+
+- name: Install pyenv
+  ansible.builtin.git:
+    repo: '{{ item }}'
+    dest: /home/{{ host.user.wheel.name }}/.pyenv
+    depth: 1
+    version: master
+  with_items: '{{ host.python.git }}'
 
 - name: Copy configuration files
   ansible.builtin.copy:
@@ -12,4 +20,12 @@
     group: '{{ host.user.wheel.name }}'
     owner: '{{ host.user.wheel.name }}'
   with_items:
+    - .bash_login.d
     - .flake8
+
+- name: Fix permissions
+  ansible.builtin.file:
+    path: /home/{{ host.user.wheel.name }}/.pyenv
+    owner: '{{ host.user.wheel.name }}'
+    group: '{{ host.user.wheel.name }}'
+    recurse: true

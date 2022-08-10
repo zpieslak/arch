@@ -48,6 +48,7 @@
   pacman:
     name:
       - pacman-contrib
+      - python
       - terminus-font
 
 - name: Copy paccache hook

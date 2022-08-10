@@ -8,24 +8,8 @@
     - {role: git, tags: git}
     - {role: vim, tags: vim}
 
-- name: Test
-  hosts: test
-  roles:
-    - {role: disk, tags: disk}
-    - {role: boot, tags: boot}
-    - {role: alsa, tags: alsa}
-    - {role: tmux, tags: tmux}
-    - {role: docker, tags: docker}
-    - {role: mysql, tags: mysql}
-    - {role: postgresql, tags: postgresql}
-    - {role: ruby, tags: ruby}
-    - {role: node, tags: node}
-    - {role: media, tags: media}
-    - {role: virtualbox, tags: virtualbox}
-    - {role: desktop, tags: desktop}
-
 - name: Laptop
-  hosts: lenovo_ideapad_5:lenovo_z50_70:dell:local
+  hosts: test:lenovo_ideapad_5:lenovo_z50_70:dell:local
   roles:
     - {role: disk, tags: disk}
     - {role: boot, tags: boot}
@@ -34,11 +18,11 @@
     - {role: mysql, tags: mysql}
     - {role: postgresql, tags: postgresql}
     - {role: memcached, tags: memcached}
+    - {role: python, tags: python}
     - {role: ruby, tags: ruby}
     - {role: node, tags: node}
     - {role: tmux, tags: tmux}
     - {role: desktop, tags: desktop}
-    - {role: upwork, tags: upwork}
     - {role: virtualbox, tags: virtualbox}
     - {role: tools, tags: tools}
     - {role: media, tags: media}
@@ -53,9 +37,7 @@
 - name: Pi
   hosts: pi
   roles:
-    - {role: python, tags: python}
     - {role: postgresql, tags: postgresql}
-    - {role: minidlna, tags: minidlna}
     - {role: nginx, tags: nginx}
     - {role: aria2, tags: aria2}
     - {role: nfs, tags: nfs}
@@ -69,6 +51,5 @@
 - name: Zero
   hosts: zero
   roles:
-    - {role: python, tags: python}
     - {role: mosquitto_client, tags: mosquitto_client}
     - {role: rtl_sdr, tags: rtl_sdr}

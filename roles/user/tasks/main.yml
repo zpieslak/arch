@@ -24,7 +24,7 @@
     line: '%wheel ALL=(ALL) NOPASSWD: ALL'
     validate: visudo -cf %s
 
-- name: Copy bash dotfiles
+- name: Copy dotfiles
   ansible.builtin.copy:
     src: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/
@@ -39,7 +39,14 @@
     - .editrc
     - .inputrc
     - .ssh
-    - bin
+
+- name: Copy bin files
+  ansible.builtin.copy:
+    src: bin
+    dest: /home/{{ host.user.wheel.name }}/
+    mode: '0755'
+    group: '{{ host.user.wheel.name }}'
+    owner: '{{ host.user.wheel.name }}'
 
 - name: Remove bash_profile file
   ansible.builtin.file:

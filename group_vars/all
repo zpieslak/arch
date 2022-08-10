@@ -68,6 +68,8 @@ host:
       - https://github.com/nodenv/node-build.git
   postgresql:
     dir: /var/lib/postgres
+  python:
+    git: https://github.com/pyenv/pyenv.git
   ruby:
     git: https://github.com/rbenv/rbenv.git
     plugins:

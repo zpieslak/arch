@@ -5,15 +5,15 @@ syntax on
 set background=dark
 colorscheme solarized
 
-" General settings
-" Incremental search
+" Search options
+" While typing a search command, show where the pattern, as it was typed so far, matches.
 set incsearch
-
-" Show line numbers
-set number
 
 " Highlight all search pattern matches
 set hlsearch
+
+" Show line numbers
+set number
 
 " Insert spaces on tab key
 set expandtab
@@ -146,6 +146,9 @@ let g:ale_linters_explicit = 1
 
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
+
+" Set languagetool lagnuage explicit
+let g:ale_languagetool_options = '--language en-US'
 
 " Map Ale wrap
 " nmap <silent> <A-k> <Plug>(ale_previous_wrap)

@@ -2,14 +2,19 @@
 - name: Install packages
   pacman:
     name:
-      - nodejs-lts-gallium
+      - zigbee2mqtt
     update_cache: true
 
-- name: Install
-  aur:
-    name: zigbee2mqtt
-  become: true
-  become_user: '{{ host.user.wheel.name }}'
+- name: Copy nginx configuration
+  ansible.builtin.copy:
+    src: nginx/conf.d
+    dest: /etc/nginx/
+    mode: '0644'
+
+- name: Restart nginx service
+  ansible.builtin.systemd:
+    state: restarted
+    name: nginx
 
 - name: Install systemd
   ansible.builtin.systemd:

@@ -12,9 +12,9 @@
     update_cache: true
     extra_args: --noconfirm
 
-- name: Copy dotfile
+- name: Copy vimrc plugins
   ansible.builtin.copy:
-    src: .vimrc
+    src: .vim
     dest: /home/{{ host.user.wheel.name }}/
     mode: '0644'
     group: '{{ host.user.wheel.name }}'
@@ -23,8 +23,7 @@
 - name: Install submodules
   ansible.builtin.git:
     repo: '{{ item }}'
-    dest: /home/{{ host.user.wheel.name }}/.vim/pack/plugins/start/{{ item | regex_search('[^/]+(?=.git)') }}
-    depth: 1
+    dest: /home/{{ host.user.wheel.name }}/.vim/pack/vendor/start/{{ item | regex_search('[^/]+(?=.git)') }}
     force: true
     version: master
   with_items: '{{ host.vim.plugins }}'

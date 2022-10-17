@@ -4,9 +4,6 @@ let g:ale_linters_explicit = 1
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
 
-" Set languagetool lagnuage explicit
-let g:ale_languagetool_options = '--language en-US'
-
 " Check files
 let g:ale_linters = {
 \ 'ansible': ['ansible_lint'],

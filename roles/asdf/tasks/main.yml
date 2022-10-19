@@ -1,19 +1,18 @@
 ---
-- name: Install rbenv
+- name: Install asdf
   ansible.builtin.git:
     repo: '{{ item }}'
-    dest: /home/{{ host.user.wheel.name }}/.rbenv
-    depth: 1
+    dest: /home/{{ host.user.wheel.name }}/.asdf
     version: master
-  with_items: '{{ host.ruby.git }}'
+  with_items: '{{ host.asdf.git }}'
 
 - name: Install plugins
   ansible.builtin.git:
     repo: '{{ item }}'
-    dest: /home/{{ host.user.wheel.name }}/.rbenv/plugins/{{ item | regex_search('[^/]+(?=.git)') }}
+    dest: /home/{{ host.user.wheel.name }}/.asdf/plugins/{{ item | regex_search('[^/asdf-]+(?=.git)') }}
     depth: 1
     version: master
-  with_items: '{{ host.ruby.plugins }}'
+  with_items: '{{ host.asdf.plugins }}'
 
 - name: Copy configuration files
   ansible.builtin.copy:
@@ -23,14 +22,17 @@
     group: '{{ host.user.wheel.name }}'
     owner: '{{ host.user.wheel.name }}'
   with_items:
+    - .asdfrc
     - .bash_login.d
+    - .eslintrc.yml
+    - .flake8
     - .gemrc
     - .rspec
     - .rubocop.yml
 
 - name: Fix permissions
   ansible.builtin.file:
-    path: /home/{{ host.user.wheel.name }}/.rbenv
+    path: /home/{{ host.user.wheel.name }}/.asdf
     owner: '{{ host.user.wheel.name }}'
     group: '{{ host.user.wheel.name }}'
     recurse: true

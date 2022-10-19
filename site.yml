@@ -18,9 +18,7 @@
     - {role: mysql, tags: mysql}
     - {role: postgresql, tags: postgresql}
     - {role: memcached, tags: memcached}
-    - {role: python, tags: python}
-    - {role: ruby, tags: ruby}
-    - {role: node, tags: node}
+    - {role: asdf, tags: asdf}
     - {role: tmux, tags: tmux}
     - {role: desktop, tags: desktop}
     - {role: virtualbox, tags: virtualbox}

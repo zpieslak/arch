@@ -24,6 +24,12 @@ host:
         mounts:
           -
             path: /root
+  asdf:
+    git: https://github.com/rbenv/rbenv.git
+    plugins:
+      - https://github.com/asdf-vm/asdf-nodejs.git
+      - https://github.com/asdf-community/asdf-python.git
+      - https://github.com/asdf-vm/asdf-ruby.git
   desktop:
     dpi: 96
   dir: /mnt
@@ -62,18 +68,8 @@ host:
             opts: defaults,discard,compress=lzo,subvol=@snapshots
   mosquitto:
     server: pi.lan
-  node:
-    git: https://github.com/nodenv/nodenv.git
-    plugins:
-      - https://github.com/nodenv/node-build.git
   postgresql:
     dir: /var/lib/postgres
-  python:
-    git: https://github.com/pyenv/pyenv.git
-  ruby:
-    git: https://github.com/rbenv/rbenv.git
-    plugins:
-      - https://github.com/rbenv/ruby-build.git
   system:
     charset: UTF-8
     font: ter-u32n

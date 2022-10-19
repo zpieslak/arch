@@ -1,6 +1,6 @@
 ---
 - name: Install package
-  pacman:
+  community.general.pacman:
     name: the_silver_searcher
     update_cache: true
 

@@ -18,7 +18,7 @@
   loop: '{{ host.disk.partitions | flatten(levels=1) }}'
 
 - name: Mount main partition
-  mount:
+  ansible.posix.mount:
     path: '{{ host.dir }}{{ item.1.path }}'
     src: '{{ host.disk.dev }}{{ host.disk.prefix }}{{ item.0.index }}'
     fstype: '{{ item.0.fstype }}'
@@ -32,14 +32,14 @@
   when: item.0.fstype == 'btrfs'
 
 - name: Unmount main partition
-  mount:
+  ansible.posix.mount:
     path: '{{ host.dir }}{{ item.1.path }}'
     state: unmounted
   loop: '{{ host.disk.partitions | subelements("mounts") }}'
   when: item.1.path == '/'
 
 - name: Mount main partition
-  mount:
+  ansible.posix.mount:
     path: '{{ host.dir }}{{ item.1.path }}'
     src: '{{ host.disk.dev }}{{ host.disk.prefix }}{{ item.0.index }}'
     fstype: '{{ item.0.fstype }}'
@@ -56,7 +56,7 @@
   loop: '{{ host.disk.partitions | subelements("mounts") }}'
 
 - name: Mount partitions
-  mount:
+  ansible.posix.mount:
     path: '{{ host.dir }}{{ item.1.path }}'
     src: '{{ host.disk.dev }}{{ host.disk.prefix }}{{ item.0.index }}'
     fstype: '{{ item.0.fstype }}'

@@ -1,6 +1,6 @@
 ---
 - name: Install rtl_sdr
-  pacman:
+  community.general.pacman:
     name:
       - rtl-sdr
     update_cache: true

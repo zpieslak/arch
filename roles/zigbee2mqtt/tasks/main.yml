@@ -1,6 +1,6 @@
 ---
 - name: Install packages
-  pacman:
+  community.general.pacman:
     name:
       - zigbee2mqtt
     update_cache: true

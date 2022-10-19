@@ -1,6 +1,6 @@
 ---
 - name: Install packages
-  pacman:
+  community.general.pacman:
     name:
       - binutils
       - fakeroot
@@ -54,7 +54,7 @@
     state: absent
 
 - name: Copy ssh key
-  authorized_key:
+  ansible.posix.authorized_key:
     user: '{{ host.user.wheel.name }}'
     key: '{{ lookup("file", "~/.ssh/id_rsa.pub") }}'
 

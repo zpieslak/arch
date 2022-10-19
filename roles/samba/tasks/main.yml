@@ -1,6 +1,6 @@
 ---
 - name: Install packages
-  pacman:
+  community.general.pacman:
     name:
       - samba
     update_cache: true

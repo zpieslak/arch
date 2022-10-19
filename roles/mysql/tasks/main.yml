@@ -6,7 +6,7 @@
   register: mysql_prompt
 
 - name: Refresh pacman cache
-  pacman:
+  community.general.pacman:
     name:
       - mariadb-clients
     update_cache: true

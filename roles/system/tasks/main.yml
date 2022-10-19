@@ -17,7 +17,7 @@
   changed_when: false
 
 - name: Set locale
-  locale_gen:
+  community.general.locale_gen:
     name: '{{ host.system.locale }}'
 
 - name: Set LANG variable
@@ -40,12 +40,12 @@
     line: Color
 
 - name: Upgrade packages
-  pacman:
+  community.general.pacman:
     update_cache: true
     upgrade: true
 
 - name: Install packages
-  pacman:
+  community.general.pacman:
     name:
       - pacman-contrib
       - python

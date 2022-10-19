@@ -1,6 +1,6 @@
 ---
 - name: Install postgresql
-  pacman:
+  community.general.pacman:
     name: postgresql
     update_cache: true
 

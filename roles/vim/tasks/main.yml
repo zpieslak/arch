@@ -1,13 +1,13 @@
 ---
 - name: Remove packages
-  pacman:
+  community.general.pacman:
     name:
       - vim
     state: absent
     extra_args: --recursive
 
 - name: Install package
-  pacman:
+  community.general.pacman:
     name: gvim
     update_cache: true
     extra_args: --noconfirm

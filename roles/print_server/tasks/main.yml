@@ -1,6 +1,6 @@
 ---
 - name: Refresh pacman cache
-  pacman:
+  community.general.pacman:
     name:
       - cups
       - p910nd

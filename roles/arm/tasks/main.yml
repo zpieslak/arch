@@ -23,7 +23,7 @@
     - mounts
 
 - name: Mount partitions
-  mount:
+  ansible.posix.mount:
     path: '{{ host.dir }}{{ item.1.path }}'
     src: '{{ item.0.dev }}'
     fstype: '{{ item.0.fstype }}'

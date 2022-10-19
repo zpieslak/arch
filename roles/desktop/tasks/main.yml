@@ -35,7 +35,7 @@
     owner: '{{ host.user.wheel.name }}'
 
 - name: Install packages
-  pacman:
+  community.general.pacman:
     name:
       - alacritty
       - calibre

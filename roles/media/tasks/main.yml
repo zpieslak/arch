@@ -1,6 +1,6 @@
 ---
 - name: Install package
-  pacman:
+  community.general.pacman:
     name:
       - ffmpeg
       - imagemagick

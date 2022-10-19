@@ -1,6 +1,6 @@
 ---
 - name: Install packages
-  pacman:
+  community.general.pacman:
     name:
       - home-assistant
       - python-httpx

@@ -1,10 +1,23 @@
 ---
+- name: Install linters
+  community.general.pacman:
+    name:
+      - ansible-lint
+      - autopep8
+      - flake8
+      - jq
+      - jre-openjdk
+      - languagetool
+      - python-cfn-lint
+      - yamllint
+    update_cache: true
+
 - name: Install asdf
   ansible.builtin.git:
     repo: '{{ item }}'
     dest: /home/{{ host.user.wheel.name }}/.asdf
     version: master
-  with_items: '{{ host.asdf.git }}'
+  with_items: '{{ host.program.asdf.git }}'
 
 - name: Install plugins
   ansible.builtin.git:
@@ -12,7 +25,7 @@
     dest: /home/{{ host.user.wheel.name }}/.asdf/plugins/{{ item | regex_search('[^/asdf-]+(?=.git)') }}
     depth: 1
     version: master
-  with_items: '{{ host.asdf.plugins }}'
+  with_items: '{{ host.program.asdf.plugins }}'
 
 - name: Copy configuration files
   ansible.builtin.copy:
@@ -24,6 +37,7 @@
   with_items:
     - .asdfrc
     - .bash_login.d
+    - .config
     - .eslintrc.yml
     - .flake8
     - .gemrc

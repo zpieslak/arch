@@ -3,25 +3,16 @@
   community.general.pacman:
     name:
       - ansible
-      - ansible-lint
-      - autopep8
       - aws-cli
-      - flake8
       - inetutils
-      - jq
-      - jre-openjdk
-      - languagetool
       - p7zip
       - pv
-      - python-cfn-lint
       - rsync
       - sshpass
       - unrar
       - unzip
       - usbutils
       - which
-      - yamllint
-      - yarn
       - zip
     update_cache: true
 

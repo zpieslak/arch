@@ -18,11 +18,11 @@
     - {role: mysql, tags: mysql}
     - {role: postgresql, tags: postgresql}
     - {role: memcached, tags: memcached}
-    - {role: asdf, tags: asdf}
+    - {role: program, tags: program}
     - {role: tmux, tags: tmux}
     - {role: desktop, tags: desktop}
     - {role: virtualbox, tags: virtualbox}
-    - {role: tools, tags: tools}
+    - {role: system_extra, tags: system_extra}
     - {role: media, tags: media}
     - {role: print_client, tags: print_client}
 

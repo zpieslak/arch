@@ -24,5 +24,4 @@
     group: '{{ host.user.wheel.name }}'
     owner: '{{ host.user.wheel.name }}'
   with_items:
-    - .config
     - bin

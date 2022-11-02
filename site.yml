@@ -30,7 +30,8 @@
   hosts: pi:zero
   become: true
   roles:
-    - {role: arm, tags: arm, delegate_to: localhost}
+    - {role: disk, tags: disk, delegate_to: localhost}
+    - {role: boot_arm, tags: boot_arm, delegate_to: localhost}
 
 - name: Pi
   hosts: pi
@@ -41,10 +42,10 @@
     - {role: nfs, tags: nfs}
     - {role: mosquitto_server, tags: mosquitto_server}
     - {role: samba, tags: samba}
-    - {role: influxdb, tags: influxdb}
     - {role: home_assistant, tags: home_assistant}
     - {role: zigbee2mqtt, tags: zigbee2mqtt}
     - {role: print_server, tags: print_server}
+    - {role: system_extra, tags: system_extra}
 
 - name: Zero
   hosts: zero

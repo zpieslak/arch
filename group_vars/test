@@ -16,7 +16,5 @@ host:
             Name: enp0s8
           Network:
             Address: 192.168.56.2
-  postgresql:
-    cow: true
   user:
     autologin: true

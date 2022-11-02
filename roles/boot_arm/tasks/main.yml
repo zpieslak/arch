@@ -1,0 +1,78 @@
+---
+- name: Extract root
+  ansible.builtin.command: bsdtar -xpf {{ host.boot_arm.image }} -C '{{ host.dir }}'
+  changed_when: false
+
+- name: Sync image
+  ansible.builtin.command: sync
+  changed_when: false
+
+- name: Enable ssh root login with password
+  ansible.builtin.lineinfile:
+    path: '{{ host.dir }}/etc/ssh/sshd_config'
+    regexp: ^#PermitRootLogin
+    line: PermitRootLogin yes
+
+- name: Generate fstab
+  ansible.builtin.shell: genfstab -U {{ host.dir }} > {{ host.dir }}/etc/fstab
+  changed_when: true
+
+- name: Copy cmdline.txt profile
+  ansible.builtin.template:
+    src: cmdline.txt.j2
+    dest: '{{ host.dir }}/boot/cmdline.txt'
+    mode: '0700'
+
+- name: Remove default systemd network profiles
+  ansible.builtin.file:
+    path: '{{ host.dir }}/etc/systemd/network'
+    state: absent
+
+- name: Add default systemd network profiles directory
+  ansible.builtin.file:
+    path: '{{ host.dir }}/etc/systemd/network'
+    state: directory
+    mode: '0755'
+
+- name: Copy systemd network profile
+  ansible.builtin.template:
+    src: systemd-networkd.network.j2
+    dest: '{{ host.dir }}/etc/systemd/network/{{ item.name }}.network'
+    mode: '0644'
+  loop: '{{ host.boot_arm.network | flatten(levels=1) }}'
+
+- name: Copy wpa_supplicant configuration
+  ansible.builtin.template:
+    src: wpa_supplicant.conf.j2
+    dest: '{{ host.dir }}/etc/wpa_supplicant/wpa_supplicant-{{ host.wifi.interface }}.conf'
+    mode: '0644'
+  when: host.wifi is defined
+
+- name: Enable wpa_supplicant
+  ansible.builtin.file:
+    src: '{{ host.dir }}/etc/systemd/system/multi-user.target.wants/wpa_supplicant@{{ host.wifi.interface }}.service'
+    dest: '{{ host.dir }}/usr/lib/systemd/system/wpa_supplicant@.service'
+    state: link
+    force: true
+  when: host.wifi.interface is defined
+
+- name: Fix DNS in chroot
+  ansible.builtin.lineinfile:
+    path: '{{ host.dir }}/etc/resolv.conf'
+    line: nameserver 127.0.0.53
+
+- name: Initialize pacman
+  ansible.builtin.command: arch-chroot {{ host.dir }} pacman-key --init
+  changed_when: true
+
+- name: Initialize pacman keyring
+  ansible.builtin.command: arch-chroot {{ host.dir }} pacman-key --populate archlinuxarm
+  changed_when: true
+
+- name: Remove packages
+  ansible.builtin.command: arch-chroot {{ host.dir }} pacman -R --noconfirm linux-aarch64 uboot-raspberrypi
+  changed_when: true
+
+- name: Install packages
+  ansible.builtin.command: arch-chroot {{ host.dir }} pacman -Sy --noconfirm btrfs-progs linux-rpi raspberrypi-firmware python
+  changed_when: true

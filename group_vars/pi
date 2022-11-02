@@ -1,11 +1,13 @@
 ---
 host:
-  arm:
+  boot_arm:
     image: /tmp/ArchLinuxARM-rpi-aarch64-latest.tar.gz
-    mounts:
-      - wd
-      - wd2
-  boot:
+    cmdline:
+      - root=LABEL=root
+      - rootflags=subvol=@
+      - rootwait
+      - rw
+      - console=serial0,115200
     network:
       -
         name: ethernet
@@ -14,8 +16,40 @@ host:
             Name: eth0
           Network:
             DHCP: true
-  postgresql:
-    dir: /wd/database/postgres
+  disk:
+    dev: /dev/sdd
+    prefix:
+    partitions:
+      -
+        index: 1
+        fstype: vfat
+        signature: 1
+        opts: -F32
+        size: +512M
+        mounts:
+          -
+            path: /boot
+            opts: umask=0077
+      -
+        index: 2
+        fstype: btrfs
+        signature: 20
+        opts: -f -L root
+        size:
+        mounts:
+          -
+            path: /
+            subvolume: /@
+            opts: defaults,discard,compress=lzo,subvol=@
+          -
+            path: /.snapshots
+            subvolume: /@snapshots
+            opts: defaults,discard,compress=lzo,subvol=@snapshots
+  disk_arm:
+    image: /tmp/ArchLinuxARM-rpi-aarch64-latest.tar.gz
+    mounts:
+      - wd
+      - wd2
   system:
     mirrors:
       - http://mirror.archlinuxarm.org/$arch/$repo

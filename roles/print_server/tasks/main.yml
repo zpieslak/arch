@@ -7,11 +7,11 @@
       - splix
     update_cache: true
 
-- name: Disable mDNS in systemd-resolved
-  ansible.builtin.lineinfile:
-    path: /etc/systemd/resolved.conf
-    regexp: ^MulticastDNS
-    line: MulticastDNS=no
+- name: Add systemd-resolved changes
+  ansible.builtin.copy:
+    src: resolved.conf.d
+    dest: /etc/systemd/
+    mode: '0644'
 
 - name: Restart systemd-resolved service
   ansible.builtin.systemd:
@@ -28,11 +28,11 @@
   ansible.builtin.copy:
     src: cups/
     dest: /etc/cups/
-    mode: '0640'
+    mode: '0644'
 
 - name: Copy nginx configuration
   ansible.builtin.copy:
-    src: conf.d
+    src: nginx/conf.d
     dest: /etc/nginx/
     mode: '0644'
 

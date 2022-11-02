@@ -17,8 +17,6 @@ host:
   disk:
     dev: /dev/nvme0n1
     prefix: p
-  postgresql:
-    cow: true
   system:
     modprobe:
       - options i915 modeset=1

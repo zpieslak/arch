@@ -1,9 +1,21 @@
 ---
-- name: Install packages
+- name: Install package dependencies
   community.general.pacman:
     name:
-      - zigbee2mqtt
+      - nodejs-lts-gallium
     update_cache: true
+
+- name: Install zigbee2mqtt
+  kewlfft.aur.aur:
+    name: zigbee2mqtt-git
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+
+- name: Restore copy
+  ansible.builtin.unarchive:
+    src: '{{ host.zigbee2mqtt.backup }}'
+    dest: /
+    remote_src: true
 
 - name: Copy nginx configuration
   ansible.builtin.copy:
@@ -16,7 +28,7 @@
     state: restarted
     name: nginx
 
-- name: Install systemd
+- name: Start systemd service
   ansible.builtin.systemd:
     state: started
     name: zigbee2mqtt

@@ -14,8 +14,6 @@ host:
   disk:
     dev: /dev/nvme0n1
     prefix: p
-  postgresql:
-    cow: true
   system:
     modprobe:
       - blacklist pcspkr

@@ -9,7 +9,7 @@ function main() {
     local link=$(cat /proc/net/wireless | awk 'END { print $3 }' | sed 's/\.$//')
   fi
 
-  printf "%s" "${ssid} $(expr $link \* 10 / 7)%"
+  printf "%s" "${ssid} ${link}"
 }
 
 main

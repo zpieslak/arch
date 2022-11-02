@@ -5,6 +5,12 @@ It consists all customizations that are needed to be done from scratch to set up
 
 More information can be found on [blog post](https://codegyver.com/2022/04/23/arch-linux-setup-in-ansible/).
 
+## Instalation
+
+Install ansible dependencies
+
+    ansible-galaxy collection install -r requirements.yml
+
 ## Testing
 
 To test the code a virtualbox machine can be created
@@ -81,20 +87,19 @@ Run connection locally
 
 ### Raspbery PI
 
+Install tools on host for arch-chroot
+
+    pacman -Sy arch-install-scripts qemu-user-static-binfmt
+
 Insert SD card.
 
 Run installation
 
-    ansible-playbook site.yml -t arm -l pi
+    ansible-playbook site.yml -t disk,boot_arm -l pi
 
 Measure temperature
 
     cat /sys/devices/virtual/thermal/thermal_zone0/temp
-
-Change mainline kernel to raspberry pi
-
-    pacman -R --noconfirm linux-aarch64 uboot-raspberrypi
-    pacman -S --noconfirm linux-raspberrypi4
 
 ### Alsa
 

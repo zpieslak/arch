@@ -14,7 +14,7 @@
 
 - name: Enable timedatectl ntp client
   ansible.builtin.command: timedatectl set-ntp true
-  changed_when: false
+  changed_when: true
 
 - name: Set locale
   community.general.locale_gen:
@@ -74,4 +74,10 @@
   ansible.builtin.template:
     src: vconsole.conf.j2
     dest: /etc/vconsole.conf
+    mode: '0644'
+
+- name: Add systemd-resolved changes
+  ansible.builtin.copy:
+    src: resolved.conf.d
+    dest: /etc/systemd/
     mode: '0644'

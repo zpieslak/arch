@@ -4,44 +4,17 @@
     name: postgresql
     update_cache: true
 
-- name: Create postgresql root directory
-  ansible.builtin.file:
-    path: '{{ host.postgresql.dir }}'
-    state: directory
-    mode: '0755'
-
-- name: Create postgresql data directory
-  ansible.builtin.file:
-    path: '{{ host.postgresql.dir }}/data'
-    state: directory
-    mode: '0700'
-    group: postgres
-    owner: postgres
-
-- name: Create postgresql directory
-  ansible.builtin.file:
-    path: /etc/systemd/system/postgresql.service.d/
-    state: directory
-    mode: '0755'
-
 - name: Disable Copy-on-Write
   ansible.builtin.file:
     path: '{{ host.postgresql.dir }}'
     attributes: C
     recurse: true
-  when: host.postgresql.cow is defined
 
 - name: Setup postgresql
   ansible.builtin.command: initdb --locale {{ host.system.locale }} -E {{ host.system.charset }} -D {{ host.postgresql.dir }}/data
   changed_when: false
   become: true
   become_user: postgres
-
-- name: Override postgresql service
-  ansible.builtin.template:
-    src: override.conf.j2
-    dest: /etc/systemd/system/postgresql.service.d/override.conf
-    mode: '0644'
 
 - name: Start postgresql service
   ansible.builtin.systemd:

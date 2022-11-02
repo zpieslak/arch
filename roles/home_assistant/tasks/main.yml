@@ -8,6 +8,7 @@
       - python-mutagen
       - python-zeroconf
       - python-psycopg2
+      - python-pycountry
     update_cache: true
 
 - name: Copy nginx configuration
@@ -24,7 +25,7 @@
 
 - name: Restore copy
   ansible.builtin.unarchive:
-    src: /wd2/backup/hass/2021-03-13-20.17.11.tar.gz
+    src: '{{ host.home_assistant.backup }}'
     dest: /var/lib/
     remote_src: true
 
@@ -38,6 +39,12 @@
   ansible.builtin.systemd:
     state: restarted
     name: nginx
+
+- name: Create hass postgresql database
+  ansible.builtin.command: createdb hass
+  changed_when: false
+  become: true
+  become_user: postgres
 
 - name: Start systemd service
   ansible.builtin.systemd:

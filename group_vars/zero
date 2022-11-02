@@ -1,6 +1,6 @@
 ---
 host:
-  boot:
+  boot_arm:
     network:
       -
         name: wifi

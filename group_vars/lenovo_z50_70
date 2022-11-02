@@ -27,8 +27,6 @@ host:
             RouteMetric: 20
   desktop:
     dpi: 96
-  postgresql:
-    cow: true
   system:
     modprobe:
       - options i915 modeset=1

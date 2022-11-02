@@ -1,15 +1,15 @@
 ---
 - name: Run pacstrap
   ansible.builtin.command: pacstrap {{ host.dir }} base linux linux-firmware btrfs-progs openssh python wpa_supplicant
-  changed_when: false
+  changed_when: true
 
 - name: Generate fstab
   ansible.builtin.shell: genfstab -U {{ host.dir }} >> {{ host.dir }}/etc/fstab
-  changed_when: false
+  changed_when: true
 
 - name: Install efi loader
   ansible.builtin.command: arch-chroot {{ host.dir }} bootctl install
-  changed_when: false
+  changed_when: true
 
 - name: Copy loader files
   ansible.builtin.copy:
@@ -21,11 +21,11 @@
 
 - name: Enable systemd boot update
   ansible.builtin.command: arch-chroot {{ host.dir }} systemctl enable systemd-boot-update
-  changed_when: false
+  changed_when: true
 
 - name: Enable sshd
   ansible.builtin.command: arch-chroot {{ host.dir }} systemctl enable sshd
-  changed_when: false
+  changed_when: true
 
 - name: Set password to root
   ansible.builtin.shell: |
@@ -55,16 +55,16 @@
 
 - name: Enable systemd wpa_supplicant
   ansible.builtin.command: arch-chroot {{ host.dir }} systemctl enable wpa_supplicant@{{ host.wifi.interface }}
-  changed_when: false
+  changed_when: true
   when: host.wifi is defined
 
 - name: Enable systemd network
   ansible.builtin.command: arch-chroot {{ host.dir }} systemctl enable systemd-networkd
-  changed_when: false
+  changed_when: true
 
 - name: Enable systemd resolved
   ansible.builtin.command: arch-chroot {{ host.dir }} systemctl enable systemd-resolved
-  changed_when: false
+  changed_when: true
 
   notify:
     - reboot

@@ -36,12 +36,13 @@
 - name: Pi
   hosts: pi
   roles:
+    - {role: disk_extra, tags: disk_extra}
     - {role: postgresql, tags: postgresql}
     - {role: nginx, tags: nginx}
     - {role: aria2, tags: aria2}
-    - {role: nfs, tags: nfs}
     - {role: mosquitto_server, tags: mosquitto_server}
     - {role: samba, tags: samba}
+    - {role: docker, tags: docker}
     - {role: home_assistant, tags: home_assistant}
     - {role: zigbee2mqtt, tags: zigbee2mqtt}
     - {role: print_server, tags: print_server}

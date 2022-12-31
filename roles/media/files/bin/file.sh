@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# https://man7.org/linux/man-pages/man3/strftime.3.html
 INPUT_DIR=/wd2/backup/iphone/
 BASE_OUTPUT_DIR=/wd2/media
 COUNT=$(find $INPUT_DIR -type f | wc -l)

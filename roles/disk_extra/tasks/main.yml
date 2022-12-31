@@ -1,0 +1,36 @@
+---
+- name: Create directories
+  ansible.builtin.file:
+    path: '{{ item.path }}'
+    state: directory
+    mode: '0755'
+  loop: '{{ host.disk_extra.partitions }}'
+
+- name: Modify fstab
+  ansible.posix.mount:
+    path: '{{ item.path }}'
+    src: UUID={{ item.uuid }}
+    fstype: '{{ item.fstype }}'
+    opts: '{{ item.opts }}'
+    dump: '{{ item.dump }}'
+    passno: '{{ item.passno }}'
+    state: present
+  loop: '{{ host.disk_extra.partitions }}'
+
+- name: Copy backup_mirror systemd service file
+  ansible.builtin.copy:
+    src: backup_mirror.service
+    dest: /usr/local/lib/systemd/system/
+    mode: '0644'
+
+- name: Copy backup_mirror systemd timer file
+  ansible.builtin.copy:
+    src: backup_mirror.timer
+    dest: /usr/local/lib/systemd/system/
+    mode: '0644'
+
+- name: Start systemd service
+  ansible.builtin.systemd:
+    state: started
+    name: backup_mirror.timer
+    enabled: true

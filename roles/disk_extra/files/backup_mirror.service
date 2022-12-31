@@ -1,0 +1,9 @@
+[Unit]
+Description=Backup mirror
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/rsync -av --exclude=/lost+found /media/backup1/ /media/backup2/
+
+[Install]
+WantedBy=multi-user.target

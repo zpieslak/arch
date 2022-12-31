@@ -38,6 +38,7 @@ host:
             path: /.snapshots
             subvolume: /@snapshots
             opts: defaults,discard,compress=lzo,subvol=@snapshots
+  disk_extra:
   disk_arm:
     image: /tmp/ArchLinuxARM-rpi-aarch64-latest.tar.gz
     dev: /dev/mmcblk0
@@ -62,9 +63,9 @@ host:
           -
             path: /root
   home_assistant:
-    backup: /wd2/backup/hass/2022-10-25-09.14.32.tar.gz
+    backup: /media/backup1/pi/home_assistant/2022-12-30T08-56-56Z.tar.gz
   mosquitto:
-    backup: /wd2/backup/mosquitto/2022-11-01-17.34.20.tar.gz
+    backup: /media/backup1/pi/mosquitto/2022-11-01-17.34.20.tar.gz
     server: pi.lan
   postgresql:
     dir: /var/lib/postgres
@@ -115,4 +116,4 @@ host:
       - https://github.com/hashivim/vim-terraform.git
       - https://github.com/christoomey/vim-tmux-navigator.git
   zigbee2mqtt:
-    backup: /wd2/backup/zigbee2mqtt/2022-11-01-19.33.55.tar.gz
+    backup: /media/backup1/pi/zigbee2mqtt/2022-12-30T09-01-29Z.tar.gz

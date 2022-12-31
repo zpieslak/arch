@@ -1,0 +1,16 @@
+---
+version: '3.8'
+
+services:
+  home_assistant:
+    image: homeassistant/home-assistant:stable
+    container_name: home_assistant
+    network_mode: host
+    restart: unless-stopped
+    ports:
+      - 8123:8123
+    logging:
+      driver: journald
+    volumes:
+      - /var/lib/home_assistant:/config
+      - /etc/localtime:/etc/localtime:ro

@@ -13,7 +13,7 @@ host:
         name: ethernet
         contents:
           Match:
-            Name: eth0
+            Name: end0
           Network:
             DHCP: true
   disk:
@@ -45,11 +45,32 @@ host:
             path: /.snapshots
             subvolume: /@snapshots
             opts: defaults,discard,compress=lzo,subvol=@snapshots
-  disk_arm:
-    image: /tmp/ArchLinuxARM-rpi-aarch64-latest.tar.gz
-    mounts:
-      - wd
-      - wd2
+  disk_extra:
+    partitions:
+      -
+        index: 1
+        uuid: 020d745f-2a3d-4c58-bfac-ae23dacb39a3
+        path: /media/data
+        fstype: ext4
+        opts: rw,relatime
+        dump: 0
+        passno: 0
+      -
+        index: 2
+        uuid: ab71ae0d-ad76-4a9e-a902-52f2149d8f06
+        path: /media/backup1
+        fstype: ext4
+        opts: rw,relatime
+        dump: 0
+        passno: 0
+      -
+        index: 3
+        uuid: b4cbda94-75c7-450e-8752-9828921c484e
+        path: /media/backup2
+        fstype: ext4
+        opts: rw,relatime
+        dump: 0
+        passno: 0
   system:
     mirrors:
       - http://mirror.archlinuxarm.org/$arch/$repo

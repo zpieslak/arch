@@ -1,0 +1,19 @@
+---
+version: '3.8'
+
+services:
+  home_assistant:
+    image: koenkk/zigbee2mqtt:latest
+    container_name: zigbee2mqtt
+    network_mode: host
+    restart: unless-stopped
+    ports:
+      - 10240:8080
+    logging:
+      driver: journald
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /run/udev:/run/udev:ro
+      - /var/lib/zigbee2mqtt:/app/data
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0

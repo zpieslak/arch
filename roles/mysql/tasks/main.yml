@@ -39,12 +39,12 @@
 
 - name: Copy docker systemd file
   ansible.builtin.copy:
-    src: docker-compose@.service
-    dest: /usr/lib/systemd/system/
+    src: mysql.service
+    dest: /usr/local/lib/systemd/system/
     mode: '0644'
 
 - name: Start mysql service
   ansible.builtin.systemd:
     state: started
-    name: docker-compose@mysql
+    name: mysql
     enabled: true

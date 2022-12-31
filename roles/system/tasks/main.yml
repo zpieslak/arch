@@ -76,6 +76,12 @@
     dest: /etc/vconsole.conf
     mode: '0644'
 
+- name: Create systemd directory for custom servies
+  ansible.builtin.file:
+    path: /usr/local/lib/systemd/system/
+    state: directory
+    mode: '0755'
+
 - name: Add systemd-resolved changes
   ansible.builtin.copy:
     src: resolved.conf.d

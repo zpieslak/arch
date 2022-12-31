@@ -1,0 +1,9 @@
+[Unit]
+Description=Backup mirror timer
+
+[Timer]
+OnCalendar=daily
+Unit=backup_mirror.service
+
+[Install]
+WantedBy=timers.target

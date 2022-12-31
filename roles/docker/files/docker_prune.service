@@ -1,0 +1,9 @@
+[Unit]
+Description=Docker prune
+
+[Service]
+ExecStart=/usr/bin/docker system prune -f -a --volumes 
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target

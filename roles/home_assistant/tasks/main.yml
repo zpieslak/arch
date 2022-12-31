@@ -1,15 +1,15 @@
 ---
-- name: Install packages
-  community.general.pacman:
-    name:
-      - home-assistant
-      - python-httpx
-      - python-defusedxml
-      - python-mutagen
-      - python-zeroconf
-      - python-psycopg2
-      - python-pycountry
-    update_cache: true
+- name: Copy docker configuration
+  ansible.builtin.copy:
+    src: docker
+    dest: /etc/
+    mode: '0644'
+
+- name: Copy docker systemd file
+  ansible.builtin.copy:
+    src: home_assistant.service
+    dest: /usr/local/lib/systemd/system/
+    mode: '0644'
 
 - name: Copy nginx configuration
   ansible.builtin.copy:
@@ -17,11 +17,11 @@
     dest: /etc/nginx/
     mode: '0644'
 
-- name: Change systemd file
-  ansible.builtin.lineinfile:
-    path: /usr/lib/systemd/system/home-assistant.service
-    regexp: ^After=
-    line: After=network.target postgresql.service
+- name: Create configuration directory
+  ansible.builtin.file:
+    path: /var/lib/home_assistant/
+    state: directory
+    mode: '0755'
 
 - name: Restore copy
   ansible.builtin.unarchive:
@@ -49,5 +49,5 @@
 - name: Start systemd service
   ansible.builtin.systemd:
     state: started
-    name: home-assistant
+    name: home_assistant
     enabled: true

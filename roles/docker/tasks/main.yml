@@ -11,3 +11,21 @@
     name: '{{ host.user.wheel.name }}'
     groups: docker
     append: true
+
+- name: Copy docker_prune systemd service file
+  ansible.builtin.copy:
+    src: docker_prune.service
+    dest: /usr/local/lib/systemd/system/
+    mode: '0644'
+
+- name: Copy docker_prune systemd timer file
+  ansible.builtin.copy:
+    src: docker_prune.timer
+    dest: /usr/local/lib/systemd/system/
+    mode: '0644'
+
+- name: Start systemd service
+  ansible.builtin.systemd:
+    state: started
+    name: docker_prune.timer
+    enabled: true

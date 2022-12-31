@@ -4,6 +4,7 @@ version: '3.8'
 services:
   db:
     image: mysql/mysql-server:8.0
+    container_name: mysql
     restart: always
     environment:
       MYSQL_ROOT_HOST: '%'

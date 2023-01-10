@@ -6,7 +6,7 @@ noremap <Leader>2 :tabn<CR>
 nnoremap <silent> <Leader><Space> :nohlsearch<Bar>:echo<CR>
 
 " Save as sudo
-cnoremap W execute 'silent! w !sudo tee % > /dev/null' <Bar> edit!
+cnoremap w!! execute 'silent! w !sudo tee % > /dev/null' <Bar> edit!
 
 " Typing :e %%/ when editing the file sets current directory
 cabbr <expr> %% expand('%:p:h')

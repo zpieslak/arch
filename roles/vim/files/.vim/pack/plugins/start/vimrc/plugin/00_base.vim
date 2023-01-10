@@ -1,7 +1,3 @@
-" Colorscheme settings
-set background=dark
-colorscheme solarized
-
 " Syntax highlighting
 syntax enable
 
@@ -71,3 +67,6 @@ set list listchars=tab:\│\ ,nbsp:~
 
 " Don't redraw while executing macros
 set lazyredraw
+
+" Select default regexp engine
+set re=0

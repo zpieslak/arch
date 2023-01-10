@@ -115,5 +115,6 @@ host:
       - https://github.com/vim-ruby/vim-ruby.git
       - https://github.com/hashivim/vim-terraform.git
       - https://github.com/christoomey/vim-tmux-navigator.git
+      - https://github.com/cmcaine/vim-uci.git
   zigbee2mqtt:
     backup: /media/backup1/pi/zigbee2mqtt/2022-12-30T09-01-29Z.tar.gz

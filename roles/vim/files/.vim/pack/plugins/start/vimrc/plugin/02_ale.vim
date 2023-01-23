@@ -15,7 +15,7 @@ let g:ale_linters = {
 \ 'python' : ['flake8', 'mypy'],
 \ 'ruby' : ['rubocop'],
 \ 'terraform' : ['terraform'],
-\ 'typescript' : ['eslint', 'tslint'],
+\ 'typescript' : ['eslint'],
 \ 'typescriptreact' : ['eslint'],
 \ 'yaml' : ['yamllint'],
 \ 'cloudformation' : ['cfn-lint'],
@@ -24,11 +24,11 @@ let g:ale_linters = {
 " Fix files
 let g:ale_fixers = {
 \ 'cs': ['dotnet-format'],
-\ 'javascript': ['eslint', 'prettier'],
+\ 'javascript': ['eslint',],
 \ 'python' : ['autopep8'],
 \ 'ruby' : ['rubocop'],
 \ 'json' : ['jq'],
 \ 'terraform' : ['terraform'],
-\ 'typescript' : ['eslint', 'prettier', 'tslint'],
+\ 'typescript' : ['eslint'],
 \ 'typescriptreact' : ['tslint'],
 \}

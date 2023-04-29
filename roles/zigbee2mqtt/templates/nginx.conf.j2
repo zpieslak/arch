@@ -1,6 +1,6 @@
 server {
   listen 80;
-  server_name zigbee2mqtt.lan;
+  server_name {{ host.zigbee2mqtt.domain }};
 
   location / {
     proxy_pass http://localhost:10240;

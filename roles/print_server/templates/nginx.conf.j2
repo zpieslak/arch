@@ -1,6 +1,6 @@
 server {
   listen 80;
-  server_name cups.lan;
+  server_name {{ host.print_server.domain }};
 
   location / {
     proxy_pass http://localhost:631;

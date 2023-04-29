@@ -12,6 +12,12 @@
     dest: /etc/cups/
     mode: '0644'
 
+- name: Copy printers files
+  ansible.builtin.template:
+    src: printers.conf.j2
+    dest: /etc/cups/printers.conf
+    mode: '0644'
+
 - name: Start cups service
   ansible.builtin.systemd:
     state: started

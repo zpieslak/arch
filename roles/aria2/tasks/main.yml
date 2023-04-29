@@ -31,9 +31,9 @@
     version: master
 
 - name: Copy nginx configuration
-  ansible.builtin.copy:
-    src: nginx/conf.d
-    dest: /etc/nginx/
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/conf.d/aria2.conf
     mode: '0644'
 
 - name: Restart nginx service

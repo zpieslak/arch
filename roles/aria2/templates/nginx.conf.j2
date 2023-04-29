@@ -1,6 +1,6 @@
 server {
   listen 80;
-  server_name aria2.lan;
+  server_name {{ host.aria2.domain }};
 
   location / {
     root /usr/share/nginx/aria2/docs;

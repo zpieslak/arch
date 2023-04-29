@@ -134,3 +134,41 @@ Check connected device with cc-tool
 Flash firmware with cc-tool
 
     sudo cc-tool -e -w FILE.hex
+
+### Ctags
+
+Install ripper-tags
+
+    gem install ripper-tags
+
+Generate ctags for Ruby project
+
+    ripper-tags -R --exclude=.git --exclude=log --exclude=tmp . $(bundle list --paths) --extra=q
+
+### SSL
+
+Create self-signed ceritificate
+
+    openssl req -new -newkey rsa:4096 -nodes -keyout home.key -out home.csr
+    openssl x509 -req -sha256 -days 3650 -in home.csr -signkey home.key -out home.crt -extfile openssl.ini
+
+Contents of openssl.ini
+
+    subjectKeyIdentifier = hash
+    authorityKeyIdentifier = keyid:always,issuer:always
+    basicConstraints = CA:TRUE
+    keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEnciph
+    subjectAltName = DNS:example.com, DNS:*.example.com
+    issuerAltName = issuer:copy
+
+Create ssl certificate for client authorization
+
+    openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -subj '/CN=example.com' -keyout home_client.key -out home_client.crt
+
+Create client certificate
+
+    openssl req -new -newkey rsa:4096 -nodes -keyout client.key -out client.csr
+
+Sign in client certificate
+
+    openssl x509 -req -sha256 -days 3650 -in client.csr -CA home_client.crt -CAkey home_client.key -out client.crt

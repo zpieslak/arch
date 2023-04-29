@@ -2,6 +2,8 @@
 host:
   alsa:
     modprobe:
+  aria2:
+    domain: aria2.lan
   desktop:
     dpi: 96
   dir: /mnt
@@ -64,11 +66,14 @@ host:
             path: /root
   home_assistant:
     backup: /media/backup1/pi/home_assistant/2022-12-30T08-56-56Z.tar.gz
+    domain: home.lan
   mosquitto:
     backup: /media/backup1/pi/mosquitto/2022-11-01-17.34.20.tar.gz
     server: pi.lan
   postgresql:
     dir: /var/lib/postgres
+  print_server:
+    domain: cups.lan
   program:
     asdf:
       git: https://github.com/asdf-vm/asdf.git
@@ -118,3 +123,4 @@ host:
       - https://github.com/cmcaine/vim-uci.git
   zigbee2mqtt:
     backup: /media/backup1/pi/zigbee2mqtt/2022-12-30T09-01-29Z.tar.gz
+    domain: zigbee2mqtt.lan

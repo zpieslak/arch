@@ -4,6 +4,9 @@ let g:ale_linters_explicit = 1
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
 
+" Set rubocop executable
+let g:ale_ruby_rubocop_executable = 'bundle'
+
 " Check files
 let g:ale_linters = {
 \ 'ansible': ['ansible_lint'],
@@ -13,10 +16,10 @@ let g:ale_linters = {
 \ 'json' : ['jq', 'prettier'],
 \ 'markdown' : ['languagetool'],
 \ 'python' : ['flake8', 'mypy'],
-\ 'ruby' : ['rubocop'],
+\ 'ruby' : ['rubocop', 'standardrb'],
 \ 'terraform' : ['terraform'],
-\ 'typescript' : ['eslint'],
-\ 'typescriptreact' : ['eslint'],
+\ 'typescript' : ['eslint', 'tsserver'],
+\ 'typescriptreact' : ['eslint', 'tsserver'],
 \ 'yaml' : ['yamllint'],
 \ 'cloudformation' : ['cfn-lint'],
 \}
@@ -24,11 +27,11 @@ let g:ale_linters = {
 " Fix files
 let g:ale_fixers = {
 \ 'cs': ['dotnet-format'],
-\ 'javascript': ['eslint',],
+\ 'javascript': ['eslint'],
 \ 'python' : ['autopep8'],
-\ 'ruby' : ['rubocop'],
+\ 'ruby' : ['rubocop', 'standardrb'],
 \ 'json' : ['jq'],
 \ 'terraform' : ['terraform'],
 \ 'typescript' : ['eslint'],
-\ 'typescriptreact' : ['tslint'],
+\ 'typescriptreact' : ['eslint'],
 \}

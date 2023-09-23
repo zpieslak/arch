@@ -5,6 +5,9 @@ noremap <Leader>2 :tabn<CR>
 " Silence search highlights
 nnoremap <silent> <Leader><Space> :nohlsearch<Bar>:echo<CR>
 
+" Toggle relativenumber
+nnoremap <Leader>' :set invrelativenumber<CR>
+
 " Save as sudo
 cnoremap w!! execute 'silent! w !sudo tee % > /dev/null' <Bar> edit!
 

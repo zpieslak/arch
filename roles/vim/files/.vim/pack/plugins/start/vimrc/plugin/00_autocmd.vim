@@ -15,3 +15,6 @@ au BufRead,BufNewFile *.template.yaml setf yaml.cloudformation
 
 " Mark ssh config
 au BufRead,BufNewFile */.ssh/conf.d/* setf sshconfig
+
+" Do not use spaces in make files
+au FileType make setlocal noexpandtab

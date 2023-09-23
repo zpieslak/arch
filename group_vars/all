@@ -121,6 +121,7 @@ host:
       - https://github.com/hashivim/vim-terraform.git
       - https://github.com/christoomey/vim-tmux-navigator.git
       - https://github.com/cmcaine/vim-uci.git
+      - https://github.com/github/copilot.vim
   zigbee2mqtt:
     backup: /media/backup1/pi/zigbee2mqtt/2022-12-30T09-01-29Z.tar.gz
     domain: zigbee2mqtt.lan

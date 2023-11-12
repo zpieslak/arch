@@ -1,0 +1,14 @@
+---
+version: '3.8'
+
+services:
+  fava:
+    container_name: fava
+    image: yegle/fava
+    ports:
+      - 5000:5000
+    environment:
+      - BEANCOUNT_FILE=/bean/personal.beancount
+    volumes:
+      - /var/lib/beancount:/bean
+    restart: unless-stopped

@@ -64,6 +64,8 @@ host:
         mounts:
           -
             path: /root
+  fava:
+    domain: fava.lan
   home_assistant:
     backup: /media/backup1/pi/home_assistant/2022-12-30T08-56-56Z.tar.gz
     domain: home.lan

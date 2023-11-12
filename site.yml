@@ -45,6 +45,7 @@
     - {role: docker, tags: docker}
     - {role: home_assistant, tags: home_assistant}
     - {role: zigbee2mqtt, tags: zigbee2mqtt}
+    - {role: fava, tags: fava}
     - {role: print_server, tags: print_server}
     - {role: system_extra, tags: system_extra}
 

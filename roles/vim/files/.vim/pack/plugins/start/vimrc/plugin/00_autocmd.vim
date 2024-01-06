@@ -16,5 +16,8 @@ au BufRead,BufNewFile *.template.yaml setf yaml.cloudformation
 " Mark ssh config
 au BufRead,BufNewFile */.ssh/conf.d/* setf sshconfig
 
+" Mark env
+au BufRead,BufNewFile .env* set filetype=envconfig syntax=sh
+
 " Do not use spaces in make files
 au FileType make setlocal noexpandtab

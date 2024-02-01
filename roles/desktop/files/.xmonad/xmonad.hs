@@ -18,13 +18,13 @@ main = xmonad $ def
     [
       className =? "Alacritty" --> doShift "1",
       className =? "KeePassXC" --> doShift "2",
-      className =? "Chromium" --> doShift "3",
-      className =? "Min" --> doShift "4"
+      className =? "Chromium" --> doShift "3"
+      -- className =? "Min" --> doShift "4"
     ] <+> manageSpawn <+> manageHook def,
     startupHook = do
       spawnOnce "alacritty"
       spawnOnce "chromium"
-      spawnOnce "min"
+      -- spawnOnce "min"
       spawnOnce "keepassxc"
   } `additionalKeysP` [
     ("M-c", spawn "dunstctl close-all"),

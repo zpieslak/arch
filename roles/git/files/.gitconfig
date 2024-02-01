@@ -5,3 +5,5 @@
   ui = auto
 [diff]
   noprefix = true
+[push]
+  autoSetupRemote = true

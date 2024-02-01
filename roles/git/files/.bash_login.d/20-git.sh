@@ -1,5 +1,8 @@
 # Enable bash completion
-source /usr/share/git/completion/git-completion.bash
+if [[ -f "/opt/homebrew/etc/bash_completion.d/git-completion.bash" ]]; then
+  source /opt/homebrew/etc/bash_completion.d/git-completion.bash
+fi
 
-# Enable git prompt
-source /usr/share/git/completion/git-prompt.sh
+if [[ -f "/usr/share/git/completion/git-completion.bash" ]]; then
+  source /usr/share/git/completion/git-completion.bash
+fi

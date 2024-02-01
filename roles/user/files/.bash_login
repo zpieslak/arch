@@ -3,5 +3,5 @@
 
 # Load configuration files
 for file in "$HOME"/.bash_login.d/*.sh ; do
-  [[ -f "$file" ]] && source $file
+  [[ -f "$file" ]] && source "$file"
 done

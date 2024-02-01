@@ -10,11 +10,14 @@ au FileType qf setlocal wrap
 " Mark es6 as javascript
 au BufRead,BufNewFile *.es6 setf javascript
 
-" Mark yaml.cloudformation as cloudformation
-au BufRead,BufNewFile *.template.yaml setf yaml.cloudformation
-
 " Mark ssh config
 au BufRead,BufNewFile */.ssh/conf.d/* setf sshconfig
+
+" Mark yaml.cloudformation as cloudformation
+au BufRead,BufNewFile *.template.yaml set filetype=yaml.cloudformation
+
+" Mark circleci config
+au BufRead,BufNewFile .circleci/*.yml set filetype=yaml.circleci
 
 " Mark env
 au BufRead,BufNewFile .env* set filetype=envconfig syntax=sh

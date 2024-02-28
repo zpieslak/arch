@@ -7,6 +7,7 @@
       - inetutils
       - p7zip
       - pv
+      - ripgrep
       - rsync
       - sshpass
       - unrar

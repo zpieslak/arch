@@ -4,7 +4,6 @@
   roles:
     - {role: system, tags: system}
     - {role: user, tags: user}
-    - {role: ag, tags: ag}
     - {role: git, tags: git}
     - {role: vim, tags: vim}
 

@@ -24,3 +24,6 @@ au BufRead,BufNewFile .env* set filetype=envconfig syntax=sh
 
 " Do not use spaces in make files
 au FileType make setlocal noexpandtab
+
+" Auto open quickfix window with grep results
+au QuickFixCmdPost grep redraw! | copen

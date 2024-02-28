@@ -12,4 +12,7 @@ nnoremap <Leader>' :set invrelativenumber<CR>
 cnoremap w!! execute 'silent! w !sudo tee % > /dev/null' <Bar> edit!
 
 " Typing :e %%/ when editing the file sets current directory
-cabbr <expr> %% expand('%:p:h')
+cnoreabbrev <expr> %% expand('%:p:h')
+
+" Expand grep to silent grep
+cnoreabbrev <expr> grep (getcmdtype() == ':' && getcmdline() ==# 'grep') ? 'silent grep' : 'grep'

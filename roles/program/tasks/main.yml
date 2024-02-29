@@ -7,7 +7,6 @@
       - flake8
       - jq
       - jre-openjdk
-      - languagetool
       - python-cfn-lint
       - yamllint
     update_cache: true

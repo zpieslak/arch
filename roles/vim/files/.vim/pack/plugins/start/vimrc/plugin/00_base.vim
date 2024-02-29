@@ -77,5 +77,5 @@ set grepformat=%f:%l:%c:%m
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --hidden\ --glob\ '!.git'
 else
-  set grepprg=grep\ -iInR\ -Dskip\ --exclude-dir=.git\ --exclude-dir=log\ --exclude-dir=node_modules\ --exclude-dir=tmp\ --exclude=tags\ $*
+  set grepprg=grep\ -iInR\ -Dskip\ --exclude-dir=.git\ --exclude-dir=tmp\ --exclude-dir=log\ --exclude=tags\ $*
 endif

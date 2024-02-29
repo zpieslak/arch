@@ -8,11 +8,11 @@ nnoremap <silent> <Leader><Space> :nohlsearch<Bar>:echo<CR>
 " Toggle relativenumber
 nnoremap <Leader>' :set invrelativenumber<CR>
 
-" Save as sudo
-cnoremap w!! execute 'silent! w !sudo tee % > /dev/null' <Bar> edit!
-
 " Typing :e %%/ when editing the file sets current directory
 cnoreabbrev <expr> %% expand('%:p:h')
 
-" Expand grep to silent grep
-cnoreabbrev <expr> grep (getcmdtype() == ':' && getcmdline() ==# 'grep') ? 'silent grep' : 'grep'
+" Save as sudo
+cnoreabbrev w!! execute 'silent! w !sudo tee % > /dev/null' <Bar> edit!
+
+" Surpress grep output
+cnoreabbrev grep silent grep

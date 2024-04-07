@@ -2,8 +2,6 @@ server {
   listen 443 ssl http2;
   server_name {{ host.home_assistant.domain }};
 
-  add_header Strict-Transport-Security "max-age=63072000" always;
-
   ssl_protocols TLSv1.3;
 
   ssl_certificate /etc/nginx/ssl/home.crt;

@@ -52,7 +52,7 @@ host:
         uuid: 020d745f-2a3d-4c58-bfac-ae23dacb39a3
         path: /media/data
         fstype: ext4
-        opts: rw,relatime
+        opts: rw,relatime,nofail
         dump: 0
         passno: 0
       -
@@ -60,7 +60,7 @@ host:
         uuid: ab71ae0d-ad76-4a9e-a902-52f2149d8f06
         path: /media/backup1
         fstype: ext4
-        opts: rw,relatime
+        opts: rw,relatime,nofail
         dump: 0
         passno: 0
       -
@@ -68,7 +68,7 @@ host:
         uuid: b4cbda94-75c7-450e-8752-9828921c484e
         path: /media/backup2
         fstype: ext4
-        opts: rw,relatime
+        opts: rw,relatime,nofail
         dump: 0
         passno: 0
   system:

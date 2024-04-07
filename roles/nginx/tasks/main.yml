@@ -13,6 +13,12 @@
     - nginx.conf
     - conf.d
 
+- name: Copy files configuration
+  ansible.builtin.template:
+    src: files.conf.j2
+    dest: /etc/nginx/conf.d/files.conf
+    mode: '0644'
+
 - name: Start nginx service
   ansible.builtin.systemd:
     state: started

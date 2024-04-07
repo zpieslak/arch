@@ -72,6 +72,8 @@ host:
   mosquitto:
     backup: /media/backup1/pi/mosquitto/2022-11-01-17.34.20.tar.gz
     server: pi.lan
+  nginx:
+    domain: pi.lan
   postgresql:
     dir: /var/lib/postgres
   print_server:
@@ -87,8 +89,7 @@ host:
     charset: UTF-8
     font: ter-u32n
     keymap: pl
-    lc_time: en_GB.UTF-8
-    locale: en_US.UTF-8
+    locale: en_GB.UTF-8
     modprobe:
       - blacklist pcspkr
     mirrors:
@@ -96,6 +97,7 @@ host:
       - http://ftp.icm.edu.pl/pub/Linux/dist/archlinux/$repo/os/$arch
       - http://arch.midov.pl/arch/$repo/os/$arch
       - http://mirror.onet.pl/pub/mirrors/archlinux/$repo/os/$arch
+    ntp: router.lan
     timezone: Poland
   user:
     root:

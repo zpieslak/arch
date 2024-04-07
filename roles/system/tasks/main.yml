@@ -6,10 +6,16 @@
     state: link
     force: true
 
+- name: Create timesyncd directory
+  ansible.builtin.file:
+    path: /etc/systemd/timesyncd.conf.d/
+    state: directory
+    mode: '0755'
+
 - name: Update timesyncd configuration
-  ansible.builtin.copy:
-    src: timesyncd.conf.d
-    dest: /etc/systemd/
+  ansible.builtin.template:
+    src: timesyncd.conf.j2
+    dest: /etc/systemd/timesyncd.conf.d/timesyncd.conf
     mode: '0644'
 
 - name: Enable timedatectl ntp client

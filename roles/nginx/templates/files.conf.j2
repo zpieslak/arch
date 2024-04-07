@@ -1,12 +1,7 @@
 server {
   listen 80;
-  server_name pi.lan;
+  server_name {{ host.nginx.domain }};
   charset UTF-8;
-  
-  location /ala {
-    root /media/backup1/;
-    autoindex on;
-  }
 
   location /media {
     root /media/backup1/;

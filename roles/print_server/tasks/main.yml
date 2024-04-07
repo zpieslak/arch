@@ -4,8 +4,13 @@
     name:
       - cups
       - p910nd
-      - splix
     update_cache: true
+
+- name: Install samsung drvier
+  kewlfft.aur.aur:
+    name: samsung-unified-driver
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
 
 - name: Add systemd-resolved changes
   ansible.builtin.copy:
@@ -22,7 +27,7 @@
   ansible.builtin.copy:
     src: avahi/services/
     dest: /etc/avahi/services/
-    mode: '0640'
+    mode: '0644'
 
 - name: Copy cups files
   ansible.builtin.copy:

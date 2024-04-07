@@ -25,16 +25,11 @@
     - {role: media, tags: media}
     - {role: print_client, tags: print_client}
 
-- name: Pi
-  hosts: pi:zero
-  become: true
+- name: Core
+  hosts: core
   roles:
     - {role: disk, tags: disk, delegate_to: localhost}
-    - {role: boot_arm, tags: boot_arm, delegate_to: localhost}
-
-- name: Pi
-  hosts: pi
-  roles:
+    - {role: boot, tags: boot}
     - {role: disk_extra, tags: disk_extra}
     - {role: postgresql, tags: postgresql}
     - {role: nginx, tags: nginx}
@@ -51,5 +46,7 @@
 - name: Zero
   hosts: zero
   roles:
+    - {role: disk, tags: disk, delegate_to: localhost}
+    - {role: boot_arm, tags: boot_arm, delegate_to: localhost}
     - {role: mosquitto_client, tags: mosquitto_client}
     - {role: rtl_sdr, tags: rtl_sdr}

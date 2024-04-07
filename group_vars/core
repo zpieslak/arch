@@ -1,21 +1,5 @@
 ---
 host:
-  boot_arm:
-    image: /tmp/ArchLinuxARM-rpi-aarch64-latest.tar.gz
-    cmdline:
-      - root=LABEL=root
-      - rootflags=subvol=@
-      - rootwait
-      - rw
-      - console=serial0,115200
-    network:
-      -
-        name: ethernet
-        contents:
-          Match:
-            Name: end0
-          Network:
-            DHCP: true
   disk:
     dev: /dev/sdd
     prefix:
@@ -40,11 +24,11 @@ host:
           -
             path: /
             subvolume: /@
-            opts: defaults,discard,compress=lzo,subvol=@
+            opts: defaults,compress=lzo,subvol=@
           -
             path: /.snapshots
             subvolume: /@snapshots
-            opts: defaults,discard,compress=lzo,subvol=@snapshots
+            opts: defaults,compress=lzo,subvol=@snapshots
   disk_extra:
     partitions:
       -

@@ -68,17 +68,18 @@
     scope: user
     name: ssh-agent
     enabled: true
+  when: host.user.ssh_agent
 
 - name: Setup autologin
   ansible.builtin.file:
     path: /etc/systemd/system/getty@tty1.service.d/
     state: directory
     mode: '0755'
-  when: host.user.autologin is defined
+  when: host.user.autologin
 
 - name: Set autologin on tty1
   ansible.builtin.template:
     src: override.conf.j2
     dest: /etc/systemd/system/getty@tty1.service.d/override.conf
     mode: '0644'
-  when: host.user.autologin is defined
+  when: host.user.autologin

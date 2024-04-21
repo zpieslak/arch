@@ -53,8 +53,8 @@
 - name: Install packages
   community.general.pacman:
     name:
+      - base-devel
       - pacman-contrib
-      - python
       - terminus-font
 
 - name: Copy paccache hook
@@ -68,7 +68,7 @@
     src: modprobe.conf.j2
     dest: /etc/modprobe.d/system.conf
     mode: '0644'
-  when: host.system.modprobe is defined
+  when: host.system.modprobe | length > 0
 
 - name: Copy hosts
   ansible.builtin.copy:
@@ -88,8 +88,34 @@
     state: directory
     mode: '0755'
 
+- name: Make systemd-resolved to manage resolve.conf
+  ansible.builtin.file:
+    src: /run/systemd/resolve/stub-resolv.conf
+    dest: /etc/resolv.conf
+    state: link
+    force: yes
+
 - name: Add systemd-resolved changes
   ansible.builtin.copy:
     src: resolved.conf.d
     dest: /etc/systemd/
     mode: '0644'
+
+- name: Enable fstrim timer
+  ansible.builtin.systemd:
+    state: started
+    name: fstrim.timer
+    enabled: true
+    daemon_reload: true
+
+- name: Enable fstrim timer
+  ansible.builtin.systemd:
+    state: started
+    name: fstrim.timer
+    enabled: true
+    daemon_reload: true
+
+- name: Set a hostname
+  ansible.builtin.hostname:
+    name: '{{ inventory_hostname_short }}'
+    use: systemd

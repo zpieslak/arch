@@ -25,7 +25,7 @@
 
 - name: Restore copy
   ansible.builtin.unarchive:
-    src: '{{ mosquitto.backup }}'
+    src: '{{ host.mosquitto.backup }}'
     dest: /etc/mosquitto/
     remote_src: true
 

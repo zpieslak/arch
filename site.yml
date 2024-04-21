@@ -28,7 +28,7 @@
 - name: Core
   hosts: core
   roles:
-    - {role: disk, tags: disk, delegate_to: localhost}
+    - {role: disk, tags: disk}
     - {role: boot, tags: boot}
     - {role: disk_extra, tags: disk_extra}
     - {role: postgresql, tags: postgresql}

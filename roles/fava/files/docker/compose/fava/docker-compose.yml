@@ -1,6 +1,4 @@
 ---
-version: '3.8'
-
 services:
   fava:
     container_name: fava
@@ -8,7 +6,7 @@ services:
     ports:
       - 5000:5000
     environment:
-      - BEANCOUNT_FILE=/bean/personal.beancount
+      - BEANCOUNT_FILE=/bean/main.beancount
     volumes:
       - /var/lib/beancount:/bean
     restart: unless-stopped

@@ -32,8 +32,8 @@
 - name: Copy bin
   ansible.builtin.copy:
     src: bin/
-    dest: /usr/bin/
-    mode: '0755'
+    dest: /home/{{ host.user.wheel.name }}/
+    mode: '0644'
 
 - name: Restart nginx service
   ansible.builtin.systemd:

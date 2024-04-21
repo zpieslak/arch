@@ -12,14 +12,14 @@
 
 - name: Copy systemd unit file
   ansible.builtin.copy:
-    src: aria2cd.service
-    dest: /usr/lib/systemd/system/
+    src: aria.service
+    dest: /usr/local/lib/systemd/system/
     mode: '0644'
 
-- name: Start aria2cd service
+- name: Start aria service
   ansible.builtin.systemd:
     state: started
-    name: aria2cd
+    name: aria2
     enabled: true
     daemon_reload: true
 

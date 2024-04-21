@@ -3,7 +3,6 @@
   community.general.pacman:
     name:
       - cups
-      - p910nd
     update_cache: true
 
 - name: Install samsung drvier
@@ -45,12 +44,6 @@
   ansible.builtin.systemd:
     state: restarted
     name: nginx
-
-- name: Start p910nd service
-  ansible.builtin.systemd:
-    state: started
-    name: p910nd
-    enabled: true
 
 - name: Start avahi service
   ansible.builtin.systemd:

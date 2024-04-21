@@ -1,8 +1,17 @@
 ---
 host:
+  boot:
+    network:
+      -
+        name: ethernet
+        contents:
+          Match:
+            Name: enp2s0
+          Network:
+            DHCP: true
   disk:
-    dev: /dev/sdd
-    prefix:
+    dev: /dev/nvme0n1
+    prefix: p
     partitions:
       -
         index: 1
@@ -33,7 +42,7 @@ host:
     partitions:
       -
         index: 1
-        uuid: 020d745f-2a3d-4c58-bfac-ae23dacb39a3
+        uuid: e762bdfa-43db-4fba-a232-fd9beb63295d
         path: /media/data
         fstype: ext4
         opts: rw,relatime,nofail
@@ -41,7 +50,7 @@ host:
         passno: 0
       -
         index: 2
-        uuid: ab71ae0d-ad76-4a9e-a902-52f2149d8f06
+        uuid: 19e311cb-4857-49ed-90cd-05e820dcc970
         path: /media/backup1
         fstype: ext4
         opts: rw,relatime,nofail
@@ -55,6 +64,11 @@ host:
         opts: rw,relatime,nofail
         dump: 0
         passno: 0
-  system:
-    mirrors:
-      - http://mirror.archlinuxarm.org/$arch/$repo
+  vim:
+    plugins:
+      - https://github.com/dense-analysis/ale.git
+      - https://github.com/pearofducks/ansible-vim.git
+      - https://github.com/ekalinin/Dockerfile.vim.git
+      - https://github.com/tpope/vim-commentary.git
+      - https://github.com/plasticboy/vim-markdown.git
+      - https://github.com/nathangrigg/vim-beancount.git

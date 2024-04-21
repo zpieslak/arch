@@ -1,9 +1,11 @@
 [Unit]
 Description=Aria2 Daemon
+Requires=network.target
+After=network.target
 
 [Service]
 Type=forking
 ExecStart=/usr/bin/aria2c --conf-path=/etc/aria2.conf
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target

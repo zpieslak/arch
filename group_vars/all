@@ -4,6 +4,8 @@ host:
     modprobe:
   aria2:
     domain: aria2.lan
+  boot:
+    network: []
   desktop:
     dpi: 96
   dir: /mnt
@@ -67,7 +69,7 @@ host:
   fava:
     domain: fava.lan
   home_assistant:
-    backup: /media/backup1/core/home_assistant/2022-12-30T08-56-56Z.tar.gz
+    backup: /media/backup1/core/home_assistant/2024-04-15T13-19-41Z.tar.gz
     domain: home.lan
   mosquitto:
     backup: /media/backup1/core/mosquitto/2022-11-01-17.34.20.tar.gz
@@ -90,8 +92,7 @@ host:
     font: ter-u32n
     keymap: pl
     locale: en_GB.UTF-8
-    modprobe:
-      - blacklist pcspkr
+    modprobe: []
     mirrors:
       - http://mirror.juniorjpdj.pl/archlinux/$repo/os/$arch
       - http://ftp.icm.edu.pl/pub/Linux/dist/archlinux/$repo/os/$arch
@@ -100,6 +101,8 @@ host:
     ntp: router.lan
     timezone: Poland
   user:
+    autologin: false
+    ssh_agent: false
     root:
       name: root
       password: $6$rzZJmHfE36hfGAUX$8F4cY59UH6vcpjziGLKCiHzqv0WAs85eNhPAx2N/lghy3dh.kKd1w2IaBoIgaX5Yz78.MmoSZzC6wZ8cV1yIE/
@@ -127,5 +130,5 @@ host:
       - https://github.com/github/copilot.vim
       - https://github.com/nathangrigg/vim-beancount.git
   zigbee2mqtt:
-    backup: /media/backup1/core/zigbee2mqtt/2022-12-30T09-01-29Z.tar.gz
+    backup: /media/backup1/core/zigbee2mqtt/2024-04-15T13-19-47Z.tar.gz
     domain: zigbee2mqtt.lan

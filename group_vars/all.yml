@@ -6,6 +6,8 @@ host:
     domain: aria2.lan
   boot:
     network: []
+  cups:
+    printer: xerox.lan
   desktop:
     dpi: 96
   dir: /mnt
@@ -80,8 +82,6 @@ host:
     domain: core.lan
   postgresql:
     dir: /var/lib/postgres
-  print_server:
-    domain: cups.lan
   program:
     asdf:
       git: https://github.com/asdf-vm/asdf.git

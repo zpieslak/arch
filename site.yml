@@ -23,7 +23,7 @@
     - {role: virtualbox, tags: virtualbox}
     - {role: system_extra, tags: system_extra}
     - {role: media, tags: media}
-    - {role: print_client, tags: print_client}
+    - {role: cups, tags: cups}
 
 - name: Core
   hosts: core
@@ -40,7 +40,6 @@
     - {role: home_assistant, tags: home_assistant}
     - {role: zigbee2mqtt, tags: zigbee2mqtt}
     - {role: fava, tags: fava}
-    - {role: print_server, tags: print_server}
     - {role: system_extra, tags: system_extra}
 
 - name: Zero

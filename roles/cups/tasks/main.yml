@@ -6,16 +6,16 @@
       - cups-pdf
     update_cache: true
 
+- name: Install xerox drvier
+  kewlfft.aur.aur:
+    name: xerox-phaser-3020
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+
 - name: Copy cups files
   ansible.builtin.copy:
     src: cups/
     dest: /etc/cups/
-    mode: '0644'
-
-- name: Copy printers files
-  ansible.builtin.template:
-    src: printers.conf.j2
-    dest: /etc/cups/printers.conf
     mode: '0644'
 
 - name: Start cups service

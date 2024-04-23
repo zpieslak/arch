@@ -6,8 +6,6 @@ host:
     domain: aria2.lan
   boot:
     network: []
-  cups:
-    printer: xerox.lan
   desktop:
     dpi: 96
   dir: /mnt

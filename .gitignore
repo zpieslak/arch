@@ -1,3 +1,4 @@
 tmp/*
 *.retry
-group_vars/local
+hosts.yml
+group_vars/secrets.yml

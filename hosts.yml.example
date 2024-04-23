@@ -1,0 +1,16 @@
+---
+secrets:
+  hosts:
+    core:
+      ansible_host: core.lan
+    local:
+      ansible_connection: local
+      ansible_host: localhost
+    lenovo_ideapad_5:
+      ansible_host: lenovo_ideapad_5.lan
+    lenovo_z50_70:
+      ansible_host: lenovo_z50_70.lan
+    test:
+      ansible_host: core.lan
+    zero:
+      ansible_host: zero.lan

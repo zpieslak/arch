@@ -8,7 +8,7 @@
     - {role: vim, tags: vim}
 
 - name: Laptop
-  hosts: test:lenovo_ideapad_5:lenovo_z50_70:dell:local
+  hosts: test:lenovo_ideapad_5:lenovo_z50_70:local
   roles:
     - {role: disk, tags: disk}
     - {role: boot, tags: boot}

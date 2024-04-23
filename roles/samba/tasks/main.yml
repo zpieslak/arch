@@ -1,10 +1,4 @@
 ---
-- name: Provide user password
-  ansible.builtin.pause:
-    prompt: Provide user password
-    echo: false
-  register: samba_prompt
-
 - name: Install packages
   community.general.pacman:
     name:
@@ -21,7 +15,7 @@
   ansible.builtin.shell: >
     set -o pipefail
     && (pdbedit --user={{ host.user.wheel.name }} 2>&1 > /dev/null)
-    || (echo '{{ samba_prompt.user_input }}'; echo '{{ samba_prompt.user_input }}')
+    || (echo '{{ host.samba.password }}'; echo '{{ host.samba.password }}')
     | smbpasswd -s -a {{ host.user.wheel.name }}
   register: add_samba_user
   changed_when: '"Added user" in add_samba_user.stdout'

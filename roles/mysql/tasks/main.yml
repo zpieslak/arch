@@ -1,10 +1,4 @@
 ---
-- name: Provide root password
-  ansible.builtin.pause:
-    prompt: Provide root password
-    echo: false
-  register: mysql_prompt
-
 - name: Refresh pacman cache
   community.general.pacman:
     name:

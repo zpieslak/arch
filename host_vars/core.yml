@@ -6,7 +6,7 @@ host:
         name: ethernet
         contents:
           Match:
-            Name: enp2s0
+            Driver: r8169
           Network:
             DHCP: true
   disk:
@@ -64,6 +64,8 @@ host:
         opts: rw,relatime,nofail
         dump: 0
         passno: 0
+  system:
+    font: ter-u18n
   vim:
     plugins:
       - https://github.com/dense-analysis/ale.git

@@ -3,7 +3,6 @@
   community.general.pacman:
     name:
       - tmux
-      - xclip
     update_cache: true
 
 - name: Copy configuration files

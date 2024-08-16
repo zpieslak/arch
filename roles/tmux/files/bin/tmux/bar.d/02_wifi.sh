@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# get wifi name
+# networksetup -getairportnetwork en0
+
 function main() {
   local status, ssid, wifi_generation, link
 

@@ -1,8 +1,12 @@
 import XMonad
+import XMonad.Actions.CopyWindow (copyToAll)
 import XMonad.Actions.SpawnOn
 import XMonad.Hooks.FadeWindows
+import XMonad.Hooks.ManageHelpers
 import XMonad.Util.EZConfig
 import XMonad.Util.SpawnOnce
+import Data.List (isInfixOf)
+
 
 main = xmonad $ def
   {
@@ -12,19 +16,19 @@ main = xmonad $ def
     focusFollowsMouse = False,
     logHook = fadeWindowsLogHook $ composeAll [
       opaque,
-      isUnfocused --> transparency 0.3
+      isUnfocused --> transparency 0.2
     ],
     manageHook = composeAll
     [
       className =? "Alacritty" --> doShift "1",
       className =? "KeePassXC" --> doShift "2",
-      className =? "Chromium" --> doShift "3"
-      -- className =? "Min" --> doShift "4"
+      className =? "Chromium" --> doShift "3",
+      stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloat <+> doF copyToAll,
+      (isInfixOf "is sharing your screen." <$> stringProperty "_NET_WM_NAME") --> doHideIgnore
     ] <+> manageSpawn <+> manageHook def,
     startupHook = do
       spawnOnce "alacritty"
       spawnOnce "chromium"
-      -- spawnOnce "min"
       spawnOnce "keepassxc"
   } `additionalKeysP` [
     ("M-c", spawn "dunstctl close-all"),

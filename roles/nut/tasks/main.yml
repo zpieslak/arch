@@ -1,0 +1,35 @@
+---
+- name: Install package
+  community.general.pacman:
+    name: nut
+    update_cache: true
+
+- name: Copy configuration file
+  ansible.builtin.copy:
+    src: ups.conf
+    dest: /etc/nut/
+    mode: '0644'
+
+- name: Start driver service
+  ansible.builtin.systemd:
+    state: started
+    name: nut-driver-enumerator
+    enabled: true
+
+- name: Start server service
+  ansible.builtin.systemd:
+    state: started
+    name: nut-server
+    enabled: true
+
+- name: Enable server target service
+  ansible.builtin.systemd:
+    state: started
+    name: nut.target
+    enabled: true
+
+- name: Enable driver target service
+  ansible.builtin.systemd:
+    state: started
+    name: nut-driver.target
+    enabled: true

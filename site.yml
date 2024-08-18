@@ -41,6 +41,7 @@
     - {role: zigbee2mqtt, tags: zigbee2mqtt}
     - {role: fava, tags: fava}
     - {role: system_extra, tags: system_extra}
+    - {role: nut, tags: nut}
 
 - name: Zero
   hosts: zero

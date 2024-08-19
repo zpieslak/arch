@@ -34,3 +34,9 @@
     state: started
     name: backup_mirror.timer
     enabled: true
+
+- name: Copy bin
+  ansible.builtin.copy:
+    src: bin/
+    dest: /home/{{ host.user.wheel.name }}/
+    mode: '0644'

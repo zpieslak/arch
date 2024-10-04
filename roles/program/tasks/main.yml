@@ -2,12 +2,14 @@
 - name: Install linters
   community.general.pacman:
     name:
+      - actionlint
       - ansible-lint
-      - autopep8
-      - flake8
       - jq
       - jre-openjdk
       - python-cfn-lint
+      - ruff
+      - shellcheck
+      - yamlfmt
       - yamllint
     update_cache: true
 

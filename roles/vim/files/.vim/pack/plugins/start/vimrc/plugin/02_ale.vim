@@ -11,20 +11,22 @@ let g:ale_ruby_standardrb_executable = 'bundle'
 " Check files
 let g:ale_linters = {
 \ 'ansible': ['ansible_lint'],
+\ 'circleci' : ['circleci'],
 \ 'cloudformation' : ['cfn-lint'],
 \ 'cs': ['OmniSharp'],
 \ 'css': ['stylelint'],
 \ 'envconfig': ['dotenv-linter'],
+\ 'githubaction' : ['actionlint'],
 \ 'haskell': ['ghc'],
 \ 'javascript': ['eslint', 'prettier'],
 \ 'json' : ['jq'],
-\ 'python' : ['flake8', 'mypy'],
+\ 'python' : ['mypy', 'ruff'],
 \ 'ruby' : ['standardrb'],
 \ 'sh' : ['shellcheck'],
 \ 'terraform' : ['terraform', 'tflint'],
 \ 'typescript' : ['eslint', 'tsserver'],
 \ 'typescriptreact' : ['eslint', 'tsserver'],
-\ 'yaml.circleci' : ['circleci'],
+\ 'vim' : ['vint'],
 \ 'yaml' : ['yamllint'],
 \}
 
@@ -35,7 +37,7 @@ let g:ale_fixers = {
 \ 'css': ['prettier', 'stylelint'],
 \ 'javascript': ['eslint'],
 \ 'json' : ['jq'],
-\ 'python' : ['autopep8'],
+\ 'python' : ['ruff'],
 \ 'ruby' : ['standardrb'],
 \ 'terraform' : ['terraform'],
 \ 'typescript' : ['eslint'],

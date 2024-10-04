@@ -19,6 +19,9 @@ au BufRead,BufNewFile *.template.yaml set filetype=yaml.cloudformation
 " Mark circleci config
 au BufRead,BufNewFile .circleci/*.yml set filetype=yaml.circleci
 
+" Mark github actions config
+au BufRead,BufNewFile .github/workflows/*.yml set filetype=yaml.githubaction
+
 " Mark env
 au BufRead,BufNewFile .env* set filetype=envconfig syntax=sh
 

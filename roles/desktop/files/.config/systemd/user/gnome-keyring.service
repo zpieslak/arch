@@ -1,0 +1,10 @@
+[Unit]
+Description=GNOME Keyring
+
+[Service]
+ExecStart=/usr/bin/gnome-keyring-daemon --foreground --components=secrets,ssh --control-directory=%t/keyring
+Restart=on-failure
+Type=simple
+
+[Install]
+WantedBy=xorg.target

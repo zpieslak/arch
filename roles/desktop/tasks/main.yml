@@ -44,6 +44,7 @@
       - dunst
       - fontconfig
       - gimp
+      - gnome-keyring
       - keepassxc
       - libxkbcommon
       - libnotify
@@ -120,6 +121,26 @@
     daemon_reload: true
     scope: user
     name: numlock
+    enabled: true
+
+- name: Enable gnome-keyring service
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+  become_method: machinectl
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+    name: gnome-keyring
+    enabled: true
+
+- name: Enable gcr ssh agent
+  become: true
+  become_user: '{{ host.user.wheel.name }}'
+  become_method: machinectl
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+    name: gcr-ssh-agent.socket
     enabled: true
 
 - name: Enable xcompmgr service

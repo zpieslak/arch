@@ -35,7 +35,6 @@
     - .bashrc
     - .bash_login
     - .bash_login.d
-    - .config
     - .editrc
     - .inputrc
     - .ssh
@@ -56,19 +55,7 @@
 - name: Copy ssh key
   ansible.posix.authorized_key:
     user: '{{ host.user.wheel.name }}'
-    key: '{{ lookup("file", "~/.ssh/id_rsa.pub") }}'
-
-- name: Enable ssh-agent service
-  become: true
-  become_user: '{{ host.user.wheel.name }}'
-  become_method: machinectl
-  ansible.builtin.systemd:
-    state: started
-    daemon_reload: true
-    scope: user
-    name: ssh-agent
-    enabled: true
-  when: host.user.ssh_agent
+    key: '{{ lookup("file", "~/.ssh/id_default.pub") }}'
 
 - name: Setup autologin
   ansible.builtin.file:

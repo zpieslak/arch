@@ -4,7 +4,7 @@ export PATH=$PATH:$HOME/.yarn/bin
 
 # Ssh-agent socket
 if [ -z "${SSH_AUTH_SOCK+x}" ]; then
-  export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+  export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 fi
 
 # mysql 5.7

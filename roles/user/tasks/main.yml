@@ -37,7 +37,6 @@
     - .bash_login.d
     - .editrc
     - .inputrc
-    - .ssh
 
 - name: Copy bin files
   ansible.builtin.copy:

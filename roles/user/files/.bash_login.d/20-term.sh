@@ -4,7 +4,7 @@
 #   - Xresources from http://github.com/altercation/solarized
 # Generated with pty2tty.awk by Joep van Delft
 # http://github.com/joepvd/tty-solarized
-if [ "$TERM" = "linux" ]; then
+if [[ "$TERM" = "linux" ]]; then
   echo -en "\e]PB657b83" # S_base00
   echo -en "\e]PA586e75" # S_base01
   echo -en "\e]P0073642" # S_base02

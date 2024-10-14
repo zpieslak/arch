@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pacman -Rsn $(pacman -Qdtq)
+pacman -Rsn "$(pacman -Qdtq)"

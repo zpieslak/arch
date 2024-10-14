@@ -1,4 +1,4 @@
-if [[ -z "$TMUX" ]] && [[ -z $(tmux has-session 2>&1) ]]; then
+if [[ -z "$TMUX" ]]; then
   # Re-enable DISPLAY
   tmux send-keys "export DISPLAY=$DISPLAY; clear" ENTER
 

@@ -27,7 +27,7 @@ function main() {
 
   capacity=$(get_capacity)
 
-  if [ "$capacity" -le 30 ] ; then
+  if [[ "$capacity" -le 30 ]] ; then
     local fgcolor='#[fg=brightred]'
   else
     local fgcolor='#[fg=default]'

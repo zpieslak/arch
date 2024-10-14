@@ -1,3 +1,9 @@
+" Set output encoding
+set encoding=utf-8
+
+" Set script encoding to UTF-8 (to handle multibyte characters)
+scriptencoding utf-8
+
 " Syntax highlighting
 syntax enable
 
@@ -23,14 +29,11 @@ set laststatus=2
 set wildmenu
 set wildmode=list:longest
 
-" Set output encoding
-set encoding=utf-8
-
 " Set file encoding
 set fileencoding=utf-8
 
 " Set unix line endings
-set ff=unix
+set fileformat=unix
 
 " Highlight pattern matches while typing
 set incsearch
@@ -69,7 +72,7 @@ set list listchars=tab:\│\ ,nbsp:~
 set lazyredraw
 
 " Select default regexp engine
-set re=0
+set regexpengine=0
 
 " Grep options
 set grepformat=%f:%l:%c:%m

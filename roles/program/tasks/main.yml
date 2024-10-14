@@ -4,6 +4,7 @@
     name:
       - actionlint
       - ansible-lint
+      - gh
       - jq
       - jre-openjdk
       - python-cfn-lint
@@ -39,11 +40,11 @@
     - .asdfrc
     - .bash_login.d
     - .config
-    - .eslintrc.yml
-    - .flake8
+    - eslint.config.mjs
     - .gemrc
     - .rspec
     - .rubocop.yml
+    - .shellcheckrc
 
 - name: Fix permissions
   ansible.builtin.file:

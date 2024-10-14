@@ -1,18 +1,24 @@
 #!/bin/bash
 
-DIR="$(dirname "${BASH_SOURCE[0]}")"
-index=0
+function main() {
+  local current_directory, index, output
 
-for file in "$DIR"/bar.d/*.sh ; do
-  output=$(source "$file")
+  current_directory="$(dirname "${BASH_SOURCE[0]}")"
+  index=0
 
-  if [[ -n "${output}" ]]; then
-    if [[ $index -eq 0 ]]; then
-      printf "%s" "${output} "
-    else
-      printf "%s" "| ${output} "
+  for file in "$current_directory"/bar.d/*.sh ; do
+    output=$(source "$file")
+
+    if [[ -n "${output}" ]]; then
+      if [[ $index -eq 0 ]]; then
+        printf "%s" "${output} "
+      else
+        printf "%s" "| ${output} "
+      fi
     fi
-  fi
 
-  ((index++))
-done
+    ((index++))
+  done
+}
+
+main

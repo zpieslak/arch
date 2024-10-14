@@ -1,32 +1,36 @@
-" Replace any CRLF to LF line endings
-au BufWritePre * :set ff=unix
+augroup VimrcAutoCmd
+  autocmd!
 
-" Clean trailing whitespace and EOL markers
-au BufWritePre * :%s/\s\+$//e
+  " Replace any CRLF to LF line endings
+  autocmd BufWritePre * :set ff=unix
 
-" Wrap lines in location list window
-au FileType qf setlocal wrap
+  " Clean trailing whitespace and EOL markers
+  autocmd BufWritePre * :%s/\s\+$//e
 
-" Mark es6 as javascript
-au BufRead,BufNewFile *.es6 setf javascript
+  " Wrap lines in location list window
+  autocmd FileType qf setlocal wrap
 
-" Mark ssh config
-au BufRead,BufNewFile */.ssh/conf.d/* setf sshconfig
+  " Mark es6 as javascript
+  autocmd BufRead,BufNewFile *.es6 setf javascript
 
-" Mark yaml.cloudformation as cloudformation
-au BufRead,BufNewFile *.template.yaml set filetype=yaml.cloudformation
+  " Mark ssh config
+  autocmd BufRead,BufNewFile */.ssh/conf.d/* setf sshconfig
 
-" Mark circleci config
-au BufRead,BufNewFile .circleci/*.yml set filetype=yaml.circleci
+  " Mark yaml.cloudformation as cloudformation
+  autocmd BufRead,BufNewFile *.template.yaml set filetype=yaml.cloudformation
 
-" Mark github actions config
-au BufRead,BufNewFile .github/workflows/*.yml set filetype=yaml.githubaction
+  " Mark circleci config
+  autocmd BufRead,BufNewFile .circleci/*.yml set filetype=yaml.circleci
 
-" Mark env
-au BufRead,BufNewFile .env* set filetype=envconfig syntax=sh
+  " Mark github actions config
+  autocmd BufRead,BufNewFile .github/workflows/*.yml set filetype=yaml.githubaction
 
-" Do not use spaces in make files
-au FileType make setlocal noexpandtab
+  " Mark env
+  autocmd BufRead,BufNewFile .env* set filetype=envconfig syntax=sh
 
-" Auto open quickfix window with grep results
-au QuickFixCmdPost grep redraw! | copen
+  " Do not use spaces in make files
+  autocmd FileType make setlocal noexpandtab
+
+  " Auto open quickfix window with grep results
+  autocmd QuickFixCmdPost grep redraw! | copen
+augroup END

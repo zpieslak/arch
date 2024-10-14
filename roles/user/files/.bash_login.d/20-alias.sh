@@ -2,6 +2,7 @@
 alias cal='cal -m'
 alias diff='diff --color=auto'
 alias fgrep='fgrep --color=auto'
+alias ghce='gh copilot explain'
 alias grep='grep --color=auto'
 alias ip='ip -color=auto'
 alias ls='ls -lh --color=auto'

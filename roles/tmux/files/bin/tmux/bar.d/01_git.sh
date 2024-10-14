@@ -18,10 +18,10 @@ function trim() {
 }
 
 function main() {
+  local git_status
+
   include_file "/opt/homebrew/etc/bash_completion.d/git-prompt.sh"
   include_file "/usr/share/git/completion/git-prompt.sh"
-
-  local git_status
 
   cd "$(tmux display-message -p '#{pane_current_path}')" || exit
 

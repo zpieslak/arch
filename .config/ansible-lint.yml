@@ -1,0 +1,3 @@
+profile: production
+enable_list:
+  - only-builtins

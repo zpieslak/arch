@@ -1,4 +1,3 @@
----
 services:
   fava:
     container_name: fava

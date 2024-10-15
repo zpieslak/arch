@@ -1,4 +1,3 @@
----
 services:
   home_assistant:
     image: koenkk/zigbee2mqtt:latest

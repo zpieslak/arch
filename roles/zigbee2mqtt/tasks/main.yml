@@ -1,31 +1,30 @@
----
 - name: Copy docker configuration
   ansible.builtin.copy:
     src: docker
     dest: /etc/
-    mode: '0644'
+    mode: "0644"
 
 - name: Copy docker systemd file
   ansible.builtin.copy:
     src: zigbee2mqtt.service
     dest: /usr/local/lib/systemd/system/
-    mode: '0644'
+    mode: "0644"
 
 - name: Copy nginx configuration
   ansible.builtin.template:
     src: nginx.conf.j2
     dest: /etc/nginx/conf.d/zigbee2mqtt.conf
-    mode: '0644'
+    mode: "0644"
 
 - name: Create configuration directory
   ansible.builtin.file:
     path: /var/lib/zigbee2mqtt/
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Restore copy
   ansible.builtin.unarchive:
-    src: '{{ host.zigbee2mqtt.backup }}'
+    src: "{{ host.zigbee2mqtt.backup }}"
     dest: /
     remote_src: true
 
@@ -33,7 +32,7 @@
   ansible.builtin.copy:
     src: bin/
     dest: /home/{{ host.user.wheel.name }}/
-    mode: '0644'
+    mode: "0644"
 
 - name: Restart nginx service
   ansible.builtin.systemd:

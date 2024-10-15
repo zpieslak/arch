@@ -1,4 +1,3 @@
----
 - name: Install rtl_sdr
   community.general.pacman:
     name:
@@ -24,7 +23,7 @@
 
 - name: Move bin file
   ansible.builtin.command: mv /tmp/rtl-wmbus/build/rtl_wmbus /usr/bin/
-  changed_when: false
+  changed_when: true
 
 - name: Install wmbusmeters
   ansible.builtin.git:
@@ -41,7 +40,7 @@
 
 - name: Configure wmbusmeters
   ansible.builtin.command: ./configure
-  changed_when: false
+  changed_when: true
   args:
     chdir: /tmp/wmbusmeters
 
@@ -54,13 +53,13 @@
   ansible.builtin.template:
     src: wmbusmeters.conf.j2
     dest: /etc/wmbusmeters.conf
-    mode: '0644'
+    mode: "0644"
 
 - name: Copy wmbusmeters systemd file
   ansible.builtin.copy:
     src: wmbusmeters.d
     dest: /etc/
-    mode: '0644'
+    mode: "0644"
 
 - name: Start wmbusmeters systemd file
   ansible.builtin.systemd:

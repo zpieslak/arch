@@ -1,31 +1,30 @@
----
 - name: Copy docker configuration
   ansible.builtin.copy:
     src: docker
     dest: /etc/
-    mode: '0644'
+    mode: "0644"
 
 - name: Copy docker systemd file
   ansible.builtin.copy:
     src: home_assistant.service
     dest: /usr/local/lib/systemd/system/
-    mode: '0644'
+    mode: "0644"
 
 - name: Copy nginx configuration
   ansible.builtin.template:
     src: nginx.conf.j2
     dest: /etc/nginx/conf.d/home.conf
-    mode: '0644'
+    mode: "0644"
 
 - name: Create configuration directory
   ansible.builtin.file:
     path: /var/lib/home_assistant/
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Restore copy
   ansible.builtin.unarchive:
-    src: '{{ host.home_assistant.backup }}'
+    src: "{{ host.home_assistant.backup }}"
     dest: /var/lib/
     remote_src: true
 
@@ -33,7 +32,7 @@
   ansible.builtin.copy:
     src: bin/
     dest: /home/{{ host.user.wheel.name }}/
-    mode: '0644'
+    mode: "0644"
 
 - name: Restart nginx service
   ansible.builtin.systemd:
@@ -42,7 +41,7 @@
 
 - name: Create hass postgresql database
   ansible.builtin.command: createdb hass
-  changed_when: false
+  changed_when: true
   become: true
   become_user: postgres
 

@@ -1,4 +1,3 @@
----
 - name: Install packages
   community.general.pacman:
     name:
@@ -11,26 +10,26 @@
 
 - name: Create user and add to wheel group
   ansible.builtin.user:
-    name: '{{ host.user.wheel.name }}'
+    name: "{{ host.user.wheel.name }}"
     shell: /bin/bash
     groups: wheel
     append: true
-    password: '{{ host.user.wheel.password }}'
+    password: "{{ host.user.wheel.password }}"
 
 - name: Allow wheel group to execute any command
   ansible.builtin.lineinfile:
     dest: /etc/sudoers
-    regexp: '^# %wheel ALL=(ALL) NOPASSWD: ALL'
-    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    regexp: "^# %wheel ALL=(ALL) NOPASSWD: ALL"
+    line: "%wheel ALL=(ALL) NOPASSWD: ALL"
     validate: visudo -cf %s
 
 - name: Copy dotfiles
   ansible.builtin.copy:
-    src: '{{ item }}'
+    src: "{{ item }}"
     dest: /home/{{ host.user.wheel.name }}/
-    mode: '0644'
-    group: '{{ host.user.wheel.name }}'
-    owner: '{{ host.user.wheel.name }}'
+    mode: "0644"
+    group: "{{ host.user.wheel.name }}"
+    owner: "{{ host.user.wheel.name }}"
   with_items:
     - .bashrc
     - .bash_login
@@ -42,9 +41,9 @@
   ansible.builtin.copy:
     src: bin
     dest: /home/{{ host.user.wheel.name }}/
-    mode: '0755'
-    group: '{{ host.user.wheel.name }}'
-    owner: '{{ host.user.wheel.name }}'
+    mode: "0755"
+    group: "{{ host.user.wheel.name }}"
+    owner: "{{ host.user.wheel.name }}"
 
 - name: Remove bash_profile file
   ansible.builtin.file:
@@ -53,19 +52,19 @@
 
 - name: Copy ssh key
   ansible.posix.authorized_key:
-    user: '{{ host.user.wheel.name }}'
-    key: '{{ lookup("file", "~/.ssh/id_default.pub") }}'
+    user: "{{ host.user.wheel.name }}"
+    key: "{{ lookup('file', '~/.ssh/id_default.pub') }}"
 
 - name: Setup autologin
   ansible.builtin.file:
     path: /etc/systemd/system/getty@tty1.service.d/
     state: directory
-    mode: '0755'
+    mode: "0755"
   when: host.user.autologin
 
 - name: Set autologin on tty1
   ansible.builtin.template:
     src: override.conf.j2
     dest: /etc/systemd/system/getty@tty1.service.d/override.conf
-    mode: '0644'
+    mode: "0644"
   when: host.user.autologin

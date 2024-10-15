@@ -1,4 +1,3 @@
----
 - name: Install linters
   community.general.pacman:
     name:
@@ -16,26 +15,26 @@
 
 - name: Install asdf
   ansible.builtin.git:
-    repo: '{{ item }}'
+    repo: "{{ item }}"
     dest: /home/{{ host.user.wheel.name }}/.asdf
     version: master
-  with_items: '{{ host.program.asdf.git }}'
+  with_items: "{{ host.program.asdf.git }}"
 
 - name: Install plugins
   ansible.builtin.git:
-    repo: '{{ item }}'
+    repo: "{{ item }}"
     dest: /home/{{ host.user.wheel.name }}/.asdf/plugins/{{ item | regex_search('[^/asdf-]+(?=.git)') }}
     depth: 1
     version: master
-  with_items: '{{ host.program.asdf.plugins }}'
+  with_items: "{{ host.program.asdf.plugins }}"
 
 - name: Copy configuration files
   ansible.builtin.copy:
-    src: '{{ item }}'
+    src: "{{ item }}"
     dest: /home/{{ host.user.wheel.name }}/
-    mode: '0644'
-    group: '{{ host.user.wheel.name }}'
-    owner: '{{ host.user.wheel.name }}'
+    mode: "0644"
+    group: "{{ host.user.wheel.name }}"
+    owner: "{{ host.user.wheel.name }}"
   with_items:
     - .asdfrc
     - .bash_login.d
@@ -49,6 +48,6 @@
 - name: Fix permissions
   ansible.builtin.file:
     path: /home/{{ host.user.wheel.name }}/.asdf
-    owner: '{{ host.user.wheel.name }}'
-    group: '{{ host.user.wheel.name }}'
+    owner: "{{ host.user.wheel.name }}"
+    group: "{{ host.user.wheel.name }}"
     recurse: true

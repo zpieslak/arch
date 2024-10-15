@@ -1,4 +1,3 @@
----
 host:
   alsa:
     modprobe:
@@ -7,8 +6,7 @@ host:
       - options snd-hda-intel id=HDMI index=1
   boot:
     network:
-      -
-        name: ethernet
+      - name: ethernet
         contents:
           Match:
             Name: enp1s0
@@ -16,8 +14,7 @@ host:
             DHCP: true
           DHCP:
             RouteMetric: 10
-      -
-        name: wifi
+      - name: wifi
         contents:
           Match:
             Name: wlp2s0

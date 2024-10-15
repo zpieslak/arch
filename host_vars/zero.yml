@@ -1,9 +1,7 @@
----
 host:
   boot_arm:
     network:
-      -
-        name: wifi
+      - name: wifi
         contents:
           Match:
             Name: wlan0

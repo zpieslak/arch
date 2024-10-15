@@ -1,8 +1,7 @@
----
 - name: Create host.disk.label
   ansible.builtin.shell: |
     set -o pipefail
-    echo -e "g\nw" | fdisk '{{ host.disk.dev }}'
+    echo -e "g\nw" | fdisk "{{ host.disk.dev }}"
   changed_when: true
 
 - name: Create partitions
@@ -10,59 +9,60 @@
     set -o pipefail
     echo -e "n\n\n\n{{ item.size }}\nt\n\n{{ item.signature }}\nw" | fdisk {{ host.disk.dev }}
   changed_when: true
-  loop: '{{ host.disk.partitions | flatten(levels=1) }}'
+  loop: "{{ host.disk.partitions | flatten(levels=1) }}"
 
 - name: Format partitions
   ansible.builtin.command: mkfs.{{ item.fstype }} {{ item.opts }} {{ host.disk.dev }}{{ host.disk.prefix }}{{ item.index }}
-  changed_when: false
-  loop: '{{ host.disk.partitions | flatten(levels=1) }}'
+  changed_when: true
+  loop: "{{ host.disk.partitions | flatten(levels=1) }}"
 
 - name: Mount main partition
   ansible.posix.mount:
-    path: '{{ host.dir }}{{ item.1.path }}'
-    src: '{{ host.disk.dev }}{{ host.disk.prefix }}{{ item.0.index }}'
-    fstype: '{{ item.0.fstype }}'
+    path: "{{ host.dir }}{{ item.1.path }}"
+    src: "{{ host.disk.dev }}{{ host.disk.prefix }}{{ item.0.index }}"
+    fstype: "{{ item.0.fstype }}"
     fstab: /tmp/fstab
     state: mounted
-  loop: '{{ host.disk.partitions | subelements("mounts") }}'
+  loop: "{{ host.disk.partitions | subelements('mounts') }}"
   when: item.1.path == '/'
 
 - name: Create btrfs subvolumes
   ansible.builtin.command: btrfs subvolume create {{ host.dir }}{{ item.1.subvolume }}
-  loop: '{{ host.disk.partitions | subelements("mounts") }}'
+  loop: "{{ host.disk.partitions | subelements('mounts') }}"
   when: item.0.fstype == 'btrfs'
+  changed_when: true
 
 - name: Unmount main partition
   ansible.posix.mount:
-    path: '{{ host.dir }}{{ item.1.path }}'
+    path: "{{ host.dir }}{{ item.1.path }}"
     state: unmounted
-  loop: '{{ host.disk.partitions | subelements("mounts") }}'
+  loop: "{{ host.disk.partitions | subelements('mounts') }}"
   when: item.1.path == '/'
 
 - name: Mount main partition
   ansible.posix.mount:
-    path: '{{ host.dir }}{{ item.1.path }}'
-    src: '{{ host.disk.dev }}{{ host.disk.prefix }}{{ item.0.index }}'
-    fstype: '{{ item.0.fstype }}'
-    opts: '{{ item.1.opts }}'
+    path: "{{ host.dir }}{{ item.1.path }}"
+    src: "{{ host.disk.dev }}{{ host.disk.prefix }}{{ item.0.index }}"
+    fstype: "{{ item.0.fstype }}"
+    opts: "{{ item.1.opts }}"
     fstab: /tmp/fstab
     state: mounted
-  loop: '{{ host.disk.partitions | subelements("mounts") }}'
+  loop: "{{ host.disk.partitions | subelements('mounts') }}"
   when: item.1.path == '/'
 
 - name: Create directories
   ansible.builtin.file:
-    path: '{{ host.dir }}{{ item.1.path }}'
+    path: "{{ host.dir }}{{ item.1.path }}"
     state: directory
-    mode: '0755'
-  loop: '{{ host.disk.partitions | subelements("mounts") }}'
+    mode: "0755"
+  loop: "{{ host.disk.partitions | subelements('mounts') }}"
 
 - name: Mount partitions
   ansible.posix.mount:
-    path: '{{ host.dir }}{{ item.1.path }}'
-    src: '{{ host.disk.dev }}{{ host.disk.prefix }}{{ item.0.index }}'
-    fstype: '{{ item.0.fstype }}'
-    opts: '{{ item.1.opts }}'
+    path: "{{ host.dir }}{{ item.1.path }}"
+    src: "{{ host.disk.dev }}{{ host.disk.prefix }}{{ item.0.index }}"
+    fstype: "{{ item.0.fstype }}"
+    opts: "{{ item.1.opts }}"
     fstab: /tmp/fstab
     state: mounted
-  loop: '{{ host.disk.partitions | subelements("mounts") }}'
+  loop: "{{ host.disk.partitions | subelements('mounts') }}"

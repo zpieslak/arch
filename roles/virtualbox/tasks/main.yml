@@ -1,4 +1,3 @@
----
 - name: Install package
   community.general.pacman:
     name:
@@ -11,6 +10,7 @@
 
 - name: Wait for restart
   ansible.builtin.pause:
+
 - name: Add host network adapter
   ansible.builtin.command: vboxmanage hostonlyif create
-  changed_when: false
+  changed_when: true

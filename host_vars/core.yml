@@ -1,9 +1,7 @@
----
 host:
   boot:
     network:
-      -
-        name: ethernet
+      - name: ethernet
         contents:
           Match:
             Driver: r8169
@@ -13,51 +11,43 @@ host:
     dev: /dev/nvme0n1
     prefix: p
     partitions:
-      -
-        index: 1
+      - index: 1
         fstype: vfat
         signature: 1
         opts: -F32
         size: +512M
         mounts:
-          -
-            path: /boot
+          - path: /boot
             opts: umask=0077
-      -
-        index: 2
+      - index: 2
         fstype: btrfs
         signature: 20
         opts: -f -L root
         size:
         mounts:
-          -
-            path: /
+          - path: /
             subvolume: /@
             opts: defaults,compress=lzo,subvol=@
-          -
-            path: /.snapshots
+          - path: /.snapshots
             subvolume: /@snapshots
             opts: defaults,compress=lzo,subvol=@snapshots
   disk_extra:
     partitions:
-      -
-        index: 1
+      - index: 1
         uuid: e762bdfa-43db-4fba-a232-fd9beb63295d
         path: /media/data
         fstype: ext4
         opts: rw,relatime,nofail
         dump: 0
         passno: 0
-      -
-        index: 2
+      - index: 2
         uuid: 19e311cb-4857-49ed-90cd-05e820dcc970
         path: /media/backup1
         fstype: ext4
         opts: rw,relatime,nofail
         dump: 0
         passno: 0
-      -
-        index: 3
+      - index: 3
         uuid: b4cbda94-75c7-450e-8752-9828921c484e
         path: /media/backup2
         fstype: ext4

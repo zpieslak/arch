@@ -1,4 +1,3 @@
----
 - name: Refresh pacman cache
   community.general.pacman:
     name:
@@ -10,13 +9,13 @@
   kewlfft.aur.aur:
     name: xerox-phaser-3020
   become: true
-  become_user: '{{ host.user.wheel.name }}'
+  become_user: "{{ host.user.wheel.name }}"
 
 - name: Copy cups files
   ansible.builtin.copy:
     src: cups/
     dest: /etc/cups/
-    mode: '0644'
+    mode: "0644"
 
 - name: Start cups service
   ansible.builtin.systemd:

@@ -1,23 +1,22 @@
----
 - name: Create hooks directory
   ansible.builtin.file:
     path: /etc/pacman.d/hooks
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Copy xmonad hook
   ansible.builtin.template:
     src: xmonad.hook.j2
     dest: /etc/pacman.d/hooks/xmonad.hook
-    mode: '0644'
+    mode: "0644"
 
 - name: Copy configuration files
   ansible.builtin.copy:
-    src: '{{ item }}'
+    src: "{{ item }}"
     dest: /home/{{ host.user.wheel.name }}/
-    mode: '0644'
-    group: '{{ host.user.wheel.name }}'
-    owner: '{{ host.user.wheel.name }}'
+    mode: "0644"
+    group: "{{ host.user.wheel.name }}"
+    owner: "{{ host.user.wheel.name }}"
   with_items:
     - .alacritty.yml
     - .bash_login.d
@@ -30,9 +29,9 @@
   ansible.builtin.copy:
     src: bin
     dest: /home/{{ host.user.wheel.name }}/
-    mode: '0755'
-    group: '{{ host.user.wheel.name }}'
-    owner: '{{ host.user.wheel.name }}'
+    mode: "0755"
+    group: "{{ host.user.wheel.name }}"
+    owner: "{{ host.user.wheel.name }}"
 
 - name: Install packages
   community.general.pacman:
@@ -63,40 +62,40 @@
   ansible.builtin.copy:
     src: xorg.conf.d
     dest: /usr/share/X11/
-    mode: '0644'
+    mode: "0644"
 
 - name: Create Xresources directory
   ansible.builtin.file:
     path: /home/{{ host.user.wheel.name }}/.Xresources.d
     state: directory
-    mode: '0755'
-    group: '{{ host.user.wheel.name }}'
-    owner: '{{ host.user.wheel.name }}'
+    mode: "0755"
+    group: "{{ host.user.wheel.name }}"
+    owner: "{{ host.user.wheel.name }}"
 
 - name: Add xft settings
   ansible.builtin.template:
     src: xft.j2
     dest: /home/{{ host.user.wheel.name }}/.Xresources.d/xft
-    mode: '0644'
-    group: '{{ host.user.wheel.name }}'
-    owner: '{{ host.user.wheel.name }}'
+    mode: "0644"
+    group: "{{ host.user.wheel.name }}"
+    owner: "{{ host.user.wheel.name }}"
 
 - name: Add backlight udev rules
   ansible.builtin.copy:
     src: rules.d
     dest: /etc/udev/
-    mode: '0644'
+    mode: "0644"
 
 - name: Add user to video group
   ansible.builtin.user:
-    name: '{{ host.user.wheel.name }}'
+    name: "{{ host.user.wheel.name }}"
     groups: video
     append: true
 
 - name: Enable xmonad service
   become: true
-  become_user: '{{ host.user.wheel.name }}'
-  become_method: machinectl
+  become_user: "{{ host.user.wheel.name }}"
+  become_method: community.general.machinectl
   ansible.builtin.systemd:
     daemon_reload: true
     scope: user
@@ -105,8 +104,8 @@
 
 - name: Enable xrdb service
   become: true
-  become_user: '{{ host.user.wheel.name }}'
-  become_method: machinectl
+  become_user: "{{ host.user.wheel.name }}"
+  become_method: community.general.machinectl
   ansible.builtin.systemd:
     daemon_reload: true
     scope: user
@@ -115,8 +114,8 @@
 
 - name: Enable numlock service
   become: true
-  become_user: '{{ host.user.wheel.name }}'
-  become_method: machinectl
+  become_user: "{{ host.user.wheel.name }}"
+  become_method: community.general.machinectl
   ansible.builtin.systemd:
     daemon_reload: true
     scope: user
@@ -125,8 +124,8 @@
 
 - name: Enable gnome-keyring service
   become: true
-  become_user: '{{ host.user.wheel.name }}'
-  become_method: machinectl
+  become_user: "{{ host.user.wheel.name }}"
+  become_method: community.general.machinectl
   ansible.builtin.systemd:
     daemon_reload: true
     scope: user
@@ -135,8 +134,8 @@
 
 - name: Enable gcr ssh agent
   become: true
-  become_user: '{{ host.user.wheel.name }}'
-  become_method: machinectl
+  become_user: "{{ host.user.wheel.name }}"
+  become_method: community.general.machinectl
   ansible.builtin.systemd:
     daemon_reload: true
     scope: user
@@ -145,8 +144,8 @@
 
 - name: Enable xcompmgr service
   become: true
-  become_user: '{{ host.user.wheel.name }}'
-  become_method: machinectl
+  become_user: "{{ host.user.wheel.name }}"
+  become_method: community.general.machinectl
   ansible.builtin.systemd:
     daemon_reload: true
     scope: user
@@ -155,8 +154,8 @@
 
 - name: Enable battery service
   become: true
-  become_user: '{{ host.user.wheel.name }}'
-  become_method: machinectl
+  become_user: "{{ host.user.wheel.name }}"
+  become_method: community.general.machinectl
   ansible.builtin.systemd:
     daemon_reload: true
     scope: user
@@ -165,8 +164,8 @@
 
 - name: Enable battery timer
   become: true
-  become_user: '{{ host.user.wheel.name }}'
-  become_method: machinectl
+  become_user: "{{ host.user.wheel.name }}"
+  become_method: community.general.machinectl
   ansible.builtin.systemd:
     daemon_reload: true
     scope: user
@@ -175,8 +174,8 @@
 
 - name: Start systemd-tmpfiles
   become: true
-  become_user: '{{ host.user.wheel.name }}'
-  become_method: machinectl
+  become_user: "{{ host.user.wheel.name }}"
+  become_method: community.general.machinectl
   ansible.builtin.systemd:
     daemon_reload: true
     scope: user

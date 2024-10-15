@@ -1,4 +1,3 @@
----
 services:
   home_assistant:
     image: homeassistant/home-assistant:stable

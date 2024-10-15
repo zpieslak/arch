@@ -1,52 +1,51 @@
----
 - name: All
   hosts: all
   roles:
-    - {role: system, tags: system}
-    - {role: user, tags: user}
-    - {role: git, tags: git}
-    - {role: vim, tags: vim}
+    - { role: system, tags: system }
+    - { role: user, tags: user }
+    - { role: git, tags: git }
+    - { role: vim, tags: vim }
 
 - name: Laptop
   hosts: test:lenovo_ideapad_5:lenovo_z50_70:local
   roles:
-    - {role: disk, tags: disk}
-    - {role: boot, tags: boot}
-    - {role: alsa, tags: alsa}
-    - {role: docker, tags: docker}
-    - {role: mysql, tags: mysql}
-    - {role: postgresql, tags: postgresql}
-    - {role: memcached, tags: memcached}
-    - {role: program, tags: program}
-    - {role: tmux, tags: tmux}
-    - {role: desktop, tags: desktop}
-    - {role: virtualbox, tags: virtualbox}
-    - {role: system_extra, tags: system_extra}
-    - {role: media, tags: media}
-    - {role: cups, tags: cups}
+    - { role: disk, tags: disk }
+    - { role: boot, tags: boot }
+    - { role: alsa, tags: alsa }
+    - { role: docker, tags: docker }
+    - { role: mysql, tags: mysql }
+    - { role: postgresql, tags: postgresql }
+    - { role: memcached, tags: memcached }
+    - { role: program, tags: program }
+    - { role: tmux, tags: tmux }
+    - { role: desktop, tags: desktop }
+    - { role: virtualbox, tags: virtualbox }
+    - { role: system_extra, tags: system_extra }
+    - { role: media, tags: media }
+    - { role: cups, tags: cups }
 
 - name: Core
   hosts: core
   roles:
-    - {role: disk, tags: disk}
-    - {role: boot, tags: boot}
-    - {role: disk_extra, tags: disk_extra}
-    - {role: postgresql, tags: postgresql}
-    - {role: nginx, tags: nginx}
-    - {role: aria2, tags: aria2}
-    - {role: mosquitto_server, tags: mosquitto_server}
-    - {role: samba, tags: samba}
-    - {role: docker, tags: docker}
-    - {role: home_assistant, tags: home_assistant}
-    - {role: zigbee2mqtt, tags: zigbee2mqtt}
-    - {role: fava, tags: fava}
-    - {role: system_extra, tags: system_extra}
-    - {role: nut, tags: nut}
+    - { role: disk, tags: disk }
+    - { role: boot, tags: boot }
+    - { role: disk_extra, tags: disk_extra }
+    - { role: postgresql, tags: postgresql }
+    - { role: nginx, tags: nginx }
+    - { role: aria2, tags: aria2 }
+    - { role: mosquitto_server, tags: mosquitto_server }
+    - { role: samba, tags: samba }
+    - { role: docker, tags: docker }
+    - { role: home_assistant, tags: home_assistant }
+    - { role: zigbee2mqtt, tags: zigbee2mqtt }
+    - { role: fava, tags: fava }
+    - { role: system_extra, tags: system_extra }
+    - { role: nut, tags: nut }
 
 - name: Zero
   hosts: zero
   roles:
-    - {role: disk, tags: disk, delegate_to: localhost}
-    - {role: boot_arm, tags: boot_arm, delegate_to: localhost}
-    - {role: mosquitto_client, tags: mosquitto_client}
-    - {role: rtl_sdr, tags: rtl_sdr}
+    - { role: disk, tags: disk, delegate_to: localhost }
+    - { role: boot_arm, tags: boot_arm, delegate_to: localhost }
+    - { role: mosquitto_client, tags: mosquitto_client }
+    - { role: rtl_sdr, tags: rtl_sdr }

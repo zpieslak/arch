@@ -1,4 +1,3 @@
----
 - name: Install package
   community.general.pacman:
     name: nut
@@ -8,7 +7,7 @@
   ansible.builtin.copy:
     src: ups.conf
     dest: /etc/nut/
-    mode: '0644'
+    mode: "0644"
 
 - name: Start driver service
   ansible.builtin.systemd:

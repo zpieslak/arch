@@ -1,9 +1,7 @@
----
 host:
   boot:
     network:
-      -
-        name: wifi
+      - name: wifi
         contents:
           Match:
             Name: wl01

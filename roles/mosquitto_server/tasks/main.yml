@@ -1,4 +1,3 @@
----
 - name: Install packages
   community.general.pacman:
     name:
@@ -9,23 +8,23 @@
   ansible.builtin.copy:
     src: mosquitto.conf
     dest: /etc/mosquitto/
-    mode: '0644'
+    mode: "0644"
 
 - name: Create congfiguration directory
   ansible.builtin.file:
     path: /etc/mosquitto/conf.d
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Copy custom congfiguration
   ansible.builtin.copy:
     src: conf.d
     dest: /etc/mosquitto/
-    mode: '0644'
+    mode: "0644"
 
 - name: Restore copy
   ansible.builtin.unarchive:
-    src: '{{ host.mosquitto.backup }}'
+    src: "{{ host.mosquitto.backup }}"
     dest: /etc/mosquitto/
     remote_src: true
 

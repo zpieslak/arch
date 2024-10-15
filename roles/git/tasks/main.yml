@@ -1,4 +1,3 @@
----
 - name: Install package
   community.general.pacman:
     name: git
@@ -6,11 +5,11 @@
 
 - name: Copy configuration files
   ansible.builtin.copy:
-    src: '{{ item }}'
+    src: "{{ item }}"
     dest: /home/{{ host.user.wheel.name }}/
-    mode: '0644'
-    group: '{{ host.user.wheel.name }}'
-    owner: '{{ host.user.wheel.name }}'
+    mode: "0644"
+    group: "{{ host.user.wheel.name }}"
+    owner: "{{ host.user.wheel.name }}"
   with_items:
     - .gitconfig
     - .bash_login.d

@@ -1,4 +1,3 @@
----
 - name: Install packages
   community.general.pacman:
     name:
@@ -7,13 +6,13 @@
 
 - name: Copy alsa settings
   ansible.builtin.copy:
-    src: '{{ ansible_limit }}/'
+    src: "{{ ansible_limit }}/"
     dest: /var/lib/alsa/
-    mode: '0644'
+    mode: "0644"
 
 - name: Add modprobe changes
   ansible.builtin.template:
     src: modprobe.conf.j2
     dest: /etc/modprobe.d/alsa.conf
-    mode: '0644'
+    mode: "0644"
   when: host.alsa.modprobe is defined

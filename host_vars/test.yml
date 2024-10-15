@@ -1,16 +1,13 @@
----
 host:
   boot:
     network:
-      -
-        name: bridged
+      - name: bridged
         contents:
           Match:
             Name: enp0s3
           Network:
             DHCP: true
-      -
-        name: host_only
+      - name: host_only
         contents:
           Match:
             Name: enp0s8

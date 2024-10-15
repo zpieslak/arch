@@ -1,4 +1,3 @@
----
 - name: Install package
   community.general.pacman:
     name:
@@ -15,10 +14,10 @@
 
 - name: Copy custom bin files
   ansible.builtin.copy:
-    src: '{{ item }}'
+    src: "{{ item }}"
     dest: /home/{{ host.user.wheel.name }}/
-    mode: '0755'
-    group: '{{ host.user.wheel.name }}'
-    owner: '{{ host.user.wheel.name }}'
+    mode: "0755"
+    group: "{{ host.user.wheel.name }}"
+    owner: "{{ host.user.wheel.name }}"
   with_items:
     - bin

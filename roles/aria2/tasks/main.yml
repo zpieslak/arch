@@ -1,4 +1,3 @@
----
 - name: Install package
   community.general.pacman:
     name: aria2
@@ -8,13 +7,13 @@
   ansible.builtin.copy:
     src: aria2.conf
     dest: /etc/
-    mode: '0644'
+    mode: "0644"
 
 - name: Copy systemd unit file
   ansible.builtin.copy:
     src: aria.service
     dest: /usr/local/lib/systemd/system/
-    mode: '0644'
+    mode: "0644"
 
 - name: Start aria service
   ansible.builtin.systemd:
@@ -34,7 +33,7 @@
   ansible.builtin.template:
     src: nginx.conf.j2
     dest: /etc/nginx/conf.d/aria2.conf
-    mode: '0644'
+    mode: "0644"
 
 - name: Restart nginx service
   ansible.builtin.systemd:

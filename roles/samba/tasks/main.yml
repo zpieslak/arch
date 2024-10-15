@@ -1,4 +1,3 @@
----
 - name: Install packages
   community.general.pacman:
     name:
@@ -9,13 +8,13 @@
   ansible.builtin.copy:
     src: smb.conf
     dest: /etc/samba/
-    mode: '0644'
+    mode: "0644"
 
 - name: Add samba user
   ansible.builtin.shell: >
     set -o pipefail
     && (pdbedit --user={{ host.user.wheel.name }} 2>&1 > /dev/null)
-    || (echo '{{ host.samba.password }}'; echo '{{ host.samba.password }}')
+    || (echo "{{ host.samba.password }}"; echo "{{ host.samba.password }}")
     | smbpasswd -s -a {{ host.user.wheel.name }}
   register: add_samba_user
   changed_when: '"Added user" in add_samba_user.stdout'

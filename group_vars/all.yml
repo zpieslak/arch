@@ -1,4 +1,3 @@
----
 host:
   alsa:
     modprobe:
@@ -13,33 +12,27 @@ host:
     dev: /dev/sda
     prefix:
     partitions:
-      -
-        index: 1
+      - index: 1
         fstype: vfat
         signature: 1
         opts: -F32
         size: +512M
         mounts:
-          -
-            path: /boot
+          - path: /boot
             opts: umask=0077
-      -
-        index: 2
+      - index: 2
         fstype: btrfs
         signature: 20
         opts: -f -L root
         size:
         mounts:
-          -
-            path: /
+          - path: /
             subvolume: /@
             opts: defaults,compress=lzo,subvol=@
-          -
-            path: /home
+          - path: /home
             subvolume: /@home
             opts: defaults,compress=lzo,subvol=@home
-          -
-            path: /.snapshots
+          - path: /.snapshots
             subvolume: /@snapshots
             opts: defaults,compress=lzo,subvol=@snapshots
   disk_extra:
@@ -48,24 +41,20 @@ host:
     dev: /dev/mmcblk0
     prefix: p
     partitions:
-      -
-        index: 1
+      - index: 1
         fstype: vfat
         signature: c
         opts: -F32
         size: +512M
         mounts:
-          -
-            path: /boot
-      -
-        index: 2
+          - path: /boot
+      - index: 2
         fstype: ext4
         signature: 83
         opts:
         size:
         mounts:
-          -
-            path: /root
+          - path: /root
   fava:
     domain: fava.lan
   home_assistant:

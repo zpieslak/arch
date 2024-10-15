@@ -1,4 +1,3 @@
----
 - name: Refresh pacman cache
   community.general.pacman:
     name:
@@ -8,7 +7,7 @@
 
 - name: Add user to docker group
   ansible.builtin.user:
-    name: '{{ host.user.wheel.name }}'
+    name: "{{ host.user.wheel.name }}"
     groups: docker
     append: true
 
@@ -16,13 +15,13 @@
   ansible.builtin.copy:
     src: docker_prune.service
     dest: /usr/local/lib/systemd/system/
-    mode: '0644'
+    mode: "0644"
 
 - name: Copy docker_prune systemd timer file
   ansible.builtin.copy:
     src: docker_prune.timer
     dest: /usr/local/lib/systemd/system/
-    mode: '0644'
+    mode: "0644"
 
 - name: Start systemd service
   ansible.builtin.systemd:

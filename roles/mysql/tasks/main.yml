@@ -1,4 +1,3 @@
----
 - name: Refresh pacman cache
   community.general.pacman:
     name:
@@ -15,27 +14,27 @@
   ansible.builtin.file:
     path: /etc/docker/compose/mysql/
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Copy docker configuration
   ansible.builtin.template:
     src: docker-compose.yml.j2
     dest: /etc/docker/compose/mysql/docker-compose.yml
-    mode: '0644'
+    mode: "0644"
 
 - name: Copy mysql configuration
   ansible.builtin.template:
     src: my.cnf.j2
     dest: /home/{{ host.user.wheel.name }}/.my.cnf
-    mode: '0644'
-    group: '{{ host.user.wheel.name }}'
-    owner: '{{ host.user.wheel.name }}'
+    mode: "0644"
+    group: "{{ host.user.wheel.name }}"
+    owner: "{{ host.user.wheel.name }}"
 
 - name: Copy docker systemd file
   ansible.builtin.copy:
     src: mysql.service
     dest: /usr/local/lib/systemd/system/
-    mode: '0644'
+    mode: "0644"
 
 - name: Start mysql service
   ansible.builtin.systemd:

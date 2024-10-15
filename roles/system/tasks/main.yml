@@ -1,4 +1,3 @@
----
 - name: Change timezone
   ansible.builtin.file:
     src: /usr/share/zoneinfo/{{ host.system.timezone }}
@@ -10,13 +9,13 @@
   ansible.builtin.file:
     path: /etc/systemd/timesyncd.conf.d/
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Update timesyncd configuration
   ansible.builtin.template:
     src: timesyncd.conf.j2
     dest: /etc/systemd/timesyncd.conf.d/timesyncd.conf
-    mode: '0644'
+    mode: "0644"
 
 - name: Enable timedatectl ntp client
   ansible.builtin.command: timedatectl set-ntp true
@@ -24,20 +23,20 @@
 
 - name: Set locale
   community.general.locale_gen:
-    name: '{{ host.system.locale }}'
+    name: "{{ host.system.locale }}"
 
 - name: Set LANG variable
   ansible.builtin.lineinfile:
     create: true
     path: /etc/locale.conf
     line: LANG={{ host.system.locale }}
-    mode: '0644'
+    mode: "0644"
 
 - name: Set pacman mirrors
   ansible.builtin.template:
     src: mirrorlist.j2
     dest: /etc/pacman.d/mirrorlist
-    mode: '0644'
+    mode: "0644"
 
 - name: Update pacman configuration
   ansible.builtin.lineinfile:
@@ -61,45 +60,45 @@
   ansible.builtin.copy:
     src: pacman.d
     dest: /etc/
-    mode: '0644'
+    mode: "0644"
 
 - name: Add modprobe changes
   ansible.builtin.template:
     src: modprobe.conf.j2
     dest: /etc/modprobe.d/system.conf
-    mode: '0644'
+    mode: "0644"
   when: host.system.modprobe | length > 0
 
 - name: Copy hosts
   ansible.builtin.copy:
     src: hosts
     dest: /etc/
-    mode: '0644'
+    mode: "0644"
 
 - name: Add vconsole
   ansible.builtin.template:
     src: vconsole.conf.j2
     dest: /etc/vconsole.conf
-    mode: '0644'
+    mode: "0644"
 
 - name: Create systemd directory for custom servies
   ansible.builtin.file:
     path: /usr/local/lib/systemd/system/
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Make systemd-resolved to manage resolve.conf
   ansible.builtin.file:
     src: /run/systemd/resolve/stub-resolv.conf
     dest: /etc/resolv.conf
     state: link
-    force: yes
+    force: true
 
 - name: Add systemd-resolved changes
   ansible.builtin.copy:
     src: resolved.conf.d
     dest: /etc/systemd/
-    mode: '0644'
+    mode: "0644"
 
 - name: Enable fstrim timer
   ansible.builtin.systemd:
@@ -117,5 +116,5 @@
 
 - name: Set a hostname
   ansible.builtin.hostname:
-    name: '{{ inventory_hostname_short }}'
+    name: "{{ inventory_hostname_short }}"
     use: systemd

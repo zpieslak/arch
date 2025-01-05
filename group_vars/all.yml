@@ -57,6 +57,9 @@ host:
           - path: /root
   fava:
     domain: fava.lan
+  influxdb:
+    domain: influxdb.lan
+    token: token
   home_assistant:
     backup: /media/backup1/core/home_assistant/2024-04-15T13-19-41Z.tar.gz
     domain: home.lan

@@ -1,0 +1,41 @@
+- name: Install packages
+  community.general.pacman:
+    name:
+      - influxdb
+      - influx-cli
+    update_cache: true
+
+- name: Copy backup configuration
+  ansible.builtin.template:
+    src: backup_influxdb.service.j2
+    dest: /usr/local/lib/systemd/system/backup_influxdb.service
+    mode: "0644"
+
+- name: Copy backup systemd timer file
+  ansible.builtin.copy:
+    src: backup_influxdb.timer
+    dest: /usr/local/lib/systemd/system/
+    mode: "0644"
+
+- name: Copy nginx configuration
+  ansible.builtin.template:
+    src: influxdb.conf.j2
+    dest: /etc/nginx/conf.d/influxdb.conf
+    mode: "0644"
+
+- name: Restart nginx service
+  ansible.builtin.systemd:
+    state: restarted
+    name: nginx
+
+- name: Start influxdb systemd service
+  ansible.builtin.systemd:
+    state: started
+    name: influxdb
+    enabled: true
+
+- name: Start backup service
+  ansible.builtin.systemd:
+    state: started
+    name: backup_influxdb.timer
+    enabled: true

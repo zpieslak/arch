@@ -41,6 +41,7 @@
     - { role: fava, tags: fava }
     - { role: system_extra, tags: system_extra }
     - { role: nut, tags: nut }
+    - { role: influxdb, tags: influxdb }
 
 - name: Zero
   hosts: zero

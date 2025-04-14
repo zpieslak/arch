@@ -1,15 +1,7 @@
-- name: Remove packages
-  community.general.pacman:
-    name:
-      - vim
-    state: absent
-    extra_args: --recursive
-
 - name: Install package
   community.general.pacman:
-    name: gvim
+    name: neovim
     update_cache: true
-    extra_args: --noconfirm
 
 - name: Copy vimrc plugins
   ansible.builtin.copy:
@@ -35,7 +27,13 @@
     recurse: true
     mode: "0755"
 
+- name: Create symlink for nvim
+  ansible.builtin.file:
+    src: /home/{{ host.user.wheel.name }}/.vim
+    dest: /home/{{ host.user.wheel.name }}/.config/nvim
+    state: link
+
 - name: Set EDITOR
   ansible.builtin.lineinfile:
     path: /etc/environment
-    line: EDITOR=vim
+    line: EDITOR=nvim

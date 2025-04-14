@@ -1,6 +1,12 @@
 extends: default
 rules:
-  document-start: disable
+  braces:
+    max-spaces-inside: 1
+  comments:
+    min-spaces-from-content: 1
+  comments-indentation: false
+  document-start:
+    present: false
   line-length: disable
   octal-values:
     forbid-implicit-octal: true

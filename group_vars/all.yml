@@ -105,24 +105,17 @@ host:
       password: $6$6VavzSgeMJHVBOTq$cX5cWrc0ngdcO1Mh.l616M76b3crXJE92s0CGLu0ErM2RssHRQNAk3fYjCe2G3hAvCsbVvAET2DHiu92HkHiJ0
   vim:
     plugins:
-      - https://github.com/dense-analysis/ale.git
-      - https://github.com/pearofducks/ansible-vim.git
-      - https://github.com/ekalinin/Dockerfile.vim.git
-      - https://github.com/vim-scripts/DrawIt.git
-      - https://github.com/tpope/vim-bundler.git
-      - https://github.com/kchmck/vim-coffee-script.git
-      - https://github.com/altercation/vim-colors-solarized.git
-      - https://github.com/tpope/vim-commentary.git
-      - https://github.com/tpope/vim-haml.git
-      - https://github.com/groenewege/vim-less.git
-      - https://github.com/plasticboy/vim-markdown.git
-      - https://github.com/tpope/vim-rails.git
-      - https://github.com/vim-ruby/vim-ruby.git
-      - https://github.com/hashivim/vim-terraform.git
+      - https://github.com/CopilotC-Nvim/CopilotChat.nvim.git
       - https://github.com/christoomey/vim-tmux-navigator.git
       - https://github.com/cmcaine/vim-uci.git
+      - https://github.com/dense-analysis/ale.git
       - https://github.com/github/copilot.vim
       - https://github.com/nathangrigg/vim-beancount.git
+      - https://github.com/nvim-lua/plenary.nvim.git
+      - https://github.com/nvim-treesitter/nvim-treesitter.git
+      - https://github.com/pearofducks/ansible-vim.git
+      - https://github.com/tpope/vim-commentary.git
+      - https://github.com/vim-scripts/DrawIt.git
   zigbee2mqtt:
     backup: /media/backup1/core/zigbee2mqtt/2024-04-15T13-19-47Z.tar.gz
     domain: zigbee2mqtt.lan

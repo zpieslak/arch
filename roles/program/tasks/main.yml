@@ -6,11 +6,14 @@
       - gh
       - jq
       - jre-openjdk
+      - luacheck
       - python-cfn-lint
-      - ruff
+      - selene
       - shellcheck
+      - stylua
       - yamlfmt
       - yamllint
+      - vint
     update_cache: true
 
 - name: Install asdf
@@ -39,11 +42,12 @@
     - .asdfrc
     - .bash_login.d
     - .config
-    - eslint.config.mjs
     - .gemrc
-    - .rspec
-    - .rubocop.yml
+    - .luacheckrc
     - .shellcheckrc
+    - eslint.config.mjs
+    - selene.toml
+    - vim.toml
 
 - name: Fix permissions
   ansible.builtin.file:

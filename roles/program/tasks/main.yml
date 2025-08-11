@@ -17,11 +17,10 @@
     update_cache: true
 
 - name: Install asdf
-  ansible.builtin.git:
-    repo: "{{ item }}"
-    dest: /home/{{ host.user.wheel.name }}/.asdf
-    version: master
-  with_items: "{{ host.program.asdf.git }}"
+  kewlfft.aur.aur:
+    name: asdf-vm
+  become: true
+  become_user: "{{ host.user.wheel.name }}"
 
 - name: Install plugins
   ansible.builtin.git:

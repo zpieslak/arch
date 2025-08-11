@@ -2,6 +2,7 @@ host:
   alsa:
     modprobe:
   aria2:
+    dir: /media/data/videos/temp
     domain: aria2.lan
   boot:
     network: []

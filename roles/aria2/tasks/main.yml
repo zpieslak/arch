@@ -4,9 +4,15 @@
     update_cache: true
 
 - name: Copy configuration files
-  ansible.builtin.copy:
-    src: aria2.conf
-    dest: /etc/
+  ansible.builtin.template:
+    src: aria2.conf.j2
+    dest: /etc/aria2.conf
+    mode: "0644"
+
+- name: Ensure session file exists
+  ansible.builtin.file:
+    path: "{{ host.aria2.dir }}/aria2.session"
+    state: touch
     mode: "0644"
 
 - name: Copy systemd unit file

@@ -59,6 +59,7 @@
       - com.valvesoftware.Steam
       - me.proton.Mail
       - net.cozic.joplin_desktop
+      - org.onlyoffice.desktopeditors
     state: present
 
 - name: Create directories

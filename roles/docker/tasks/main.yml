@@ -2,7 +2,6 @@
   community.general.pacman:
     name:
       - docker
-      - docker-compose
     update_cache: true
 
 - name: Add user to docker group

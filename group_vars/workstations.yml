@@ -1,3 +1,5 @@
+docker_users: "{{ host.user.wheel.name }}"
+docker_packages: "docker"
 host:
   alsa:
     modprobe:

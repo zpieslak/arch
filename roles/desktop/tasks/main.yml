@@ -44,7 +44,7 @@
 
 - name: Install AUR packages
   kewlfft.aur.aur:
-    name: 
+    name:
       - google-chrome
       - vagrant
   become: true
@@ -52,7 +52,7 @@
 
 - name: Install flatpak apps
   community.general.flatpak:
-    name: 
+    name:
       - com.valvesoftware.Steam
       - me.proton.Mail
       - net.cozic.joplin_desktop
@@ -67,34 +67,35 @@
     group: "{{ item.group }}"
   with_items:
     - path: /etc/sddm.conf.d/
-      mode: u+w,ugo+rx  
+      mode: u+w,ugo+rx
       owner: root
       group: root
     - path: "/home/{{ host.user.wheel.name }}/.local/bin"
       mode: u+w
-      owner: "{{ host.user.wheel.name }}" 
+      owner: "{{ host.user.wheel.name }}"
       group: wheel
 
 - name: Download albiondata-client
   ansible.builtin.get_url:
     dest: ~/Hentet/update-linux-amd64.gz
     url: https://github.com/ao-data/albiondata-client/releases/latest/download/update-linux-amd64.gz
+    mode: u+r
   become: true
-  become_user: "{{ host.user.wheel.name }}" 
+  become_user: "{{ host.user.wheel.name }}"
 
 - name: Unpack albiondata-client
   ansible.builtin.shell:
     cmd: gzip -dc < ~/Hentet/update-linux-amd64.gz > ~/.local/bin/albiondata-client
     creates: ~/.local/bin/albiondata-client
   become: true
-  become_user: "{{ host.user.wheel.name }}" 
+  become_user: "{{ host.user.wheel.name }}"
 
 - name: Set albiondata-client execution permission
   ansible.builtin.file:
     mode: u+x
     path: ~/.local/bin/albiondata-client
   become: true
-  become_user: "{{ host.user.wheel.name }}" 
+  become_user: "{{ host.user.wheel.name }}"
 
 - name: Allow albiondata-client to capture data
   community.general.capabilities:

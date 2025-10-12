@@ -13,4 +13,7 @@
       - which
       - zip
       - nano
+      - fwupd
+      - efibootmgr
+      - efivar
     update_cache: true

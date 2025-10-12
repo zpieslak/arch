@@ -16,5 +16,5 @@
       - fwupd
       - efibootmgr
       - efivar
+      - terraform
     update_cache: true
-    

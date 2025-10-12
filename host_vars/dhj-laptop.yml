@@ -1,0 +1,67 @@
+host:
+  alsa:
+    modprobe:
+      - options snd-hda-intel model=ideapad
+      - options snd_hda_intel id=PCH index=0
+      - options snd-hda-intel id=HDMI index=1
+  boot:
+    network:
+      - name: ethernet
+        contents:
+          Match:
+            Name: enp0s31f6
+          Network:
+            DHCP: true
+          DHCP:
+            RouteMetric: 10
+      - name: wifi
+        contents:
+          Match:
+            Name: wlp0s20f3
+          Network:
+            DHCP: true
+          DHCP:
+            RouteMetric: 20
+desktop:
+    dpi: 96
+dir: /mnt
+disk:
+  dev: /dev/nvme0n1
+  prefix: p
+  partitions:
+    - index: 1
+      fstype: vfat
+      signature: 1
+      opts: -F32
+      size: +512M
+      mounts:
+        - path: /boot
+          opts: umask=0077
+    - index: 2
+      fstype: ext4
+      signature: 20
+      opts: -L root
+      size:
+      mounts:
+        - path: /
+          opts: defaults
+  system:
+    charset: UTF-8
+    font: ter-u32n
+    keymap: dk-latin1
+    locale: da_DK.UTF-8
+    modprobe: []
+    mirrors:
+      - https://mirrors.dotsrc.org/archlinux/$repo/os/$arch
+      - https://mirror.group.one/archlinux/$repo/os/$arch
+    ntp: dk.pool.ntp.org
+    timezone: Europe/Copenhagen
+  user:
+    autologin: false
+    ssh_agent: false
+    root:
+      name: root
+      password: $6$QBNUFGpFj1L7vuyg$To6O/a9dlc4NNcLg/qMidSu7SQR7z8EaHSAfpSdEbdYG8XIBsNVE/0u72I.3atj600sie5ByJSwt8j8A.qA/W0
+    wheel:
+      name: dhj
+      password: $6$VJP3GmoyJJEWc8Kx$zwp4QQqYs/HVuQ.ypug4ll4tRosOqPyuT2STbzMwvAraJAK4Ng68NJmeIL6nOkJ/ZVCDvWcJI1Ht3OHukGdWK1

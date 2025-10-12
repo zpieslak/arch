@@ -17,4 +17,6 @@
       - efibootmgr
       - efivar
       - terraform
+      - nodejs-lts-jod
+      - npm
     update_cache: true

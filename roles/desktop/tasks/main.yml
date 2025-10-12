@@ -63,6 +63,12 @@
       - org.onlyoffice.desktopeditors
     state: present
 
+- name: Install nodejs packages
+  community.general.npm:
+    global: true
+    name: dclint
+    state: latest
+
 - name: Create directories
   ansible.builtin.file:
     path: "{{ item.path }}"

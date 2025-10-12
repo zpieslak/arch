@@ -49,6 +49,7 @@
     name:
       - google-chrome
       - vagrant
+      - infisical-bin
   become: true
   become_user: "{{ host.user.wheel.name }}"
 

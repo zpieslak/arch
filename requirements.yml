@@ -2,3 +2,5 @@ collections:
   - name: kewlfft.aur
   - name: community.general
   - name: ansible.posix
+roles:
+  - name: geerlingguy.docker

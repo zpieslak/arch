@@ -17,3 +17,4 @@
       - efibootmgr
       - efivar
     update_cache: true
+    

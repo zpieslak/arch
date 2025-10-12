@@ -124,6 +124,7 @@
     - sddm.service
     - NetworkManager.service
     - pacman-filesdb-refresh.timer
+    - docker.service
 
 - name: Add backlight udev rules
   ansible.builtin.copy:

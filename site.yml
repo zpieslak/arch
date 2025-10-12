@@ -13,11 +13,13 @@
     - lenovo_ideapad_5
     - lenovo_z50_70
     - local
+  gather_facts: true
   roles:
     - { role: disk, tags: disk }
     - { role: boot, tags: boot }
     - { role: alsa, tags: alsa }
     - { role: docker, tags: docker }
+    - { role: geerlingguy.docker, tags: docker}
     - { role: program, tags: program }
     - { role: desktop, tags: desktop }
     - { role: system_extra, tags: system_extra }

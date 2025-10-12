@@ -2,3 +2,5 @@ tmp/*
 *.retry
 hosts.yml
 group_vars/secrets.yml
+.venv
+.vscode

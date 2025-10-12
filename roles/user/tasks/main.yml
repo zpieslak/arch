@@ -23,37 +23,37 @@
     line: "%wheel ALL=(ALL) NOPASSWD: ALL"
     validate: visudo -cf %s
 
-- name: Copy dotfiles
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: /home/{{ host.user.wheel.name }}/
-    mode: "0644"
-    group: "{{ host.user.wheel.name }}"
-    owner: "{{ host.user.wheel.name }}"
-  with_items:
-    - .bashrc
-    - .bash_login
-    - .bash_login.d
-    - .editrc
-    - .inputrc
+# - name: Copy dotfiles
+#   ansible.builtin.copy:
+#     src: "{{ item }}"
+#     dest: /home/{{ host.user.wheel.name }}/
+#     mode: "0644"
+#     group: "{{ host.user.wheel.name }}"
+#     owner: "{{ host.user.wheel.name }}"
+#   with_items:
+#     - .bashrc
+#     - .bash_login
+#     - .bash_login.d
+#     - .editrc
+#     - .inputrc
 
-- name: Copy bin files
-  ansible.builtin.copy:
-    src: bin
-    dest: /home/{{ host.user.wheel.name }}/
-    mode: "0755"
-    group: "{{ host.user.wheel.name }}"
-    owner: "{{ host.user.wheel.name }}"
+# - name: Copy bin files
+#   ansible.builtin.copy:
+#     src: bin
+#     dest: /home/{{ host.user.wheel.name }}/
+#     mode: "0755"
+#     group: "{{ host.user.wheel.name }}"
+#     owner: "{{ host.user.wheel.name }}"
 
-- name: Remove bash_profile file
-  ansible.builtin.file:
-    path: /home/{{ host.user.wheel.name }}/.bash_profile
-    state: absent
+# - name: Remove bash_profile file
+#   ansible.builtin.file:
+#     path: /home/{{ host.user.wheel.name }}/.bash_profile
+#     state: absent
 
 - name: Copy ssh key
   ansible.posix.authorized_key:
     user: "{{ host.user.wheel.name }}"
-    key: "{{ lookup('file', '~/.ssh/id_default.pub') }}"
+    key: "{{ lookup('file', '~/.ssh/id_dsa.pub') }}"
 
 - name: Setup autologin
   ansible.builtin.file:

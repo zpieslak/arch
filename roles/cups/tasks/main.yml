@@ -5,9 +5,9 @@
       - cups-pdf
     update_cache: true
 
-- name: Install xerox drvier
+- name: Install brother driver
   kewlfft.aur.aur:
-    name: xerox-phaser-3020
+    name: brother-dcp-l2530dw
   become: true
   become_user: "{{ host.user.wheel.name }}"
 

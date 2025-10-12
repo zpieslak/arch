@@ -1,34 +1,25 @@
 - name: Install linters
   community.general.pacman:
     name:
-      - actionlint
       - ansible-lint
-      - gh
       - jq
-      - jre-openjdk
-      - luacheck
-      - python-cfn-lint
-      - selene
       - shellcheck
-      - stylua
-      - yamlfmt
       - yamllint
-      - vint
     update_cache: true
 
-- name: Install asdf
-  kewlfft.aur.aur:
-    name: asdf-vm
-  become: true
-  become_user: "{{ host.user.wheel.name }}"
+# - name: Install asdf
+#   kewlfft.aur.aur:
+#     name: asdf-vm
+#   become: true
+#   become_user: "{{ host.user.wheel.name }}"
 
-- name: Install plugins
-  ansible.builtin.git:
-    repo: "{{ item }}"
-    dest: /home/{{ host.user.wheel.name }}/.asdf/plugins/{{ item | regex_search('[^/asdf-]+(?=.git)') }}
-    depth: 1
-    version: master
-  with_items: "{{ host.program.asdf.plugins }}"
+# - name: Install plugins
+#   ansible.builtin.git:
+#     repo: "{{ item }}"
+#     dest: /home/{{ host.user.wheel.name }}/.asdf/plugins/{{ item | regex_search('[^/asdf-]+(?=.git)') }}
+#     depth: 1
+#     version: master
+#   with_items: "{{ host.program.asdf.plugins }}"
 
 - name: Copy configuration files
   ansible.builtin.copy:
@@ -38,19 +29,19 @@
     group: "{{ host.user.wheel.name }}"
     owner: "{{ host.user.wheel.name }}"
   with_items:
-    - .asdfrc
-    - .bash_login.d
-    - .config
-    - .gemrc
-    - .luacheckrc
+    # - .asdfrc
+    # - .bash_login.d
+    # - .config
+    # - .gemrc
+    # - .luacheckrc
     - .shellcheckrc
-    - eslint.config.mjs
-    - selene.toml
-    - vim.toml
+    # - eslint.config.mjs
+    # - selene.toml
+    # - vim.toml
 
-- name: Fix permissions
-  ansible.builtin.file:
-    path: /home/{{ host.user.wheel.name }}/.asdf
-    owner: "{{ host.user.wheel.name }}"
-    group: "{{ host.user.wheel.name }}"
-    recurse: true
+# - name: Fix permissions
+#   ansible.builtin.file:
+#     path: /home/{{ host.user.wheel.name }}/.asdf
+#     owner: "{{ host.user.wheel.name }}"
+#     group: "{{ host.user.wheel.name }}"
+#     recurse: true

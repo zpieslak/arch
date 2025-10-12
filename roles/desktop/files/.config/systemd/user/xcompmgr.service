@@ -1,8 +1,0 @@
-[Unit]
-Description=Simple compositing manager
-
-[Service]
-ExecStart=/usr/bin/xcompmgr -F
-
-[Install]
-WantedBy=xorg.target

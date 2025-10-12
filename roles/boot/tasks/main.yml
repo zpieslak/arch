@@ -66,5 +66,5 @@
   changed_when: true
 
   notify:
-    - reboot
-    - wait for restart
+    - Reboot
+    - Wait for restart

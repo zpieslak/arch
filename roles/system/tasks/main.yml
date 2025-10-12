@@ -55,6 +55,7 @@
       - base-devel
       - pacman-contrib
       - terminus-font
+      - sudo
 
 - name: Copy paccache hook
   ansible.builtin.copy:
@@ -99,13 +100,6 @@
     src: resolved.conf.d
     dest: /etc/systemd/
     mode: "0644"
-
-- name: Enable fstrim timer
-  ansible.builtin.systemd:
-    state: started
-    name: fstrim.timer
-    enabled: true
-    daemon_reload: true
 
 - name: Enable fstrim timer
   ansible.builtin.systemd:

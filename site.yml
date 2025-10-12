@@ -18,11 +18,11 @@
     - { role: disk, tags: disk }
     - { role: boot, tags: boot }
     - { role: alsa, tags: alsa }
+    - { role: system_extra, tags: system_extra }
     - { role: docker, tags: docker }
     - { role: geerlingguy.docker, tags: docker}
     - { role: program, tags: program }
     - { role: desktop, tags: desktop }
-    - { role: system_extra, tags: system_extra }
     - { role: cups, tags: cups }
   become: true
 

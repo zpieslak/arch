@@ -42,6 +42,7 @@
       - hyfetch
       - macchina
       - libpcap
+      - bash-completion
     update_cache: true
 
 - name: Install AUR packages

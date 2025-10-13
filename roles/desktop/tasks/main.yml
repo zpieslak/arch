@@ -48,6 +48,8 @@
 - name: Install AUR packages
   kewlfft.aur.aur:
     name:
+      - evdi-dkms
+      - displaylink
       - google-chrome
       - vagrant
       - infisical-bin
@@ -135,11 +137,11 @@
     - pacman-filesdb-refresh.timer
     - docker.service
 
-- name: Add backlight udev rules
-  ansible.builtin.copy:
-    src: rules.d
-    dest: /etc/udev/
-    mode: "0644"
+# - name: Add backlight udev rules
+#   ansible.builtin.copy:
+#     src: rules.d
+#     dest: /etc/udev/
+#     mode: "0644"
 
 - name: Add user to video group
   ansible.builtin.user:
@@ -147,32 +149,32 @@
     groups: video
     append: true
 
-- name: Enable numlock service
-  become: true
-  become_user: "{{ host.user.wheel.name }}"
-  become_method: community.general.machinectl
-  ansible.builtin.systemd:
-    daemon_reload: true
-    scope: user
-    name: numlock
-    enabled: true
+# - name: Enable numlock service
+#   become: true
+#   become_user: "{{ host.user.wheel.name }}"
+#   become_method: community.general.machinectl
+#   ansible.builtin.systemd:
+#     daemon_reload: true
+#     scope: user
+#     name: numlock
+#     enabled: true
 
-- name: Enable battery service
-  become: true
-  become_user: "{{ host.user.wheel.name }}"
-  become_method: community.general.machinectl
-  ansible.builtin.systemd:
-    daemon_reload: true
-    scope: user
-    name: battery
-    enabled: true
+# - name: Enable battery service
+#   become: true
+#   become_user: "{{ host.user.wheel.name }}"
+#   become_method: community.general.machinectl
+#   ansible.builtin.systemd:
+#     daemon_reload: true
+#     scope: user
+#     name: battery
+#     enabled: true
 
-- name: Enable battery timer
-  become: true
-  become_user: "{{ host.user.wheel.name }}"
-  become_method: community.general.machinectl
-  ansible.builtin.systemd:
-    daemon_reload: true
-    scope: user
-    name: battery.timer
-    enabled: true
+# - name: Enable battery timer
+#   become: true
+#   become_user: "{{ host.user.wheel.name }}"
+#   become_method: community.general.machinectl
+#   ansible.builtin.systemd:
+#     daemon_reload: true
+#     scope: user
+#     name: battery.timer
+#     enabled: true

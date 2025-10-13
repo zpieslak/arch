@@ -1,6 +1,8 @@
 - name: Install packages
   community.general.pacman:
     name:
+      - linux-headers
+      - dkms
       - ansible
       - hdparm
       - inetutils

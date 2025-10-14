@@ -25,6 +25,13 @@
       - macchina
       - libpcap
       - bash-completion
+      - wireguard-tools
+      - qbittorrent
+      - discord
+      - element-desktop
+      - bluez-utils
+      - fprintd
+      - tuned-ppd
     update_cache: true
 
 - name: Install AUR packages
@@ -33,8 +40,11 @@
       - evdi-dkms
       - displaylink
       - google-chrome
+      - ventoy-bin
       - vagrant
       - infisical-bin
+      - dell-command-configure
+      - kuro
   become: true
   become_user: "{{ host.user.wheel.name }}"
 
@@ -115,6 +125,7 @@
     enabled: true
   with_items:
     - sddm.service
+    - firewalld.service
     - NetworkManager.service
     - pacman-filesdb-refresh.timer
     - docker.service

@@ -4,24 +4,6 @@
     state: directory
     mode: "0755"
 
-# - name: Copy configuration files
-#   ansible.builtin.copy:
-#     src: "{{ item }}"
-#     dest: /home/{{ host.user.wheel.name }}/
-#     mode: "0644"
-#     group: "{{ host.user.wheel.name }}"
-#     owner: "{{ host.user.wheel.name }}"
-#   with_items:
-#     - .config
-
-# - name: Copy bin files
-#   ansible.builtin.copy:
-#     src: .local/bin
-#     dest: /home/{{ host.user.wheel.name }}/
-#     mode: "0755"
-#     group: "{{ host.user.wheel.name }}"
-#     owner: "{{ host.user.wheel.name }}"
-
 - name: Install packages
   community.general.pacman:
     name:
@@ -136,45 +118,10 @@
     - NetworkManager.service
     - pacman-filesdb-refresh.timer
     - docker.service
-
-# - name: Add backlight udev rules
-#   ansible.builtin.copy:
-#     src: rules.d
-#     dest: /etc/udev/
-#     mode: "0644"
+    - bluetooth.service
 
 - name: Add user to video group
   ansible.builtin.user:
     name: "{{ host.user.wheel.name }}"
     groups: video
     append: true
-
-# - name: Enable numlock service
-#   become: true
-#   become_user: "{{ host.user.wheel.name }}"
-#   become_method: community.general.machinectl
-#   ansible.builtin.systemd:
-#     daemon_reload: true
-#     scope: user
-#     name: numlock
-#     enabled: true
-
-# - name: Enable battery service
-#   become: true
-#   become_user: "{{ host.user.wheel.name }}"
-#   become_method: community.general.machinectl
-#   ansible.builtin.systemd:
-#     daemon_reload: true
-#     scope: user
-#     name: battery
-#     enabled: true
-
-# - name: Enable battery timer
-#   become: true
-#   become_user: "{{ host.user.wheel.name }}"
-#   become_method: community.general.machinectl
-#   ansible.builtin.systemd:
-#     daemon_reload: true
-#     scope: user
-#     name: battery.timer
-#     enabled: true

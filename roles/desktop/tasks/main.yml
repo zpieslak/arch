@@ -7,14 +7,12 @@
 - name: Install packages
   community.general.pacman:
     name:
-      # - gnome-keyring
       - sddm
       - plasma-meta
       - kde-applications-meta
       - networkmanager
       - wayland
-      # Support for pacman in discover is not good so dont install packagekit-qt6 yet
-      # - packagekit-qt6
+      # - packagekit-qt6 # Support for pacman in discover is not good so dont install packagekit-qt6 yet
       - gnupg
       - code
       - xdg-desktop-portal
@@ -25,6 +23,7 @@
       - macchina
       - libpcap
       - bash-completion
+      - croc
       - wireguard-tools
       - qbittorrent
       - discord
@@ -32,7 +31,6 @@
       - bluez-utils
       - fprintd
       - tuned-ppd
-    update_cache: true
 
 - name: Install AUR packages
   kewlfft.aur.aur:

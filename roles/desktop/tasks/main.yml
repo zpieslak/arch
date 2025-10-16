@@ -4,6 +4,17 @@
     state: directory
     mode: "0755"
 
+- name: Enable pacman multilib repo
+  ansible.builtin.lineinfile:
+    path: /etc/pacman.conf
+    search_string: "{{ item.search }}"
+    line: "{{ item.line }}"
+  with_items:
+    - search: "#[multilib]"
+      line: "[multilib]"
+    - search: "#Include = /etc/pacman.d/mirrorlist"
+      line: "Include = /etc/pacman.d/mirrorlist"
+
 - name: Install packages
   community.general.pacman:
     name:
@@ -31,6 +42,9 @@
       - bluez-utils
       - fprintd
       - tuned-ppd
+      - lutris
+      - wine
+      - winetricks
 
 - name: Install AUR packages
   kewlfft.aur.aur:
@@ -55,6 +69,8 @@
       - me.proton.Mail
       - net.cozic.joplin_desktop
       - org.onlyoffice.desktopeditors
+      - com.usebottles.bottles
+      - app.xmcl.voxelum
     state: present
 
 - name: Install nodejs packages

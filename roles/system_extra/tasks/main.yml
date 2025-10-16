@@ -5,6 +5,7 @@
       - dkms
       - ansible
       - hdparm
+      - lshw
       - inetutils
       - less
       - p7zip

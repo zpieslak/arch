@@ -58,6 +58,7 @@
       - kuro
       # - onedrivegui # Can be installed when the maintainer fix the dependency versions
       - onedrive-abraunegg
+      - autotrace-git
   become: true
   become_user: "{{ host.user.wheel.name }}"
 

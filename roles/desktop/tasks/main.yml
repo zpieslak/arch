@@ -64,7 +64,6 @@
 - name: Install flatpak apps
   community.general.flatpak:
     name:
-      - com.valvesoftware.Steam
       - me.proton.Mail
       - net.cozic.joplin_desktop
       - org.onlyoffice.desktopeditors

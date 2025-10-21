@@ -1,0 +1,124 @@
+- name: Install packages
+  community.general.pacman:
+    name:
+      - qemu-full
+      - libvirt
+      - virt-manager
+      - yad
+      - freerdp
+      - openbsd-netcat
+      - dialog
+
+- name: Install AUR packages
+  kewlfft.aur.aur:
+    name:
+      - mdevctl
+  become: true
+  become_user: "{{ host.user.wheel.name }}"
+
+- name: Add systemd-boot kernel parameters
+  ansible.builtin.replace:
+    path: /boot/loader/entries/arch.conf
+    regexp: '^options(?!.*\bintel_iommu=on\b.*\bi915.enable_gvt=1\b.*\bi915.enable_guc=0\b.*\bi915.enable_fbc=0\b)(.*)$'
+    replace: 'options\1 intel_iommu=on i915.enable_gvt=1 i915.enable_guc=0 i915.enable_fbc=0'
+
+- name: Add cgroup-policy to allow qemu access to virtual GPU device
+  ansible.builtin.blockinfile:
+    state: present
+    block: |
+      cgroup_device_acl = [
+          "/dev/null", "/dev/full", "/dev/zero",
+          "/dev/random", "/dev/urandom",
+          "/dev/ptmx", "/dev/kvm",
+          "/dev/kvmfr0"
+      ]
+    insertbefore: "# RDMA migration requires the following extra files to be added to the list:"
+    mode: u+wr
+    path: /etc/libvirt/qemu.conf
+
+- name: Create directories
+  ansible.builtin.file:
+    path: ~/.local/bin/winapps-src
+    mode: ug+r
+    state: directory
+
+# - name: Git clone winapps
+#   ansible.builtin.git:
+#     repo: git@github.com:dhjensen/winapps.git
+#     dest: ~/Projects/winapps
+#     accept_hostkey: true
+#     single_branch: true
+#   become: true
+#   become_user: "{{ host.user.wheel.name }}"
+
+- name: Git clone winapps-launcher
+  ansible.builtin.git:
+    repo: https://github.com/winapps-org/winapps-launcher.git
+    dest: ~/.local/bin/winapps-src/winapps-launcher
+    accept_hostkey: true
+    single_branch: true
+  become: true
+  become_user: "{{ host.user.wheel.name }}"
+
+- name: Make the winapps-launcher.sh script executable
+  ansible.builtin.file:
+    path: ~/.local/bin/winapps-src/winapps-launcher/winapps-launcher.sh
+    mode: +x
+    state: file
+  become: true
+  become_user: "{{ host.user.wheel.name }}"
+
+- name: Copy conf files to directories
+  ansible.builtin.copy:
+    dest: "{{ item.dest }}"
+    src: "{{ item.src }}"
+    mode: u+rw
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  with_items:
+    - dest: /etc/modules-load.d/
+      src: etc/modules-load.d/virtualization.conf
+      owner: root
+      group: root
+    - dest: /etc/modprobe.d/
+      src: etc/modprobe.d/kvmfr.conf
+      owner: root
+      group: root
+    - dest: /etc/udev/rules.d/
+      src: etc/udev/rules.d/99-kvmfr.rules
+      owner: root
+      group: root
+    - dest: /home/{{ host.user.wheel.name }}/.config/systemd/user/
+      src: .config/systemd/user/winapps-launcher.service
+      owner: "{{ host.user.wheel.name }}"
+      group: "{{ host.user.wheel.name }}"
+    - dest: /home/{{ host.user.wheel.name }}/.config/winapps/
+      src: .config/winapps/winapps.conf
+      owner: "{{ host.user.wheel.name }}"
+      group: "{{ host.user.wheel.name }}"
+
+- name: Enable services
+  ansible.builtin.systemd_service:
+    enabled: true
+    name: "{{ item.service }}"
+    scope: "{{ item.scope }}"
+  with_items:
+    - service: virtqemud.service
+      scope: system
+    - service: virtinterfaced.service
+      scope: system
+    - service: virtnetworkd.service
+      scope: system
+    - service: virtnodedevd.service
+      scope: system
+    - service: virtnwfilterd.service
+      scope: system
+    - service: virtsecretd.service
+      scope: system
+    - service: virtstoraged.service
+      scope: system
+    - service: winapps-launcher.service
+      scope: user
+  become: true
+  become_user: "{{ host.user.wheel.name }}"
+  notify: Reboot

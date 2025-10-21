@@ -1,0 +1,20 @@
+[Unit]
+Description=Run 'WinApps Launcher'
+After=graphical-session.target default.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+Environment="PATH=%h/.local/bin:%h/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+Environment="LIBVIRT_DEFAULT_URI=qemu:///system"
+Environment="SCRIPT_PATH=%h/.local/bin/winapps-src/winapps-launcher/winapps-launcher.sh"
+Environment="LANG=C"
+ExecStart=/bin/bash -c "\"$SCRIPT_PATH\""
+ExecStopPost=/bin/bash -c 'echo "[SYSTEMD] WINAPPS LAUNCHER SERVICE EXITED."'
+TimeoutStartSec=5
+TimeoutStopSec=5
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

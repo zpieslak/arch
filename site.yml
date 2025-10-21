@@ -17,7 +17,7 @@
     - { role: system_extra, tags: system_extra }
     - { role: geerlingguy.docker, tags: docker }
     - { role: docker, tags: docker }
-    - { role: geerlingguy.docker, tags: docker}
+    - { role: virtualization, tags: virt}
     - { role: program, tags: program }
     - { role: desktop, tags: desktop }
     - { role: cups, tags: cups }

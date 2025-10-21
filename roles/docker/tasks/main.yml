@@ -1,14 +1,3 @@
-- name: Install pacman packages
-  community.general.pacman:
-    name:
-      - docker
-
-- name: Add user to docker group
-  ansible.builtin.user:
-    name: "{{ host.user.wheel.name }}"
-    groups: docker
-    append: true
-
 - name: Copy docker_prune systemd service file
   ansible.builtin.copy:
     src: docker_prune.service
@@ -23,6 +12,5 @@
 
 - name: Start systemd service
   ansible.builtin.systemd:
-    state: started
     name: docker_prune.timer
     enabled: true

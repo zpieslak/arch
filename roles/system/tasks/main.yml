@@ -52,6 +52,7 @@
 - name: Install packages
   community.general.pacman:
     name:
+      - git
       - base-devel
       - pacman-contrib
       - terminus-font
@@ -82,7 +83,7 @@
     dest: /etc/vconsole.conf
     mode: "0644"
 
-- name: Create systemd directory for custom servies
+- name: Create systemd directory for custom services
   ansible.builtin.file:
     path: /usr/local/lib/systemd/system/
     state: directory

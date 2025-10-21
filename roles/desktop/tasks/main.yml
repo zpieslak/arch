@@ -43,9 +43,6 @@
       - bluez-utils
       - fprintd
       - tuned-ppd
-      - lutris
-      - wine
-      - winetricks
 
 - name: Install AUR packages
   kewlfft.aur.aur:
@@ -71,7 +68,6 @@
       - me.proton.Mail
       - net.cozic.joplin_desktop
       - org.onlyoffice.desktopeditors
-      - com.usebottles.bottles
     state: present
 
 - name: Install nodejs packages

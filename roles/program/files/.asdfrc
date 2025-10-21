@@ -1,2 +1,0 @@
-# Use plugin fallback to legacy version files (.ruby-version) if available
-legacy_version_file = yes

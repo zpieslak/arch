@@ -1,9 +1,0 @@
-[Unit]
-Description=Backup Influxdb timer
-
-[Timer]
-OnCalendar=monthly
-Unit=backup_influxdb.service
-
-[Install]
-WantedBy=timers.target

@@ -1,8 +1,0 @@
-loglevel=normal
-device=rtlwmbus:868.95M
-logtelegrams=false
-format=json
-meterfiles=/var/log/wmbusmeters/meter_readings
-meterfilesaction=append
-logfile=/var/log/wmbusmeters/wmbusmeters.log
-shell=/usr/bin/mosquitto_pub -h {{ host.mosquitto.server }} -t wmbusmeters/"$METER_ID" -m "$METER_JSON"

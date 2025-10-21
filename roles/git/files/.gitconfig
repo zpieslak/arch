@@ -1,9 +1,0 @@
-[user]
-  email = zpieslak@gmail.com
-  name = Zbigniew Pieślak
-[color]
-  ui = auto
-[diff]
-  noprefix = true
-[push]
-  autoSetupRemote = true

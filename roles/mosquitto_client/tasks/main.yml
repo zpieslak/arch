@@ -1,5 +1,0 @@
-- name: Install packages
-  community.general.pacman:
-    name:
-      - mosquitto
-    update_cache: true

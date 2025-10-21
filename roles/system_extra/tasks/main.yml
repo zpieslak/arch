@@ -26,4 +26,4 @@
       - acpi
       - vulkan-intel
       - firewalld
-    update_cache: true
+      - dnsmasq

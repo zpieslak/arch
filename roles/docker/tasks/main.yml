@@ -1,8 +1,7 @@
-- name: Refresh pacman cache
+- name: Install pacman packages
   community.general.pacman:
     name:
       - docker
-    update_cache: true
 
 - name: Add user to docker group
   ansible.builtin.user:

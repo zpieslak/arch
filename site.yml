@@ -4,6 +4,7 @@
     - { role: system, tags: system }
     - { role: user, tags: user }
     - { role: git, tags: git }
+  become: true
 
 - name: Laptop
   hosts:

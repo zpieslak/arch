@@ -56,6 +56,7 @@ host:
     mirrors:
       - https://mirrors.dotsrc.org/archlinux/$repo/os/$arch
       - https://mirror.group.one/archlinux/$repo/os/$arch
+      - https://mirror.it-privat.dk/arch/$repo/os/$arch
     ntp: dk.pool.ntp.org
     timezone: Europe/Copenhagen
   user:

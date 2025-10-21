@@ -7,12 +7,13 @@
 - name: Enable pacman multilib repo
   ansible.builtin.lineinfile:
     path: /etc/pacman.conf
-    search_string: "{{ item.search }}"
+    regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
+    insertbefore: "# An example of a custom package repository.  See the pacman manpage for"
   with_items:
-    - search: "#[multilib]"
+    - regexp: "^\\[multilib\\]|#\\[multilib\\]$"
       line: "[multilib]"
-    - search: "#Include = /etc/pacman.d/mirrorlist"
+    - regexp: "^Include|#Include = /etc/pacman.d/mirrorlist$"
       line: "Include = /etc/pacman.d/mirrorlist"
 
 - name: Install packages
@@ -51,6 +52,7 @@
     name:
       - evdi-dkms
       - displaylink
+      - yay
       - google-chrome
       - ventoy-bin
       - vagrant
@@ -70,7 +72,6 @@
       - net.cozic.joplin_desktop
       - org.onlyoffice.desktopeditors
       - com.usebottles.bottles
-      - app.xmcl.voxelum
     state: present
 
 - name: Install nodejs packages

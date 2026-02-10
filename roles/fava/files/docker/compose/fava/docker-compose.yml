@@ -1,11 +1,11 @@
 services:
   fava:
     container_name: fava
+    environment:
+      - BEANCOUNT_FILE=/bean/main.beancount
     image: yegle/fava
     ports:
       - 5000:5000
-    environment:
-      - BEANCOUNT_FILE=/bean/main.beancount
+    restart: unless-stopped
     volumes:
       - /var/lib/beancount:/bean
-    restart: unless-stopped

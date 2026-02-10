@@ -1,0 +1,14 @@
+services:
+  wmbusmeters:
+    container_name: wmbusmeters
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    image: wmbusmeters/wmbusmeters:latest
+    logging:
+      driver: journald
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/lib/wmbusmeters:/wmbusmeters_data

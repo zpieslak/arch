@@ -1,16 +1,17 @@
 services:
-  home_assistant:
-    image: koenkk/zigbee2mqtt:latest
+  zigbee2mqtt:
     container_name: zigbee2mqtt
-    network_mode: host
-    restart: unless-stopped
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    image: koenkk/zigbee2mqtt:latest
     ports:
       - 10240:8080
     logging:
       driver: journald
+    restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /run/udev:/run/udev:ro
       - /var/lib/zigbee2mqtt:/app/data
-    devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0

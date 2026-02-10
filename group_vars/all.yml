@@ -95,6 +95,12 @@ host:
       - http://mirror.onet.pl/pub/mirrors/archlinux/$repo/os/$arch
     ntp: router.lan
     timezone: Poland
+  wmbusmeters:
+    driver:
+      driver: driver
+      id: id
+      key: key
+      name: name
   user:
     autologin: false
     ssh_agent: false

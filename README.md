@@ -172,3 +172,24 @@ Create client certificate
 Sign in client certificate
 
     openssl x509 -req -sha256 -days 3650 -in client.csr -CA home_client.crt -CAkey home_client.key -out client.crt
+
+## Upgrade posgresql database
+
+Install postgresql-old-upgrade
+
+    sudo pacman -Sy  postgresql-old-upgrade
+
+Prepare old database
+
+    sudo mv /var/lib/postgres/data /var/lib/postgres/olddata
+    sudo mkdir /var/lib/postgres/data /var/lib/postgres/tmp
+    sudo chown postgres:postgres /var/lib/postgres/data /var/lib/postgres/tmp
+
+Become postgres user
+
+    sudo -i -u postgres
+
+Perform upgrade from 17 to 18
+
+    cd /var/lib/postgres/tmp
+    pg_upgrade -b /opt/pgsql-17/bin -B /usr/bin -d /var/lib/postgres/olddata -D /var/lib/postgres/data

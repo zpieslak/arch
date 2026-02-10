@@ -1,0 +1,35 @@
+- name: Copy docker configuration
+  ansible.builtin.copy:
+    src: docker
+    dest: /etc/
+    mode: "0644"
+
+- name: Copy docker systemd file
+  ansible.builtin.copy:
+    src: wmbusmeters.service
+    dest: /usr/local/lib/systemd/system/
+    mode: "0644"
+
+- name: Create configuration directory
+  ansible.builtin.file:
+    path: /var/lib/wmbusmeters/etc/
+    state: directory
+    mode: "0755"
+
+- name: Copy configuration
+  ansible.builtin.copy:
+    src: etc
+    dest: /var/lib/wmbusmeters/etc/
+    mode: "0644"
+
+- name: Copy driver configuration
+  ansible.builtin.template:
+    src: driver.conf.j2
+    dest: /var/lib/wmbusmeters/etc/wmbusmeters.d/driver.conf
+    mode: "0644"
+
+- name: Start systemd service
+  ansible.builtin.systemd:
+    state: started
+    name: wmbusmeters
+    enabled: true

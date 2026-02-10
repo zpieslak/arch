@@ -1,13 +1,13 @@
 services:
   home_assistant:
-    image: homeassistant/home-assistant:stable
     container_name: home_assistant
-    network_mode: host
-    restart: unless-stopped
-    ports:
-      - 8123:8123
+    image: homeassistant/home-assistant:stable
     logging:
       driver: journald
+    network_mode: host
+    ports:
+      - 8123:8123
+    restart: unless-stopped
     volumes:
       - /var/lib/home_assistant:/config
       - /etc/localtime:/etc/localtime:ro

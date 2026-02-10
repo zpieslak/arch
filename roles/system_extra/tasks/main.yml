@@ -3,8 +3,6 @@
     name:
       - ansible
       - aws-cli
-      - hdparm
-      - inetutils
       - less
       - p7zip
       - pv
